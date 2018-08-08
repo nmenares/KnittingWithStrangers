@@ -1,4 +1,8 @@
 {
+  "engines": {
+    "node": "v10.7.0",
+    "npm": "6.1.0"
+  },
   "name": "FullsStackProject",
   "private": true,
   "dependencies": {
@@ -29,7 +33,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --watch"
+    "start": "webpack --watch",
+    "postinstall": "webpack"
   },
   "repository": {
     "type": "git",

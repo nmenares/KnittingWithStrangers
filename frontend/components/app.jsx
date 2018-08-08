@@ -9,14 +9,13 @@ import {
   Link,
   HashRouter
 } from 'react-router-dom';
-import IMG from '../../app/assets/images/knitting.png'
 
 
 const App = () => (
   <div>
     <header className="navbar">
       <div>
-        <img src={IMG} />
+        <img src="./images/knitting.png" />
         Knitting With Strangers
       </div>
       <div>
