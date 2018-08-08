@@ -5,9 +5,11 @@ import { login } from '../../actions/session_actions';
 import { Link } from 'react-router-dom';
 
 const msp = (state) => ({
-  errors: state.errors,
+  errors: state.errors.errors,
   formType: "login",
-  navLink: <Link to="/signup">Sign up instead</Link>,
+  title: "Hey stranger!",
+  text: "It's good to have you back. Sign in here and sign up for your next tea time!",
+  redirect: <Link to="/signup">If you've never signed up before, click here and do that</Link>,
   buttonName: "SIGN IN"
 });
 

@@ -23,32 +23,41 @@ class SessionForm extends React.Component {
   }
 
   render(){
+    const errors = this.props.errors.map((error, idx) => <li key={idx}>{error}</li>)
 
     return (
-      <form onSubmit={this.handleSubmit.bind(this)}>
+      <div className="intro">
+        <h2>{this.props.title}</h2>
+        <p>{this.props.text}</p>
 
-        {this.props.formType === 'signup' ?
-          <input type="username"
-          onChange={this.update('username')}
-          placeholder="First name (or nickname)"
-          value={this.state.username}
-          /> : null }
+        <form onSubmit={this.handleSubmit.bind(this)}>
+          <ul>{errors}</ul>
 
-        <input type="email"
-          onChange={this.update('email')}
-          placeholder="Email address"
-          value={this.state.email}
-          />
+          {this.props.formType === 'signup' ?
+            <input type="username"
+            onChange={this.update('username')}
+            placeholder="First name (or nickname)"
+            value={this.state.username}
+            /> : null }
 
-        <input type="password"
-          onChange={this.update('password')}
-          placeholder="Password (at least 8 characters)"
-          value={this.state.password}
-          />
+          <input type="email"
+            onChange={this.update('email')}
+            placeholder="Email address"
+            value={this.state.email}
+            />
 
-        <input type="submit" value={this.props.buttonName} />
+          <input type="password"
+            onChange={this.update('password')}
+            placeholder="Password (at least 8 characters)"
+            value={this.state.password}
+            />
 
-      </form>
+          <input className="starter" type="submit" value={this.props.buttonName} />
+
+          <p>{this.props.redirect}</p>
+
+        </form>
+      </div>
     )
   }
 }

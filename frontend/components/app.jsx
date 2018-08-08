@@ -9,11 +9,21 @@ import {
   Link,
   HashRouter
 } from 'react-router-dom';
+import IMG from '../../app/assets/images/knitting.png'
 
 
 const App = () => (
   <div>
-    <GreetingContainer />
+    <header className="navbar">
+      <div>
+        <img src={IMG} />
+        Knitting With Strangers
+      </div>
+      <div>
+        <GreetingContainer />
+      </div>
+    </header>
+
     <Switch>
       <Route exact path="/login" component={LoginFormContainer} />
       <Route exact path="/signup" component={SignupFormContainer} />

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Greeting = ({ currentUser, logout }) => {
+const Greeting = ({ currentUser, logout, action }) => {
   const sessionLinks = () => (
     <div>
+      {console.log("action", action)}
       <Link to="/login">Login</Link>
+      &nbsp;or&nbsp;
       <Link to="/signup">Sign up!</Link>
     </div>
   );
