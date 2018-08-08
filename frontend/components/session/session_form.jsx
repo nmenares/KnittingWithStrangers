@@ -46,13 +46,6 @@ class SessionForm extends React.Component {
           value={this.state.password}
           />
 
-        {this.props.formType === 'signup' ?
-          <select required>
-            <option value="Home city" disabled selected>Home city</option>
-            <option value="San Jose">San Jose</option>
-            <option value="San Francisco">San Francisco</option>
-          </select> : null}
-
         <input type="submit" value={this.props.buttonName} />
 
       </form>
