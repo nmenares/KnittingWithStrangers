@@ -12,6 +12,10 @@ const Greeting = ({ currentUser, logout, action }) => {
       <div className="signup">
         <Link to="/signup">Sign up</Link>
       </div>
+
+      <div className="demo">
+        <Link to="/">demo</Link>
+      </div>
     </div>
   );
 

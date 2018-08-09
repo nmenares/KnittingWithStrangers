@@ -39,6 +39,10 @@
   font-style: italic;
 }
 
+.navbar p:hover {
+  cursor: pointer;
+}
+
 .navbar img {
   height: 40px;
   color: white;
@@ -51,7 +55,7 @@
 }
 
 .intro {
-  padding: 58px 18px;
+  padding: 58px 18px 18px 18px;
   margin: auto;
   max-width: 600px;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
@@ -104,6 +108,12 @@ input[type=submit] {
   margin-bottom: 10px;
 }
 
+input[type=submit]:hover {
+  background-color: #FF5500;
+  border: 3px solid #FF5500;
+  cursor: pointer;
+}
+
 .signin a, .menuHeader p{
   margin-left: 15px;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
@@ -115,16 +125,40 @@ input[type=submit] {
   font-style: normal;
 }
 
-.signup a{
-  background-color: white;
+.signin a, .menuHeader p{
+  cursor: pointer;
+}
+
+.signup a, .demo a{
+  background-color: #FFF;
   margin-left: 10px;
   color: #FDC83C;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   border-radius: 3px;
+  border: 2px solid #FFF;
   text-transform: uppercase;
   font-size: 14px;
-  padding: 8px 15px 8px 15px;
+  padding: 6px 13px 6px 13px;
   text-decoration: none;
+  width: 70px;
+}
+
+.demo a{
+  background-color: #EF6236;
+  color: #FFF;
+  border: 2px solid #EF6236;
+}
+
+.signup a:hover{
+  background-color: #FDC83C;
+  color: #FFF;
+  border: 2px solid #FFF;
+}
+
+.demo a:hover{
+  background-color: #FFF;
+  color: #EF6236;
+  border: 2px solid #EF6236;
 }
 
 button {
@@ -159,6 +193,10 @@ footer {
   width: max-content;
   line-height: 0.8em;
   font-weight: 500;
+}
+
+.menu p:hover{
+  cursor: pointer;
 }
 
 #errors {
