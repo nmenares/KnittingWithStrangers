@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SessionForm from './session_form';
-import { signup } from '../../actions/session_actions';
+import { signup, deleteErrors } from '../../actions/session_actions';
 import { Link } from 'react-router-dom';
 
 const msp = (state) => ({
@@ -16,7 +16,8 @@ const msp = (state) => ({
 });
 
 const mdp = (dispatch) => ({
-  processForm: (user) => dispatch(signup(user))
+  processForm: (user, callback) => dispatch(signup(user, callback)),
+  deleteErrors: () => dispatch(deleteErrors())
 });
 
 export default connect(msp, mdp)(SessionForm);

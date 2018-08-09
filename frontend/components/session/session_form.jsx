@@ -11,11 +11,15 @@ class SessionForm extends React.Component {
     };
   };
 
+  componentDidMount(){
+    this.props.deleteErrors();
+  }
+
+
   handleSubmit(e){
     const user = Object.assign({}, this.state);
     this.props.processForm(user, () => {
-      debugger;
-      this.props.history.push('/')
+    this.props.history.push('/')
     });
   }
 
@@ -36,7 +40,7 @@ class SessionForm extends React.Component {
               <h2>{this.props.title}</h2>
               <p>{this.props.text}</p>
             </div>
-          <ul>{errors}</ul>
+          {errors.length > 0 ? <ul id="errors">{errors}</ul> : null}
 
           {this.props.formType === 'signup' ?
             <input type="username"

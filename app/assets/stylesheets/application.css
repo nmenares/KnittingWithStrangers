@@ -122,9 +122,8 @@ input[type=submit] {
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   border-radius: 3px;
   text-transform: uppercase;
-  font-size: 15px;
-  padding-left: 10px;
-  padding: 10px 15px 10px;
+  font-size: 14px;
+  padding: 8px 15px 8px 15px;
   text-decoration: none;
 }
 
@@ -159,11 +158,17 @@ footer {
   padding-right: 20px;
   width: max-content;
   line-height: 0.8em;
-  font-weight: 600;
+  font-weight: 500;
+}
+
+#errors {
+  border: 1px solid #FDC83C;
+  border-radius: 3px;
 }
 
 #errorList {
   font-style: italic;
-  list-style-type: none;  
+  list-style-type: none;
   text-align: left;
+  font-size: 15px;
 }
