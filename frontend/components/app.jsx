@@ -2,6 +2,7 @@ import React from 'react';
 import GreetingContainer from './greeting/greeting_container';
 import LoginFormContainer from './session/login_form_container';
 import SignupFormContainer from './session/signup_form_container';
+import KnittingTimesContainer from './knitting_times/knitting_times_container';
 import {
   Route,
   Redirect,
@@ -19,7 +20,7 @@ const App = () => (
         <p>Knitting With Strangers</p>
       </div>
       <div className="menuHeader">
-        <p>Knitting Times</p>
+        <Link to="/knitting_times">Knitting Times</Link>
         <p>Hosting</p>
         <p>About</p>
         <GreetingContainer />
@@ -29,6 +30,7 @@ const App = () => (
     <Switch>
       <Route exact path="/login" component={LoginFormContainer} />
       <Route exact path="/signup" component={SignupFormContainer} />
+      <Route exact path="/knitting_times" component={KnittingTimesContainer} />
     </Switch>
 
     <footer>

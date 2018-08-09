@@ -10,10 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_08_020132) do
+ActiveRecord::Schema.define(version: 2018_08_09_183038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "areas", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "knitting_times", force: :cascade do |t|
+    t.date "date", null: false
+    t.string "start_time", null: false
+    t.string "end_time", null: false
+    t.string "address_1", null: false
+    t.string "address_2"
+    t.string "city", null: false
+    t.string "state", null: false
+    t.integer "zip", null: false
+    t.float "lat"
+    t.float "lng"
+    t.integer "area_id", null: false
+    t.integer "host_id", null: false
+    t.text "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["area_id"], name: "index_knitting_times_on_area_id"
+    t.index ["host_id"], name: "index_knitting_times_on_host_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
