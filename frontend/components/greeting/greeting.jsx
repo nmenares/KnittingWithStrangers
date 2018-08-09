@@ -1,10 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-const Greeting = ({ currentUser, logout, action }) => {
+class Greeting extends React.Component {
+
+  handleDemo(e){
+    const demouser = {email: 'stranger.spider@ss.com', password: '12345678'}
+    this.props.login(demouser, () => {
+    this.props.history.push('/')
+    });
+  };
+
+  render(){
+
   const sessionLinks = () => (
     <div className="signin">
-      {console.log("action", action)}
       <div>
         <Link to="/login">Login</Link>
       </div>
@@ -14,21 +23,22 @@ const Greeting = ({ currentUser, logout, action }) => {
       </div>
 
       <div className="demo">
-        <Link to="/">demo</Link>
+        <button onClick={this.handleDemo.bind(this)}>demo</button>
       </div>
     </div>
   );
 
   const personalGreeting = () => (
     <div className="logout">
-      <button onClick={logout}>Log Out</button>
+      <button onClick={this.props.logout}>Log Out</button>
     </div>
   );
 
-  return currentUser ? personalGreeting() : sessionLinks();
+    return this.props.currentUser ? personalGreeting() : sessionLinks();
+  }
 };
 
 
 
 
-export default Greeting;
+export default withRouter(Greeting);

@@ -159,6 +159,7 @@ input[type=submit]:hover {
   background-color: #FFF;
   color: #EF6236;
   border: 2px solid #EF6236;
+  cursor: pointer;
 }
 
 button {
@@ -170,6 +171,10 @@ button {
   font-size: 14px;
   color: #FFF;
   text-decoration: none;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 footer {
