@@ -64,7 +64,7 @@
 .intro div{
   text-align: justify;
   text-justify: inter-word;
-  line-height: 1.625;
+  line-height: 1.625em;
   color: #333;
 }
 
@@ -80,7 +80,6 @@
  text-decoration: none;
  color: #EF6236;
  line-height: 1.625;
- margin-top: 5px;
 }
 
 .intro input{
@@ -105,14 +104,15 @@ input[type=submit] {
   margin-bottom: 10px;
 }
 
-.signin a{
-  margin-left: 10px;
+.signin a, .menuHeader p{
+  margin-left: 15px;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   border-radius: 2px;
   text-transform: uppercase;
   font-size: 14px;
   color: #FFF;
   text-decoration: none;
+  font-style: normal;
 }
 
 .signup a{
@@ -137,4 +137,33 @@ button {
   font-size: 14px;
   color: #FFF;
   text-decoration: none;
+}
+
+footer {
+  background-color: #FDC83C;
+  color: #fff;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  align-items: start;
+  padding: 20px 40px 20px 40px;
+  display: flex;
+  justify-content: center;
+  height: auto;
+  letter-spacing: 0.06em;
+  line-height: 1.625em;
+}
+
+.menu p{
+  line-height: 1.625em;
+  font-size: 18px;
+  padding-right: 20px;
+  width: max-content;
+  line-height: 0.8em;
+  font-weight: 600;
+}
+
+#errorList {
+  font-style: italic;
+  list-style-type: none;  
+  text-align: left;
 }

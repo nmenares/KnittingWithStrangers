@@ -13,7 +13,10 @@ class SessionForm extends React.Component {
 
   handleSubmit(e){
     const user = Object.assign({}, this.state);
-    this.props.processForm(user);
+    this.props.processForm(user, () => {
+      debugger;
+      this.props.history.push('/')
+    });
   }
 
   update(field){
@@ -23,7 +26,7 @@ class SessionForm extends React.Component {
   }
 
   render(){
-    const errors = this.props.errors.map((error, idx) => <li key={idx}>{error}</li>)
+    const errors = this.props.errors.map((error, idx) => <li id="errorList" key={idx}>{error}</li>)
 
     return (
       <div className="intro">

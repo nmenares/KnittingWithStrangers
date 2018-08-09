@@ -26,10 +26,11 @@ export const signup = user => dispatch => (
   ))
 );
 
-export const login = user => dispatch => (
-  ApiSessionUtil.login(user).then(user => (
+export const login = (user, callback) => dispatch => (
+  ApiSessionUtil.login(user).then(user => {
     dispatch(receiveCurrentUser(user))
-  ), err => (
+    callback();
+  }, err => (
     dispatch(receiveErrors(err.responseJSON))
   ))
 );
