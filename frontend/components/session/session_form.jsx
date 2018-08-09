@@ -27,10 +27,12 @@ class SessionForm extends React.Component {
 
     return (
       <div className="intro">
-        <h2>{this.props.title}</h2>
-        <p>{this.props.text}</p>
 
         <form onSubmit={this.handleSubmit.bind(this)}>
+            <div>
+              <h2>{this.props.title}</h2>
+              <p>{this.props.text}</p>
+            </div>
           <ul>{errors}</ul>
 
           {this.props.formType === 'signup' ?
@@ -42,17 +44,17 @@ class SessionForm extends React.Component {
 
           <input type="email"
             onChange={this.update('email')}
-            placeholder="Email address"
+            placeholder={this.props.email}
             value={this.state.email}
             />
 
           <input type="password"
             onChange={this.update('password')}
-            placeholder="Password (at least 8 characters)"
+            placeholder={this.props.password}
             value={this.state.password}
             />
 
-          <input className="starter" type="submit" value={this.props.buttonName} />
+          <input type="submit" value={this.props.buttonName} />
 
           <p>{this.props.redirect}</p>
 

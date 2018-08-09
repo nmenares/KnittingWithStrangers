@@ -3,16 +3,20 @@ import { Link } from 'react-router-dom';
 
 const Greeting = ({ currentUser, logout, action }) => {
   const sessionLinks = () => (
-    <div>
+    <div className="signin">
       {console.log("action", action)}
-      <Link to="/login">Login</Link>
-      &nbsp;or&nbsp;
-      <Link to="/signup">Sign up!</Link>
+      <div>
+        <Link to="/login">Login</Link>
+      </div>
+
+      <div className="signup">
+        <Link to="/signup">Sign up</Link>
+      </div>
     </div>
   );
 
   const personalGreeting = () => (
-    <div>
+    <div className="logout">
       <button onClick={logout}>Log Out</button>
     </div>
   );

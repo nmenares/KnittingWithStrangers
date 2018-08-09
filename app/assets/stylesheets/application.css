@@ -18,43 +18,69 @@
    margin:0;
    padding:0;
    height:100%;
+   letter-spacing: 0.06em;
+   color: #333;
  }
 
 .navbar {
   background-color: #FDC83C;
   color: #fff;
   font-family: 'Indie Flower', cursive;
-  font-size: 20px;
+  font-style: italic;
+  font-size: 25px;
   align-items: center;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
+  height: 75px;
+}
+
+.navbar p {
+  font-style: italic;
+}
+
+.navbar img {
+  height: 40px;
+  color: white;
 }
 
 .navbar div {
-  padding: 8px;
+  display: flex;
+  align-items: center;
+  font-style: normal;
 }
 
 .intro {
+  padding: 58px 18px;
   margin: auto;
-  width: 600px;
+  max-width: 600px;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  text-align: left;
+  display: flex;
+  align-items: center
+  font-size: 18px;
+}
+
+.intro div{
+  text-align: justify;
+  text-justify: inter-word;
+  line-height: 1.625;
+  color: #333;
 }
 
 .intro h2{
   color: #EF6236;
   font-size: 1.5em;
+  margin: auto;
+  padding: 0px;
 }
 
-.intro p{
-  color: #333;
-  font-size: 18px;
-}
-
-.intro form{
- margin: 0;
+.intro form, a{
  text-align: center;
  text-decoration: none;
+ color: #EF6236;
+ line-height: 1.625;
+ margin-top: 5px;
 }
 
 .intro input{
@@ -63,14 +89,52 @@
   border: 1px solid #DDD;
   border-radius: 3px;
   height: 50px;
-  margin-top: 20px;
+  margin-bottom: 0.8125em;
   width: 594px;
   padding-left: 10px;
 
 }
 
-.starter {
+input[type=submit] {
   background-color: #EF6236;
   color: #FFF;
   text-align: center;
+  border-radius: 10px;
+  border: 3px solid #EF6236;
+  width: 607px;
+  margin-bottom: 10px;
+}
+
+.signin a{
+  margin-left: 10px;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  border-radius: 2px;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #FFF;
+  text-decoration: none;
+}
+
+.signup a{
+  background-color: white;
+  margin-left: 10px;
+  color: #FDC83C;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-size: 15px;
+  padding-left: 10px;
+  padding: 10px 15px 10px;
+  text-decoration: none;
+}
+
+button {
+  background: none;
+  border: none;
+  margin-left: 10px;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #FFF;
+  text-decoration: none;
 }

@@ -15,8 +15,8 @@ const App = () => (
   <div>
     <header className="navbar">
       <div>
-        <img src="./images/knitting.png" />
-        Knitting With Strangers
+        <img src={window.knitting} />
+        <p>Knitting With Strangers</p>
       </div>
       <div>
         <GreetingContainer />
