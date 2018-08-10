@@ -8,9 +8,10 @@ const msp = (state) => ({
   errors: state.errors.errors,
   formType: "login",
   email: "Email",
+  msg: "Invalid email or password.",
   password: "Password",
   title: "Hey Stranger!",
-  text: "It's good to have you back. Sign in here and sign up for your next tea time!",
+  text: "It's good to have you back. Sign in here and sign up for your next knitting time!",
   redirect: <Link to="/signup">If you've never signed up before, click here and do that.</Link>,
   buttonName: "SIGN IN"
 });

@@ -31,42 +31,47 @@ class SessionForm extends React.Component {
   }
 
   render(){
-    const errors = this.props.errors.map((error, idx) => <li id="errorList" key={idx}>{error}</li>)
 
     return (
-      <div className="intro">
+      <div className="main">
 
-        <form onSubmit={this.handleSubmit.bind(this)}>
-            <div>
-              <h2>{this.props.title}</h2>
-              <p>{this.props.text}</p>
-            </div>
-          {errors.length > 0 ? <ul id="errors">{errors}</ul> : null}
+        <div className="errors">
+          {this.props.errors.length > 0 ? <div id="errors">{this.props.msg}</div> : null}
+        </div>
 
-          {this.props.formType === 'signup' ?
-            <input type="username"
-            onChange={this.update('username')}
-            placeholder="First name (or nickname)"
-            value={this.state.username}
-            /> : null }
+        <div className="intro">
+          <form onSubmit={this.handleSubmit.bind(this)}>
+              <div>
+                <h2>{this.props.title}</h2>
+                <p>{this.props.text}</p>
+              </div>
 
-          <input type="email"
-            onChange={this.update('email')}
-            placeholder={this.props.email}
-            value={this.state.email}
-            />
+            {this.props.formType === 'signup' ?
+              <input type="username"
+              onChange={this.update('username')}
+              placeholder="First name (or nickname)"
+              value={this.state.username}
+              /> : null }
 
-          <input type="password"
-            onChange={this.update('password')}
-            placeholder={this.props.password}
-            value={this.state.password}
-            />
+            <input type="email"
+              onChange={this.update('email')}
+              placeholder={this.props.email}
+              value={this.state.email}
+              />
 
-          <input type="submit" value={this.props.buttonName} />
+            <input type="password"
+              onChange={this.update('password')}
+              placeholder={this.props.password}
+              value={this.state.password}
+              />
 
-          <p>{this.props.redirect}</p>
+            <input type="submit" value={this.props.buttonName} />
 
-        </form>
+            <p>{this.props.redirect}</p>
+
+          </form>
+        </div>
+
       </div>
     )
   }

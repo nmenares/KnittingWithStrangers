@@ -23,7 +23,7 @@
  }
 
 .navbar {
-  background-color: #FDC83C;
+  background-color: rgba(247,191,77,0.87);
   color: #fff;
   font-family: 'Indie Flower', cursive;
   font-style: italic;
@@ -35,7 +35,7 @@
   height: 75px;
 }
 
-.navbar p, {
+.navbar p {
   font-style: italic;
 }
 
@@ -54,8 +54,34 @@
   font-style: normal;
 }
 
+.main {
+  padding: 0;
+  margin: auto;
+}
+
+.errors{
+  height: 54px;
+  border-top: 2px solid #FAF7E7;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  background-color: #FAF7E7;
+}
+
+#errors {
+  text-align: center;
+  font-size: 1em;
+  border-top: 2px solid #FEFEFE;
+  background-color: #EF6236;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  line-height: 1.25;
+  font-weight: 600;
+  color: #FEFEFE;
+  padding: 9px 18px 9px 18px;
+}
+
 .intro {
-  padding: 58px 18px 18px 18px;
+  padding: 0px 18px 18px 18px;
   margin: auto;
   max-width: 600px;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
@@ -114,26 +140,32 @@ input[type=submit]:hover {
   cursor: pointer;
 }
 
-.signin a, .menuHeader p, .menuHeader a{
-  margin-left: 15px;
+.signin a, .menuHeader p, .menuHeader a {
+  margin-left: 18px;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  font-weight: 600;
   border-radius: 2px;
   text-transform: uppercase;
   font-size: 14px;
   color: #FFF;
   text-decoration: none;
   font-style: normal;
+  letter-spacing: 1px;
 }
 
 .signin a, .menuHeader a{
   cursor: pointer;
 }
 
-.signup a, .demo a{
+.signup a, .demo button{
   background-color: #FFF;
   margin-left: 10px;
-  color: #FDC83C;
+  color: rgba(247,191,77,0.87);
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
   border-radius: 3px;
   border: 2px solid #FFF;
   text-transform: uppercase;
@@ -143,42 +175,32 @@ input[type=submit]:hover {
   width: 70px;
 }
 
-.demo a{
-  background-color: #EF6236;
+.demo button{
+  width: 100px;
+  height: 38px;
+  background-color: rgba(247,191,77,0.87);
   color: #FFF;
-  border: 2px solid #EF6236;
+  border: 2px solid #FFF;
+  font-weight: 600;
 }
 
 .signup a:hover{
-  background-color: #FDC83C;
+  background-color: rgba(247,191,77,0.87);
   color: #FFF;
   border: 2px solid #FFF;
 }
 
-.demo a:hover{
+.demo button:hover{
   background-color: #FFF;
-  color: #EF6236;
-  border: 2px solid #EF6236;
+  color: rgba(247,191,77,0.87);
+  border: 2px solid rgba(247,191,77,0.87);
   cursor: pointer;
 }
 
-button {
-  background: none;
-  border: none;
-  margin-left: 10px;
-  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
-  text-transform: uppercase;
-  font-size: 14px;
-  color: #FFF;
-  text-decoration: none;
-}
 
-button:hover {
-  cursor: pointer;
-}
 
 footer {
-  background-color: #FDC83C;
+  background-color: rgba(247,191,77,0.87);
   color: #fff;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   font-size: 15px;
@@ -204,17 +226,7 @@ footer {
   cursor: pointer;
 }
 
-#errors {
-  border: 1px solid #FDC83C;
-  border-radius: 3px;
-}
 
-#errorList {
-  font-style: italic;
-  list-style-type: none;
-  text-align: left;
-  font-size: 15px;
-}
 
 .areas div{
   width: 100%;

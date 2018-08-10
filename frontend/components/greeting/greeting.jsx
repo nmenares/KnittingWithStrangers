@@ -15,7 +15,7 @@ class Greeting extends React.Component {
   const sessionLinks = () => (
     <div className="signin">
       <div>
-        <Link to="/login">Login</Link>
+        <Link to="/login">sign in</Link>
       </div>
 
       <div className="signup">

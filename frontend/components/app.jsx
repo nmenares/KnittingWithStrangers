@@ -31,6 +31,7 @@ const App = () => (
       <Route exact path="/login" component={LoginFormContainer} />
       <Route exact path="/signup" component={SignupFormContainer} />
       <Route exact path="/knitting_times" component={KnittingTimesContainer} />
+      <Route path="/" render={() => <Redirect to="/" />} />
     </Switch>
 
     <footer>
