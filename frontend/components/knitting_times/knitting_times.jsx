@@ -6,11 +6,17 @@ class KnittingTimes extends React.Component {
   }
 
   render(){
+    console.log("areas", this.props.areas)
     const areas = this.props.areas.map((area, idx) => (
       <li key={idx}>{area.name}</li>
-    ))
+    ));
+
     return(
-      <ul>{areas}</ul>
+      <div>
+        <div className="areaslist">
+          <ul>{areas}</ul>
+        </div>
+      </div>
     )
   }
 

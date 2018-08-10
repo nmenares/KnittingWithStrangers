@@ -21,7 +21,7 @@
 #
 
 class KnittingTime < ApplicationRecord
-  validates :date, :start_time, :end_time, :address_1, :city, :state, :area_id, :host_id, :description, presence: true
+  validates :date, :start_time, :end_time, :address_1, :city, :state, :zip, :area_id, :host_id, :description, presence: true
 
   belongs_to :host,
   foreign_key: :host_id,

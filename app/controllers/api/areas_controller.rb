@@ -1,5 +1,9 @@
 class Api::AreasController < ApplicationController
 
+  def index
+    @areas = Area.all
+  end
+
   def create
     @area = area.new(area_params)
     if @area.save
@@ -12,7 +16,7 @@ class Api::AreasController < ApplicationController
   private
 
   def user_params
-    params.require(:area).permit(:area)
+    params.require(:area).permit(:name)
   end
 
 end
