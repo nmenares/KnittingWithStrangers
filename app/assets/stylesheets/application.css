@@ -13,6 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+ /* body */
  body {
    background-color: #FAF7E7;
    margin:0;
@@ -21,6 +23,8 @@
    letter-spacing: 0.06em;
    color: #333;
  }
+
+ /* navbar */
 
 .navbar {
   background-color: rgba(247,191,77,0.87);
@@ -53,6 +57,83 @@
   align-items: center;
   font-style: normal;
 }
+
+.signin a, .menuHeader p, .menuHeader a, .sigout{
+  background-color: none;
+  border: none;
+  margin-left: 18px;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  font-weight: 600;
+  border-radius: 2px;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #FFF;
+  text-decoration: none;
+  font-style: normal;
+  letter-spacing: 1px;
+}
+
+.signin a, .menuHeader a, .sigout{
+  cursor: pointer;
+}
+
+.sigout{
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  margin-left: 10px;
+  color: #FFF;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
+  font-size: 14px;
+  padding: 6px 13px 6px 13px;
+  text-decoration: none;
+  width: max-content;
+}
+
+.signup a, .demo button {
+  background-color: #FFF;
+  margin-left: 10px;
+  color: rgba(247,191,77,0.87);
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  border-radius: 3px;
+  border: 2px solid #FFF;
+  text-transform: uppercase;
+  font-size: 14px;
+  padding: 6px 13px 6px 13px;
+  text-decoration: none;
+  width: 70px;
+}
+
+.demo button {
+  width: 100px;
+  height: 38px;
+  background-color: rgba(247,191,77,0.87);
+  color: #FFF;
+  border: 2px solid #FFF;
+  font-weight: 600;
+}
+
+.signup a:hover {
+  background-color: rgba(247,191,77,0.87);
+  color: #FFF;
+  border: 2px solid #FFF;
+}
+
+.demo button:hover{
+  background-color: #FFF;
+  color: rgba(247,191,77,0.87);
+  border: 2px solid #FFF;
+  cursor: pointer;
+}
+
+/* session */
 
 .main {
   padding: 0;
@@ -140,81 +221,8 @@ input[type=submit]:hover {
   cursor: pointer;
 }
 
-.signin a, .menuHeader p, .menuHeader a, .sigout{
-  background-color: none;
-  border: none;
-  margin-left: 18px;
-  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
-  font-feature-settings: "kern", "liga", "frac", "pnum";
-  -webkit-font-smoothing: antialiased;
-  font-weight: 600;
-  border-radius: 2px;
-  text-transform: uppercase;
-  font-size: 14px;
-  color: #FFF;
-  text-decoration: none;
-  font-style: normal;
-  letter-spacing: 1px;
-}
 
-.signin a, .menuHeader a, .sigout{
-  cursor: pointer;
-}
-
-.sigout{
-  background-color: Transparent;
-  background-repeat:no-repeat;
-  border: none;
-  margin-left: 10px;
-  color: #FFF;
-  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
-  font-feature-settings: "kern", "liga", "frac", "pnum";
-  -webkit-font-smoothing: antialiased;
-  text-transform: uppercase;
-  font-size: 14px;
-  padding: 6px 13px 6px 13px;
-  text-decoration: none;
-  width: max-content;
-}
-
-.signup a, .demo button {
-  background-color: #FFF;
-  margin-left: 10px;
-  color: rgba(247,191,77,0.87);
-  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
-  font-feature-settings: "kern", "liga", "frac", "pnum";
-  -webkit-font-smoothing: antialiased;
-  border-radius: 3px;
-  border: 2px solid #FFF;
-  text-transform: uppercase;
-  font-size: 14px;
-  padding: 6px 13px 6px 13px;
-  text-decoration: none;
-  width: 70px;
-}
-
-.demo button {
-  width: 100px;
-  height: 38px;
-  background-color: rgba(247,191,77,0.87);
-  color: #FFF;
-  border: 2px solid #FFF;
-  font-weight: 600;
-}
-
-.signup a:hover {
-  background-color: rgba(247,191,77,0.87);
-  color: #FFF;
-  border: 2px solid #FFF;
-}
-
-.demo button:hover{
-  background-color: #FFF;
-  color: rgba(247,191,77,0.87);
-  border: 2px solid #FFF;
-  cursor: pointer;
-}
-
+/* footer */
 
 
 footer {
@@ -244,6 +252,24 @@ footer {
 
 .menu p:hover{
   cursor: pointer;
+}
+
+/* knitting_times */
+
+.knitting_times div {
+  display: block;
+}
+
+
+.mainimage {
+  display: block;
+  height: 50px;
+  color: #FFF;
+}
+
+.mainimage img{
+  max-width: 100%;
+  height: auto;
 }
 
 .areas div{

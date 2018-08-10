@@ -29,13 +29,26 @@ class KnittingTimes extends React.Component {
     ));
 
     return(
-      <div className="areas">
-        <div className="areaslist">
-          <h2>JUMP TO YOUR CITY'S KNITTING TIMES</h2>
-          <ul>{areas}</ul>
+      <div className="knittingtimes">
+        <div className="mainimage">
+          <img src={window.knittingtimes} />
+          <h1>Good Knitting Ideas</h1>
+          <h2>they're hare to find.</h2>
         </div>
-        <div className="areaitems">
-          <ul>{areaitems}</ul>
+        <div className="introknittingtimes">
+          <h2>Knitting With Strangers is knitting, with strangers.</h2>
+          <p>Five-ish strangers sit at a cafe (or some other public place) with a host to knitting and talk. Not about anything in particular. The circumstances are unusual, but that's the point.</p>
+          <p>If none of these work for you, check back in September, or you can apply to be a Host!</p>
+        </div>
+
+        <div className="areas">
+          <div className="areaslist">
+            <h2>JUMP TO YOUR CITY'S KNITTING TIMES</h2>
+            <ul>{areas}</ul>
+          </div>
+          <div className="areaitems">
+            <ul>{areaitems}</ul>
+          </div>
         </div>
       </div>
     )
