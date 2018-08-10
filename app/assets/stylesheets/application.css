@@ -205,17 +205,19 @@ footer {
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   font-size: 15px;
   align-items: start;
-  padding: 20px 40px 20px 40px;
   display: flex;
   justify-content: center;
   height: auto;
   letter-spacing: 0.06em;
   line-height: 1.625em;
+  padding-right: 100px;
 }
+
 
 .menu p{
   line-height: 1.625em;
   font-size: 18px;
+  padding-left: 100px;
   padding-right: 20px;
   width: max-content;
   line-height: 0.8em;
@@ -225,8 +227,6 @@ footer {
 .menu p:hover{
   cursor: pointer;
 }
-
-
 
 .areas div{
   width: 100%;

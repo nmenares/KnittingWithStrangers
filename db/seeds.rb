@@ -5,3 +5,24 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+User.destroy_all
+Area.destroy_all
+KnittingTime.destroy_all
+
+User.create(username: 'Maria', email: 'maria@maria.com', password: '12345678')
+User.create(username: 'Johana', email: 'johana@johana.com', password: '12345678')
+User.create(username: 'Andres', email: 'andres@andres.com', password: '12345678')
+User.create(username: 'Catalina', email: 'cata@cata.com', password: '12345678')
+User.create(username: 'StrangerSpider', email: 'stranger.spider@ss.com', password: '12345678')
+
+Area.create(name: 'SF / BAY AREA')
+Area.create(name: 'NAIROBI')
+Area.create(name: 'PARIS')
+Area.create(name: 'BERLIN')
+Area.create(name: 'TORONTO')
+
+KnittingTime.create(date: '2018-08-08' , start_time: '5 PM', end_time: '7 PM', address_1: '825 Battery Street' , city: 'San Francisco', state: 'CA', zip:'94111', area_id: Area.find_by(name: 'SF / BAY AREA')[:id], host_id: User.find_by(username: 'Maria')[:id] )
+
+KnittingTime.create(date: '2018-08-12', start_time: '6 PM', end_time: '8 PM', address_1: '38 Frontenac Ave' , city: 'North York' , state: 'ON', zip: 'M5N 1Z7', area_id: Area.find_by(name: 'TORONTO')[:id] , host_id: User.find_by(username: 'Catalina')[:id] )
+KnittingTime.create(date: '2018-08-20', start_time: '5 PM', end_time: '7 PM', address_1: '825 Battery Street' , city: 'San Francisco', state: 'CA', zip:'94111', area_id: Area.find_by(name: 'SF / BAY AREA')[:id], host_id: User.find_by(username: 'Maria')[:id] )
