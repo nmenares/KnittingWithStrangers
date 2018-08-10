@@ -140,7 +140,9 @@ input[type=submit]:hover {
   cursor: pointer;
 }
 
-.signin a, .menuHeader p, .menuHeader a {
+.signin a, .menuHeader p, .menuHeader a, .sigout{
+  background-color: none;
+  border: none;
   margin-left: 18px;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   font-feature-settings: "kern", "liga", "frac", "pnum";
@@ -155,11 +157,27 @@ input[type=submit]:hover {
   letter-spacing: 1px;
 }
 
-.signin a, .menuHeader a{
+.signin a, .menuHeader a, .sigout{
   cursor: pointer;
 }
 
-.signup a, .demo button{
+.sigout{
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  margin-left: 10px;
+  color: #FFF;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
+  font-size: 14px;
+  padding: 6px 13px 6px 13px;
+  text-decoration: none;
+  width: max-content;
+}
+
+.signup a, .demo button {
   background-color: #FFF;
   margin-left: 10px;
   color: rgba(247,191,77,0.87);
@@ -175,7 +193,7 @@ input[type=submit]:hover {
   width: 70px;
 }
 
-.demo button{
+.demo button {
   width: 100px;
   height: 38px;
   background-color: rgba(247,191,77,0.87);
@@ -184,7 +202,7 @@ input[type=submit]:hover {
   font-weight: 600;
 }
 
-.signup a:hover{
+.signup a:hover {
   background-color: rgba(247,191,77,0.87);
   color: #FFF;
   border: 2px solid #FFF;
@@ -193,7 +211,7 @@ input[type=submit]:hover {
 .demo button:hover{
   background-color: #FFF;
   color: rgba(247,191,77,0.87);
-  border: 2px solid rgba(247,191,77,0.87);
+  border: 2px solid #FFF;
   cursor: pointer;
 }
 

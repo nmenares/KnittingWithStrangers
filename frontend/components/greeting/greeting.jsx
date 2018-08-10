@@ -29,8 +29,8 @@ class Greeting extends React.Component {
   );
 
   const personalGreeting = () => (
-    <div className="logout">
-      <button onClick={this.props.logout}>Log Out</button>
+    <div>
+      <button className="sigout" onClick={this.props.logout}>Log Out</button>
     </div>
   );
 
