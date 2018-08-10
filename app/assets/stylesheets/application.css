@@ -35,7 +35,7 @@
   height: 75px;
 }
 
-.navbar p {
+.navbar p, {
   font-style: italic;
 }
 
@@ -114,7 +114,7 @@ input[type=submit]:hover {
   cursor: pointer;
 }
 
-.signin a, .menuHeader p{
+.signin a, .menuHeader p, .menuHeader a{
   margin-left: 15px;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   border-radius: 2px;
@@ -125,7 +125,7 @@ input[type=submit]:hover {
   font-style: normal;
 }
 
-.signin a, .menuHeader p{
+.signin a, .menuHeader a{
   cursor: pointer;
 }
 
@@ -214,4 +214,46 @@ footer {
   list-style-type: none;
   text-align: left;
   font-size: 15px;
+}
+
+.areas div{
+  width: 100%;
+  display: block;
+}
+
+.areaslist {
+  display: block;
+  background-color: #F2EBC2;
+  margin: 58px 18px 18px 18px;
+  max-width: 900px;
+  height: auto;
+  min-height: 100px;
+}
+
+.areaslist h2{
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-size: 18px;
+  text-align: center;
+  color: #FFCB00;
+  font-weight: bold;
+}
+
+.areaslist li{
+  list-style: none;
+}
+
+.areaslist div {
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-size: 18px;
+  text-align: center;
+  color: #FFCB00;
+  list-style: none;
+  display: flex;
+  border-color: 1px solid #FFCB00;
+  background-color: #FAF7E7;
+}
+
+.areaitems li {
+  list-style: none;
+  display: block;
 }
