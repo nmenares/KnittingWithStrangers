@@ -161,13 +161,12 @@
   padding: 9px 18px 9px 18px;
 }
 
-.intro {
+.intro, .introknittingtimes {
   padding: 0px 18px 18px 18px;
   margin: auto;
   max-width: 600px;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   text-align: left;
-  display: flex;
   align-items: center;
   font-size: 18px;
 }
@@ -179,7 +178,7 @@
   color: #333;
 }
 
-.intro h2{
+.intro h2, .introknittingtimes h2{
   color: #EF6236;
   font-size: 1.5em;
   margin: auto;
@@ -256,57 +255,93 @@ footer {
 
 /* knitting_times */
 
-.knitting_times div {
-  display: block;
-}
-
-
 .mainimage {
-  display: block;
-  height: 50px;
-  color: #FFF;
+  background-color: rgba(247,191,77,0.87);
+  position:relative;
+  width: 100%;
+  height: 248.5px;
+  z-index: 2;
+  text-align: center;
 }
 
 .mainimage img{
-  max-width: 100%;
-  height: auto;
+  width: auto;
+  height: 248.5px;
+  opacity: 0.40;
+  clip: rect(500, 2000px, 300px, 0);
+  z-index: 1;
+}
+
+.maintext{
+  color: #FEFEFE;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  margin-bottom: 9px;
+  font-weight: 600;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.25;
+  font-size: 1.3em;
+}
+
+.maintext h2{
+  font-size: 18px;
+  letter-spacing: 1px;
 }
 
 .areas div{
   width: 100%;
   display: block;
+  text-align: center;
 }
 
 .areaslist {
   display: block;
   background-color: #F2EBC2;
-  margin: 58px 18px 18px 18px;
-  max-width: 900px;
+  margin: auto;
+  max-width: 984px;
   height: auto;
   min-height: 100px;
+  border-top: 1px solid #eda20b;
+  color: #eda20b;
 }
 
 .areaslist h2{
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   font-size: 18px;
   text-align: center;
-  color: #FFCB00;
+  color: #eda20b;
   font-weight: bold;
+}
+
+.areaslist ul{
+  display: flex;
 }
 
 .areaslist li{
   list-style: none;
+  padding: 3.6px 14.4px 3.6px 14.4px;
+  border: 1px solid #eda20b;
+  background-color: #FAF7E7;
+  border-color: 1px solid #eda20b;
+  border-radius: 10px;
+  background-color: #FAF7E7;
+  font-weight: 600;
+  margin: 0px 7.2px 14.4px 7.2px;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  text-align: center;
+  list-style: none;
 }
 
-.areaslist div {
-  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
-  font-size: 18px;
-  text-align: center;
-  color: #FFCB00;
-  list-style: none;
-  display: flex;
-  border-color: 1px solid #FFCB00;
-  background-color: #FAF7E7;
+.areaslist a {
+  color: #eda20b;
 }
 
 .areaitems li {

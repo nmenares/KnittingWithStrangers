@@ -32,8 +32,10 @@ class KnittingTimes extends React.Component {
       <div className="knittingtimes">
         <div className="mainimage">
           <img src={window.knittingtimes} />
-          <h1>Good Knitting Ideas</h1>
-          <h2>they're hare to find.</h2>
+          <div className="maintext">
+            <h1>Good Knitting Ideas</h1>
+            <h2>they're hare to find.</h2>
+          </div>
         </div>
         <div className="introknittingtimes">
           <h2>Knitting With Strangers is knitting, with strangers.</h2>
