@@ -306,15 +306,15 @@ footer {
   background-color: #F2EBC2;
   margin: auto;
   max-width: 984px;
-  height: auto;
   min-height: 100px;
   border-top: 1px solid #eda20b;
   color: #eda20b;
+  padding: 1em 1em 0 1em;
 }
 
 .areaslist h2{
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
-  font-size: 18px;
+  font-size: 0.8em;
   text-align: center;
   color: #eda20b;
   font-weight: bold;
@@ -322,6 +322,7 @@ footer {
 
 .areaslist ul{
   display: flex;
+  justify-content: center;
 }
 
 .areaslist li{
@@ -335,7 +336,7 @@ footer {
   font-weight: 600;
   margin: 0px 7.2px 14.4px 7.2px;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
-  font-size: 14px;
+  font-size: 0.8em;
   text-align: center;
   list-style: none;
 }

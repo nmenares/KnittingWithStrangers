@@ -37,12 +37,17 @@ class KnittingTimes extends React.Component {
             <h2>they're hare to find.</h2>
           </div>
         </div>
+        <div className="errors"></div>
         <div className="introknittingtimes">
           <h2>Knitting With Strangers is knitting, with strangers.</h2>
           <p>Five-ish strangers sit at a cafe (or some other public place) with a host to knitting and talk. Not about anything in particular. The circumstances are unusual, but that's the point.</p>
           <p>If none of these work for you, check back in September, or you can apply to be a Host!</p>
         </div>
 
+        <div className="prefilter">
+          <p id="title">TEA TIMES IN AUGUST</p>
+          <p id="adv">SEPTEMBER'S TEA TIMES AVAILABLE IN 11 DAYS</p>
+        </div>
         <div className="areas">
           <div className="areaslist">
             <h2>JUMP TO YOUR CITY'S KNITTING TIMES</h2>
