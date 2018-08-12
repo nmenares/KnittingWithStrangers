@@ -58,15 +58,16 @@ class KnittingTimes extends React.Component {
         <div className="areas">
 
           <div className="prefilter">
-            <div clasName="month">
+            <div className="month">
               <img src={window.calendar} />
               knitting times in {moment().format('MMMM')}
+              {(21 - moment().date()) <= 0 ? moment().add(1, "month").format('MMMM') : null}
             </div>
             <div className="nextmonth">
               {(21 - moment().date()) > 0 ?
-                <div>{`${moment().add(1, "month").format('MMMM')}'s`} knitting times available in {21 - moment().date()} DAYS</div>
+                <div>{`${moment().add(1, "month").format('MMMM')}'s`} knitting times available in {21 - moment().date()} days</div>
                 :
-                <div id="title">knitting times in {moment().add(1, "month").format('MMMM')}</div>
+                null
               }
             </div>
           </div>

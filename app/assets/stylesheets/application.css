@@ -315,6 +315,11 @@ footer {
   font-size: 0.8em;
 }
 
+.month {
+  display: flex;
+  align-items: center;
+}
+
 .prefilter img {
   height: 20px;
 }
@@ -409,6 +414,28 @@ footer {
   float: left;
   margin-right: 22px;
   margin-top: 18px;
+}
+
+.kt-top {
+  display: flex;
+  justify-content: space-around;
+}
+
+.host-icon {
+  margin-top: -18px;
+  height: 95px;
+  width: 78px;
+  border: solid 2px orange;
+  border-radius: 3px;
+  padding: 5px;
+  background: white;
+}
+
+.host-icon h4 {
+  margin: 0;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: orange;
 }
 
 .kt {

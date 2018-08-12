@@ -6,7 +6,7 @@ class Greeting extends React.Component {
   handleDemo(e){
     const demouser = {email: 'stranger.spider@ss.com', password: '12345678'}
     this.props.login(demouser, () => {
-    this.props.history.push('/')
+    this.props.history.push('/knitting_times')
     });
   };
 
