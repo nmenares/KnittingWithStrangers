@@ -350,7 +350,7 @@ footer {
 
 .areaslist li {
   list-style: none;
-  padding: 3.6px 14.4px 3.6px 14.4px;
+  padding: 1px 14.4px 1px 14.4px;
   background-color: #FAF7E7;
   border: 1px solid #eda20b;
   border-radius: 10px;
@@ -388,12 +388,22 @@ footer {
 }
 
 .areaindex button {
-  width: max-content;
+  width: 180px;
   font-size: 12px;
   border-radius: 5px;
-  padding: 3px;
+  padding: 1px;
   margin: 0;
   margin-top: 10px;
   letter-spacing: 1px;
   height: 24px;
+}
+
+.teatime {
+  background-color: white;
+  border: 1px solid #DDD;
+  height: 228px;
+  width: 226px;
+  margin: 0;
+  text-align: center;
+  color: #929292;
 }

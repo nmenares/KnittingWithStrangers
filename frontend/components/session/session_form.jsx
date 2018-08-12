@@ -20,7 +20,7 @@ class SessionForm extends React.Component {
     const user = Object.assign({}, this.state);
     console.log("props", this.props)
     this.props.processForm(user, () => {
-    this.props.history.push('/')
+    this.props.history.push('/knitting_times')
     });
   }
 
