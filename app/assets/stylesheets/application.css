@@ -370,6 +370,11 @@ footer {
   list-style: none;
 }
 
+.area-kt {
+  align-items: start;
+  display: flex;
+}
+
 .areaindex {
   display: block;
   background-color: Transparent;
@@ -401,12 +406,18 @@ footer {
 .kt-container {
   width: 226px;
   height: 317px;
+  float: left;
+  margin-right: 22px;
+  margin-top: 18px;
 }
 
 .kt {
   background-color: white;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
   border: 1px solid #DDD;
+  border-bottom: none;
   height: 228px;
   margin: 0;
   text-align: center;

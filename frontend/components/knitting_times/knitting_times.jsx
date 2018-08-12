@@ -17,24 +17,22 @@ class KnittingTimes extends React.Component {
 
     const areaitems = this.props.areas.map((area, idx) => (
       <li key={idx}>
-
-        <div className="areaindex" id={`city-${area.id}`}>
-          <h2>{area.name}
-            <br></br>
-            <button>Host a knitting time</button>
-          </h2>
-
-        </div>
-
-        <ul>{area.knitting_time_ids.length > 0 ?
+        <ul className="area-kt">
+          <li className="areaindex" id={`city-${area.id}`}>
+            <h2>{area.name}
+              <br></br>
+              <button>Host a knitting time</button>
+            </h2>
+          </li>
+          {area.knitting_time_ids.length > 0 ?
           area.knitting_time_ids.map((kt_id, id)=> (
             <KnittingTimeBox
               key = {id}
               knittingtime ={this.props.knitting_times[kt_id]}
               />
           ))
-          : null}</ul>
-
+          : null}
+        </ul>
       </li>
     ));
 
