@@ -52,8 +52,8 @@ class KnittingTimes extends React.Component {
 
         <div className="introknittingtimes">
           <h2>Knitting With Strangers is knitting, with strangers.</h2>
-          <p>Five-ish strangers sit at a cafe (or some other public place) with a host to knitting and talk. Not about anything in particular. The circumstances are unusual, but that's the point.</p>
-          <p>If none of these work for you, check back in September, or you can apply to be a Host!</p>
+          <p>Five-ish strangers sit at a cafe (or some other public place) with a host to knit and talk. Not about anything in particular. The circumstances are unusual, but that's the point.</p>
+          <p>If none of these work for you, check back in {`${moment().add(1, "month").format('MMMM')}`}, or you can apply to be a Host!</p>
         </div>
 
         <div className="areas">

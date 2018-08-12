@@ -8,7 +8,11 @@ Rails.application.routes.draw do
       resources :knitting_times, only: [:create]
     end
 
-    resources :knitting_times, only: [:show, :update, :destroy]
+    resources :knitting_times, only: [:show, :update, :destroy] do
+      resources :kitting_times_enrollments, only: [:create]
+    end
+
+      resources :kitting_times_enrollments, only: [:destroy]
 
   end
   root "static_pages#root"

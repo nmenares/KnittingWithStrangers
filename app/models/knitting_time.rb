@@ -10,7 +10,6 @@
 #  address_2   :string
 #  city        :string           not null
 #  state       :string           not null
-#  zip         :integer          not null
 #  lat         :float
 #  lng         :float
 #  area_id     :integer          not null
@@ -18,6 +17,7 @@
 #  description :text             not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  zip         :string           not null
 #
 
 class KnittingTime < ApplicationRecord
@@ -30,5 +30,13 @@ class KnittingTime < ApplicationRecord
   belongs_to :area,
   foreign_key: :area_id,
   class_name: :Area
+
+  has_many :ktenrollments,
+  foreign_key: :knittingtime_id,
+  class_name: :KnittingTimeEnrollment
+
+  has_many :users,
+  through: :ktenrollments,
+  source: :user
 
 end
