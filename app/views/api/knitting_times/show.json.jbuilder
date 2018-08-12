@@ -7,5 +7,5 @@ json.host do
 end
 
 json.area do
-  json.partial! '/api/areas/area', user: @knitting_time.area
+  json.partial! '/api/areas/area', area: @knitting_time.area
 end

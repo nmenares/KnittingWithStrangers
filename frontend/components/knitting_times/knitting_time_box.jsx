@@ -15,7 +15,7 @@ function KnittingTimeBox(props) {
           </div>
           <div className="host-icon">
             <img src="http://via.placeholder.com/77x77"/>
-            <h4>Nombre</h4>
+            <h4>{props.knittingtime.host.username}</h4>
           </div>
         </div>
 

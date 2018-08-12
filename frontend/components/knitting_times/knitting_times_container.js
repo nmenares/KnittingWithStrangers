@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import KnittingTimes from './knitting_times';
 import { fetchAreas, createArea } from '../../actions/area_actions';
 
+
 const msp = (state) => ({
   areas: Object.values(state.entities.areas),
-  knitting_times: state.entities.knitting_times,
+  knitting_times: state.entities.knitting_times
 });
 
 const mdp = (dispatch) => ({
