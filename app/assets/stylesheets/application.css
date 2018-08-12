@@ -398,12 +398,61 @@ footer {
   height: 24px;
 }
 
-.teatime {
+.kt-container {
+  width: 226px;
+  height: 317px;
+}
+
+.kt {
   background-color: white;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   border: 1px solid #DDD;
   height: 228px;
-  width: 226px;
   margin: 0;
   text-align: center;
   color: #929292;
+  line-height: 1.25;
+  margin: 0;
+  font-weight: 600;
+}
+
+.kt h3 {
+  font-size: 0.6em;
+}
+
+.kt h1 {
+  font-size: 1.25em;
+  color: #333;
+}
+
+.kt h2 {
+  font-size: 0.8em;
+  color: #333;
+}
+
+.kt p {
+  font-size: 0.8em;
+  font-weight: 400;
+}
+
+.availability {
+  border-top: 1px solid #DDD;
+  text-align: center;
+  text-transform: uppercase;
+  color: #929292;
+  font-size: 14.4px;
+  margin-bottom: 6px;
+}
+
+.go-kt{
+  border-radius: 0 0 5px 5px;
+  letter-spacing: 0;
+  font-size: 0.8em;
+  background: #fcebc7;
+  color: #eda20b;
+  border-width: 1px;
+  border: 1px solid #F7BF4D;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
 }
