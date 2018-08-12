@@ -95,7 +95,7 @@
   width: max-content;
 }
 
-.signup a, .demo button {
+.signup a, .demo button, .areaindex button {
   background-color: #FFF;
   margin-left: 10px;
   color: rgba(247,191,77,0.87);
@@ -111,7 +111,7 @@
   width: 70px;
 }
 
-.demo button {
+.demo button, .areaindex button {
   width: 100px;
   height: 38px;
   background-color: rgba(247,191,77,0.87);
@@ -126,7 +126,7 @@
   border: 2px solid #FFF;
 }
 
-.demo button:hover{
+.demo button:hover, .areaindex button:hover{
   background-color: #FFF;
   color: rgba(247,191,77,0.87);
   border: 2px solid #FFF;
@@ -295,17 +295,40 @@ footer {
   letter-spacing: 1px;
 }
 
-.areas div{
-  width: 100%;
+.areas {
   display: block;
-  text-align: center;
+  margin: auto;
+  max-width: 984px;
+  padding: 1em 1em 0 1em;
+  font-weight: 600;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+}
+
+.prefilter {
+  padding: 7.2px 14.4px 7.2px 14.4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-transform: uppercase;
+  font-size: 0.8em;
+}
+
+.prefilter img {
+  height: 20px;
+}
+
+.nextmonth {
+  color: #bfbfbf;
+  padding: 3.6px 14.4px 3.6px 14.4px;
+  background-color: Transparent;
+  border: 1px solid #bfbfbf;
+  border-radius: 10px;
 }
 
 .areaslist {
-  display: block;
   background-color: #F2EBC2;
-  margin: auto;
-  max-width: 984px;
   min-height: 100px;
   border-top: 1px solid #eda20b;
   color: #eda20b;
@@ -325,14 +348,12 @@ footer {
   justify-content: center;
 }
 
-.areaslist li{
+.areaslist li {
   list-style: none;
   padding: 3.6px 14.4px 3.6px 14.4px;
+  background-color: #FAF7E7;
   border: 1px solid #eda20b;
-  background-color: #FAF7E7;
-  border-color: 1px solid #eda20b;
   border-radius: 10px;
-  background-color: #FAF7E7;
   font-weight: 600;
   margin: 0px 7.2px 14.4px 7.2px;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
@@ -347,5 +368,32 @@ footer {
 
 .areaitems li {
   list-style: none;
+}
+
+.areaindex {
   display: block;
+  background-color: Transparent;
+  border: 2px solid #EF6236;
+  height: 228.59px;
+  width: 226px;
+  margin: 18px 23px 0 0;
+  text-align: center;
+  color: #EF6236;
+}
+
+.areaindex h2{
+  margin: auto;
+  font-size: 1.25em;
+  padding: 90px 0px;
+}
+
+.areaindex button {
+  width: max-content;
+  font-size: 12px;
+  border-radius: 5px;
+  padding: 3px;
+  margin: 0;
+  margin-top: 10px;
+  letter-spacing: 1px;
+  height: 24px;
 }

@@ -1,5 +1,7 @@
 import React from 'react';
-import KnittingTimeBox from './knitting_time_box'
+import KnittingTimeBox from './knitting_time_box';
+import moment from 'moment';
+import { HashLink } from 'react-router-hash-link';
 
 class KnittingTimes extends React.Component {
   componentDidMount(){
@@ -7,14 +9,22 @@ class KnittingTimes extends React.Component {
   }
 
   render(){
+    //sconst { areas } = this.props;
+
     const areas = this.props.areas.map((area, idx) => (
-      <li key={idx}><a href={`#${area.name}`}>{area.name}</a></li>
+      <li key={idx}><HashLink to={`/knitting_times#city-${area.id}`}>{area.name}</HashLink></li>
     ));
 
     const areaitems = this.props.areas.map((area, idx) => (
       <li key={idx}>
 
-        <div><a name={area.name} >{area.name}</a></div>
+        <div className="areaindex" id={`city-${area.id}`}>
+          <h2>{area.name}
+            <br></br>
+            <button>Host a knitting time</button>
+          </h2>
+
+        </div>
 
         <ul>{area.knitting_time_ids.length > 0 ?
           area.knitting_time_ids.map((kt_id, id)=> (
@@ -30,6 +40,7 @@ class KnittingTimes extends React.Component {
 
     return(
       <div className="knittingtimes">
+
         <div className="mainimage">
           <img src={window.knittingtimes} />
           <div className="maintext">
@@ -37,26 +48,42 @@ class KnittingTimes extends React.Component {
             <h2>they're hare to find.</h2>
           </div>
         </div>
+
         <div className="errors"></div>
+
         <div className="introknittingtimes">
           <h2>Knitting With Strangers is knitting, with strangers.</h2>
           <p>Five-ish strangers sit at a cafe (or some other public place) with a host to knitting and talk. Not about anything in particular. The circumstances are unusual, but that's the point.</p>
           <p>If none of these work for you, check back in September, or you can apply to be a Host!</p>
         </div>
 
-        <div className="prefilter">
-          <p id="title">TEA TIMES IN AUGUST</p>
-          <p id="adv">SEPTEMBER'S TEA TIMES AVAILABLE IN 11 DAYS</p>
-        </div>
         <div className="areas">
+
+          <div className="prefilter">
+            <div clasName="month">
+              <img src={window.calendar} />
+              knitting times in {moment().format('MMMM')}
+            </div>
+            <div className="nextmonth">
+              {(21 - moment().date()) > 0 ?
+                <div>{`${moment().add(1, "month").format('MMMM')}'s`} knitting times available in {21 - moment().date()} DAYS</div>
+                :
+                <div id="title">knitting times in {moment().add(1, "month").format('MMMM')}</div>
+              }
+            </div>
+          </div>
+
           <div className="areaslist">
             <h2>JUMP TO YOUR CITY'S KNITTING TIMES</h2>
             <ul>{areas}</ul>
           </div>
+
           <div className="areaitems">
             <ul>{areaitems}</ul>
           </div>
+
         </div>
+
       </div>
     )
   }
