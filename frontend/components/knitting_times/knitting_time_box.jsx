@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import moment from 'moment';
+import ProgressBar from './progress_bar';
 
 class KnittingTimeBox extends React.Component{
   constructor(props){
@@ -31,9 +32,12 @@ class KnittingTimeBox extends React.Component{
 
           <p>{this.state.address_1} <br/> {this.state.city}</p>
           <div className="availability">
+            {this.state.users.length === 5 ?
+              <h2>packed!</h2> :
+            <h2>{5 - this.state.users.length} seats left</h2>}
 
-            <h2>X seats left</h2>
-            <div className="progress">Progress Bar</div>
+
+            <ProgressBar users={this.state.users.length}/>
           </div>
         </div>
         <div onClick={this.handleClick.bind(this)} className="go-kt">

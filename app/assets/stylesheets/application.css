@@ -371,6 +371,10 @@ footer {
   color: #eda20b;
 }
 
+.areaitems ul {
+  padding-left: 0;
+}
+
 .areaitems li {
   list-style: none;
 }
@@ -378,15 +382,17 @@ footer {
 .area-kt {
   align-items: start;
   display: flex;
+  padding-left: 0;
+
 }
 
 .areaindex {
   display: block;
   background-color: Transparent;
   border: 2px solid #EF6236;
-  height: 228.59px;
+  height: 225px;
   width: 226px;
-  margin: 18px 23px 0 0;
+  margin-top: 18px;
   text-align: center;
   color: #EF6236;
 }
@@ -412,8 +418,8 @@ footer {
   width: 226px;
   height: 317px;
   float: left;
-  margin-right: 22px;
   margin-top: 18px;
+  margin-left: 26px;
 }
 
 .kt-top {
@@ -475,11 +481,40 @@ footer {
 
 .availability {
   border-top: 1px solid #DDD;
-  text-align: center;
-  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.availability h2 {
+  font-weight: lighter;
   color: #929292;
   font-size: 14.4px;
-  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0px;
+}
+
+.progressbar {
+  height: 10px;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  border-radius: 3px;
+}
+
+.no_available {
+  height: 100%;
+  width: 30px;
+  background-color: #F7BF4D;
+  border-left: 1px solid #FEFEFE;
+}
+
+.available {
+  height: 100%;
+  width: 30px;
+  background-color: #929292;
+  border-left: 1px solid #FEFEFE;
 }
 
 .go-kt{

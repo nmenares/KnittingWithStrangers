@@ -15,16 +15,20 @@ class KnittingTimeShow extends React.Component {
             knittingtime ={this.props.knittingtime}
             />
           <form>
-            <label>Name
-              <input type="text" placeholder={this.props.me.username}></input>
-            </label>
-            <label>Email
-              <input type="text" placeholder={this.props.me.email}></input>
-            </label>
-            <label>Mobile Number
-              <p>Optional, but helps {this.props.knittingtime.host.username} get in touch the day of your knitting time</p>
-              <input type="text" placeholder="(555) 345-6789"></input>
-            </label>
+            {this.props.me ?
+              <label>Name
+                <input type="text" placeholder={this.props.me.username}></input>
+              </label>
+              <label>Email
+                <input type="text" placeholder={this.props.me.email}></input>
+              </label>
+              <label>Mobile Number
+                <p>Optional, but helps {this.props.knittingtime.host.username} get in touch the day of your knitting time</p>
+                <input type="text" placeholder="(555) 345-6789"></input>
+              </label>
+              : null
+            }
+
 
           </form>
         </div>
