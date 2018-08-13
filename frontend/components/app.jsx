@@ -3,6 +3,8 @@ import GreetingContainer from './greeting/greeting_container';
 import LoginFormContainer from './session/login_form_container';
 import SignupFormContainer from './session/signup_form_container';
 import KnittingTimesContainer from './knitting_times/knitting_times_container';
+import ProfileContainer from './profile/profile_container';
+import KnittingTimeShowContainer from './knitting_time/knitting_time_show_container';
 import {
   Route,
   Redirect,
@@ -21,16 +23,16 @@ const App = () => (
       </div>
       <div className="menuHeader">
         <Link to="/knitting_times">Knitting Times</Link>
-        <p>Hosting</p>
-        <p>About</p>
         <GreetingContainer />
       </div>
     </header>
 
     <Switch>
       <Route exact path="/login" component={LoginFormContainer} />
+      <Route exact path="/me" component={ProfileContainer} />
       <Route exact path="/signup" component={SignupFormContainer} />
       <Route exact path="/knitting_times" component={KnittingTimesContainer} />
+      <Route path="/knitting_times/:knittingtimeId" component={KnittingTimeShowContainer} />
       <Route path="/" render={() => <Redirect to="/" />} />
     </Switch>
 

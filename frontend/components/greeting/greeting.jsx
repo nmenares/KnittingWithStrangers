@@ -10,10 +10,25 @@ class Greeting extends React.Component {
     });
   };
 
+  handleDashboard(e){
+    this.props.history.push('/me');
+  };
+
+  handleLogout(e){
+    this.props.logout();
+    this.props.currentUser = null;
+    this.props.history.push('/');
+  }
+
   render(){
 
   const sessionLinks = () => (
     <div className="signin">
+
+      <p>Hosting</p>
+
+      <p>About</p>
+
       <div>
         <Link to="/login">sign in</Link>
       </div>
@@ -30,11 +45,17 @@ class Greeting extends React.Component {
 
   const personalGreeting = () => (
     <div>
-      <button className="sigout" onClick={this.props.logout}>Log Out</button>
+      <p>Hosting</p>
+
+      <p onClick={this.handleDashboard.bind(this)}>Dashboard</p>
+
+      <div>
+        <button className="sigout" onClick={this.handleLogout.bind(this)}>Log Out</button>
+      </div>
     </div>
   );
 
-    return this.props.currentUser ? personalGreeting() : sessionLinks();
+    return this.props.currentUser ? personalGreeting() : sessionLinks()
   }
 };
 

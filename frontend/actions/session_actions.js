@@ -47,3 +47,9 @@ export const logout = () => dispatch => (
     dispatch(logoutCurrentUser())
   ))
 );
+
+export const fetchMe = () => dispatch => (
+  ApiSessionUtil.fetchMe().then(user => (
+    dispatch(receiveCurrentUser(user))
+  ))
+);

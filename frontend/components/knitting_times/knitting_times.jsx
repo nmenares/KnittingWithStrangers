@@ -25,11 +25,11 @@ class KnittingTimes extends React.Component {
               <button>Host a knitting time</button>
             </h2>
           </li>
-          {area.knitting_time_ids.length > 0 ?
-          area.knitting_time_ids.map((kt_id, id)=> (
+          {area.knitting_times.length > 0 ?
+          area.knitting_times.map((kt)=> (
             <KnittingTimeBox
-              key = {id}
-              knittingtime ={this.props.knitting_times[kt_id]}
+              key = {kt.id}
+              knittingtime ={kt}
               />
           ))
           : null}

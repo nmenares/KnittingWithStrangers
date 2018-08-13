@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :show, :destroy]
     resources :users, only: [:create, :show, :update]
 
+    get 'me', to: 'users#me'
+
     resources :areas, only: [:create, :index] do
       resources :knitting_times, only: [:create]
     end
@@ -12,7 +14,7 @@ Rails.application.routes.draw do
       resources :kitting_times_enrollments, only: [:create]
     end
 
-      resources :kitting_times_enrollments, only: [:destroy]
+    resources :kitting_times_enrollments, only: [:destroy]
 
   end
   root "static_pages#root"
