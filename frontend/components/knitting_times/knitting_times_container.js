@@ -5,8 +5,7 @@ import { fetchAreas, createArea } from '../../actions/area_actions';
 
 
 const msp = (state) => ({
-  areas: Object.values(state.entities.areas),
-  knitting_times: state.entities.knitting_times
+  areas: Object.values(state.entities.areas)
 });
 
 const mdp = (dispatch) => ({

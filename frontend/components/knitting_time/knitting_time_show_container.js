@@ -5,7 +5,9 @@ import { fetchKnittingTime } from '../../actions/knitting_time_actions';
 
 
 const msp = (state, ownprops) => ({
-  knitting_time: state.entities.knitting_times[ownprops.match.params.knittingtimeId]
+  ktId: ownprops.match.params.knittingtimeId,
+  knittingtime: state.entities.knitting_times[ownprops.match.params.knittingtimeId],
+  me: state.entities.users[state.session.id]
 });
 
 const mdp = (dispatch) => ({

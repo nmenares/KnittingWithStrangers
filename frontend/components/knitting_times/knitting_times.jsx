@@ -15,8 +15,6 @@ class KnittingTimes extends React.Component {
   }
 
   render(){
-    //sconst { areas } = this.props;
-    console.log(this.props);
     const areas = this.props.areas.map((area, idx) => (
       <li key={idx}><HashLink to={`/knitting_times#city-${area.id}`}>{area.name}</HashLink></li>
     ));
@@ -32,10 +30,7 @@ class KnittingTimes extends React.Component {
           </li>
           {area.knitting_times.length > 0 ?
           area.knitting_times.map((kt)=> (
-            <KnittingTimeBox
-              key = {kt.id}
-              knittingtime ={kt}
-              />
+            <KnittingTimeBox key={kt.id} knittingtime={kt} />
           ))
           : null}
         </ul>

@@ -494,3 +494,11 @@ footer {
   text-align: center;
   text-transform: uppercase;
 }
+
+.go-kt:hover {
+  background: #F7BF4D;
+  color: #FEFEFE;
+  border-width: 1px;
+  border: 1px solid #F7BF4D;
+  cursor: pointer;
+}
