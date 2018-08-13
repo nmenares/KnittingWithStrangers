@@ -5,6 +5,7 @@ import SignupFormContainer from './session/signup_form_container';
 import KnittingTimesContainer from './knitting_times/knitting_times_container';
 import ProfileContainer from './profile/profile_container';
 import KnittingTimeShowContainer from './knitting_time/knitting_time_show_container';
+import HostingContainer from './form/hosting_form_container';
 import {
   Route,
   Redirect,
@@ -32,6 +33,7 @@ const App = () => (
       <Route exact path="/me" component={ProfileContainer} />
       <Route exact path="/signup" component={SignupFormContainer} />
       <Route exact path="/knitting_times" component={KnittingTimesContainer} />
+      <Route path="/areas/:areaId/hosting" component={HostingContainer} />
       <Route path="/knitting_times/:knittingtimeId" component={KnittingTimeShowContainer} />
       <Route path="/" render={() => <Redirect to="/" />} />
     </Switch>

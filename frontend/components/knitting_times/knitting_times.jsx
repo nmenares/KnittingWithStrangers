@@ -4,9 +4,14 @@ import moment from 'moment';
 import { HashLink } from 'react-router-hash-link';
 
 class KnittingTimes extends React.Component {
+
   componentDidMount(){
     this.props.fetchAreas();
 
+  }
+
+  handleHosting(area, e){
+    this.props.history.push(`/areas/${area.id}/hosting`)
   }
 
   render(){
@@ -22,7 +27,7 @@ class KnittingTimes extends React.Component {
           <li className="areaindex" id={`city-${area.id}`}>
             <h2>{area.name}
               <br></br>
-              <button>Host a knitting time</button>
+              <button onClick={this.handleHosting.bind(this, area)}>Host a knitting time</button>
             </h2>
           </li>
           {area.knitting_times.length > 0 ?
