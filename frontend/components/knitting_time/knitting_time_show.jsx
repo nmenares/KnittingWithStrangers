@@ -10,7 +10,8 @@ class KnittingTimeShow extends React.Component {
   handleSubmit(e){
     e.preventDefault();
     this.props.me ?
-    this.props.createEnrollment({user_id: this.props.meId, knittingtime_id: this.props.ktId})
+    this.props.createEnrollment({user_id: this.props.meId, knittingtime_id: this.props.ktId}, () => {
+      this.props.history.push('/knitting_times')})
     : this.props.history.push(`/login`)
   }
 

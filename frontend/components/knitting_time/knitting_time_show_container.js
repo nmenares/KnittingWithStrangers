@@ -14,7 +14,7 @@ const msp = (state, ownprops) => ({
 
 const mdp = (dispatch) => ({
   fetchKnittingTime: (knittingtimeId) => dispatch(fetchKnittingTime(knittingtimeId)),
-  createEnrollment: (enrollment) => dispatch(createEnrollment(enrollment))
+  createEnrollment: (enrollment, callback) => dispatch(createEnrollment(enrollment, callback))
 });
 
 export default connect(msp, mdp)(KnittingTimeShow);
