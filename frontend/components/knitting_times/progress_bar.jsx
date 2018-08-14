@@ -19,9 +19,12 @@ const ProgressBar = (props) => {
   };
 
     return (
-      <div className="progressbar">
-        {no_available(props.users)}
-        {available(props.users)}
+      <div className="availability">
+        {props.users === 5 ? <h2>packed!</h2> : <h2>{5 - props.users} seats left</h2>}
+        <div className="progressbar">
+          {no_available(props.users)}
+          {available(props.users)}
+        </div>
       </div>
     )
 };

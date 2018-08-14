@@ -31,14 +31,7 @@ class KnittingTimeBox extends React.Component{
           </div>
 
           <p>{this.state.address_1} <br/> {this.state.city}</p>
-          <div className="availability">
-            {this.state.users.length === 5 ?
-              <h2>packed!</h2> :
-            <h2>{5 - this.state.users.length} seats left</h2>}
-
-
-            <ProgressBar users={this.state.users.length}/>
-          </div>
+          <ProgressBar users={this.state.users.length}/>
         </div>
         <div onClick={this.handleClick.bind(this)} className="go-kt">
           <h2>this one →</h2>

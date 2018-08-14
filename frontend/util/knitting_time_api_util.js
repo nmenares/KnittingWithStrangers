@@ -5,10 +5,10 @@ export const fetchKnittingTime = (id) => (
   })
 )
 
-export const createKnittingTime = (knitting_time) => (
+export const createKnittingTime = (areaid, knitting_time) => (
   $.ajax({
     method: 'POST',
-    url: `api/knitting_times`,
+    url: `/api/areas/${areaid}/knitting_times`,
     data: {knitting_time}
   })
 )

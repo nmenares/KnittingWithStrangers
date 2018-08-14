@@ -420,6 +420,7 @@ footer {
   float: left;
   margin-top: 18px;
   margin-left: 26px;
+  list-style: none;
 }
 
 .kt-top {
@@ -479,22 +480,6 @@ footer {
   font-weight: 400;
 }
 
-.availability {
-  border-top: 1px solid #DDD;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.availability h2 {
-  font-weight: lighter;
-  color: #929292;
-  font-size: 14.4px;
-  text-transform: uppercase;
-  letter-spacing: 0px;
-}
-
 .progressbar {
   height: 10px;
   width: auto;
@@ -536,4 +521,127 @@ footer {
   border-width: 1px;
   border: 1px solid #F7BF4D;
   cursor: pointer;
+}
+
+/*show knitting time*/
+
+.kt-show {
+  display: flex;
+  flex-direction: row;
+  max-width: 1020px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.kt-sidebar {
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.kt-main {
+  margin-top: 50px;
+  background-color: #FEFEFE;
+  width: auto;
+  height: 380px;
+  padding: 13.4px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  border: 1px solid #DDD;
+}
+
+.kt-main div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  height: 30px;
+  margin: 10px;
+}
+
+.kt-main img{
+  height: 28px;
+}
+
+.kt-main h2 {
+  color: #EF6236;
+  text-transform: uppercase;
+  font-size: 1em;
+  text-align: center;
+  margin: .5em 0;
+
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+.kt-main p {
+  color: #929292;
+  font-size: 0.8em;
+  text-align: left;
+  margin: 0.4em;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  line-height: 1.25;
+  font-weight: 400;
+}
+
+.availability {
+  border-top: 1px solid #DDD;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kt-main .availability {
+  border-top: 1px solid #DDD;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kt-main .availability .progressbar div {
+  height: 10px;
+  width: 30px;
+  margin: 0;
+  border-left: 1px solid #FEFEFE;
+}
+
+.availability h2 {
+  font-weight: lighter;
+  color: #929292;
+  font-size: 14.4px;
+  text-transform: uppercase;
+  letter-spacing: 0px;
+  margin-top: 14px;
+}
+
+.kt-description {
+  margin-top: 50px;
+  background-color: #f1e9c6;
+  color: #eda20b;
+  width: auto;
+  height: auto;
+  padding: 2em 2em 1em;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border: 1px solid #f1e9c6;
+  margin-bottom: 50px;
+}
+
+.kt-description img{
+  align-self: center;
+  width: 40px;
+  height: auto;
+}
+
+.kt-description p{
+  font-size: 0.8em;
+  text-align: left;
+  margin-top: 10px;
 }

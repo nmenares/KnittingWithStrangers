@@ -7,11 +7,12 @@ class KnittingTimes extends React.Component {
 
   componentDidMount(){
     this.props.fetchAreas();
-
   }
 
   handleHosting(area, e){
-    this.props.history.push(`/areas/${area.id}/hosting`)
+    this.props.me ?
+    this.props.history.push(`/areas/${area.id}/hosting`) :
+    this.props.history.push(`/login`)
   }
 
   render(){
@@ -44,7 +45,7 @@ class KnittingTimes extends React.Component {
           <img src={window.knittingtimes} />
           <div className="maintext">
             <h1>Good Knitting Ideas</h1>
-            <h2>they're hare to find.</h2>
+            <h2>they're hard to find.</h2>
           </div>
         </div>
 

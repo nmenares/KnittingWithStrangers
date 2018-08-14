@@ -41,7 +41,6 @@ const App = () => (
     <footer>
       <div className="menu">
         <p>About</p>
-        <p>Hosting</p>
         <p>Knitting Times</p>
         <p>Facebook</p>
         <p>Twitter</p>

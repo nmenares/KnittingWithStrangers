@@ -7,9 +7,9 @@ class Api::KnittingTimesController < ApplicationController
   def create
     @knitting_time = KnittingTime.new(knitting_time_params)
     if @knitting_time.save
-      render "api/knitting_times/show"
+      render :show
     else
-      render json: ["Nop possible create this knitting time"], status: 401
+      render render json: @knitting_time.errors.full_messages, status: 422
     end
   end
 
@@ -31,7 +31,7 @@ class Api::KnittingTimesController < ApplicationController
   private
 
   def knitting_time_params
-    params.require(:knitting_time).permit(:date, :start_time, :end_time, :address_1, :address_2, :city, :state, :area_id, :host_id, :description)
+    params.require(:knitting_time).permit(:date, :start_time, :end_time, :address_1, :address_2, :city, :state, :zip, :area_id, :host_id, :description)
   end
 
 end

@@ -25,8 +25,6 @@ class Greeting extends React.Component {
   const sessionLinks = () => (
     <div className="signin">
 
-      <p>Hosting</p>
-
       <p>About</p>
 
       <div>
@@ -45,7 +43,6 @@ class Greeting extends React.Component {
 
   const personalGreeting = () => (
     <div>
-      <p>Hosting</p>
 
       <p onClick={this.handleDashboard.bind(this)}>Dashboard</p>
 
