@@ -21,7 +21,7 @@ const App = () => (
     <header className="navbar">
       <div>
         <img src={window.knitting} />
-        <p>Knitting With Strangers</p>
+        <Link to="/"><p>Knitting With Strangers</p></Link>
       </div>
       <div className="menuHeader">
         <Link to="/knitting_times">Knitting Times</Link>

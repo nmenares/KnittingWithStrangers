@@ -41,6 +41,8 @@
 
 .navbar p {
   font-style: italic;
+  color: #FEFEFE;
+  font-size: 20px;
 }
 
 .navbar p:hover {
