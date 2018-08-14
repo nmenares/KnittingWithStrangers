@@ -9,7 +9,7 @@ export const receiveEnrollment = knitting_time_enrollment => ({
 
 export const createEnrollment = (data, callback) => dispatch => (
   ApiEnrollmentUtil.createEnrollment(data).then(knitting_time_enrollment => {
-    dispatch(createEnrollment(knitting_time_enrollment));
+    dispatch(receiveEnrollment(knitting_time_enrollment));
     callback();
   })
 );
