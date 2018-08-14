@@ -6,6 +6,7 @@ import KnittingTimesContainer from './knitting_times/knitting_times_container';
 import ProfileContainer from './profile/profile_container';
 import KnittingTimeShowContainer from './knitting_time/knitting_time_show_container';
 import HostingContainer from './form/hosting_form_container';
+import Splash from './splash/splash'
 import {
   Route,
   Redirect,
@@ -29,6 +30,7 @@ const App = () => (
     </header>
 
     <Switch>
+      <Route exact path="/" component={Splash} />
       <Route exact path="/login" component={LoginFormContainer} />
       <Route exact path="/me" component={ProfileContainer} />
       <Route exact path="/signup" component={SignupFormContainer} />
