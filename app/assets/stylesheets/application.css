@@ -389,6 +389,7 @@ footer {
   flex-wrap: wrap;
   padding-left: 0;
   overflow: auto;
+  margin-right: -28px;
 }
 
 .areaindex {
@@ -398,7 +399,8 @@ footer {
   height: 225px;
   width: 226px;
   margin-top: 18px;
-    margin-right: 20px;
+  margin-right: 29px;
+  margin-bottom: 18px;
   text-align: center;
   color: #EF6236;
 }
@@ -425,8 +427,7 @@ footer {
   height: 317px;
   float: left;
   margin-top: 18px;
-  margin-bottom: 18px;
-  margin-right: 20px;
+  margin-right: 28px;
   list-style: none;
 }
 
