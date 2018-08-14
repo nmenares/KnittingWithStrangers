@@ -1,10 +1,18 @@
 import React from 'react';
 import KnittingTimeBoxMain from '../knitting_time/knitting_time_box_main';
+import { withRouter } from 'react-router-dom';
 
 class KnittingTimeShow extends React.Component {
   componentDidMount(){
     this.props.fetchKnittingTime(this.props.ktId);
   };
+
+  handleSubmit(e){
+    e.preventDefault();
+    this.props.me ?
+    this.props.createEnrollment({user_id: this.props.meId, knittingtime_id: this.props.ktId})
+    : this.props.history.push(`/login`)
+  }
 
   render(){
     if(!this.props.knittingtime) {
@@ -16,7 +24,7 @@ class KnittingTimeShow extends React.Component {
           <KnittingTimeBoxMain
             knittingtime ={this.props.knittingtime}
             />
-          <form>
+          <form onSubmit={this.handleSubmit.bind(this)}>
             {this.props.me ?
               <div>
                 <label>Name</label>
@@ -32,7 +40,9 @@ class KnittingTimeShow extends React.Component {
               </div>
               : null
             }
+            <input type="submit" valor={this.props.knittingtime.users.length === 5 ? "sign me up" : "join waitlist"}></input>
           </form>
+
           <div className="kt-description">
             <h2>What is knitting time, exactly?</h2>
             <img src={window.knitting} />
@@ -60,4 +70,4 @@ class KnittingTimeShow extends React.Component {
 
 
 
-export default KnittingTimeShow;
+export default withRouter(KnittingTimeShow);

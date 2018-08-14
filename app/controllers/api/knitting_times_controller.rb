@@ -9,7 +9,7 @@ class Api::KnittingTimesController < ApplicationController
     if @knitting_time.save
       render :show
     else
-      render render json: @knitting_time.errors.full_messages, status: 422
+      render json: @knitting_time.errors.full_messages, status: 422
     end
   end
 

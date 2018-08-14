@@ -11,6 +11,7 @@
 
 class KnittingTimeEnrollment < ApplicationRecord
   validates :user_id, :knittingtime_id, presence: true
+  validates :user_id, uniqueness: { scope: [:knittingtime_id] }
 
   belongs_to :user,
   foreign_key: :user_id,

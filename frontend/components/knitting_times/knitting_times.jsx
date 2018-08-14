@@ -2,6 +2,7 @@ import React from 'react';
 import KnittingTimeBox from './knitting_time_box';
 import moment from 'moment';
 import { HashLink } from 'react-router-hash-link';
+import { withRouter } from 'react-router-dom';
 
 class KnittingTimes extends React.Component {
 
@@ -91,4 +92,4 @@ class KnittingTimes extends React.Component {
 
 }
 
-export default KnittingTimes;
+export default withRouter(KnittingTimes);

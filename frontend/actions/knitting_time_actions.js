@@ -16,4 +16,4 @@ export const createKnittingTime = (areaId, data) => {
     ApiKnittingTimeUtil.createKnittingTime(areaId, data).then(kt =>
       dispatch(receiveKnittingTime(kt))
     )
-}
+};
