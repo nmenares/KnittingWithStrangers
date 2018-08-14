@@ -5,6 +5,10 @@ import { HashLink } from 'react-router-hash-link';
 import { withRouter } from 'react-router-dom';
 
 class KnittingTimes extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = this.props.areas;
+  }
 
   componentDidMount(){
     this.props.fetchAreas();
@@ -36,7 +40,7 @@ class KnittingTimes extends React.Component {
           </li>
           { area.knitting_times.length > 0 ?
           area.knitting_times.map((kt)=> (
-            <KnittingTimeBox key={kt.id} knittingtime={kt} />
+            <KnittingTimeBox key={kt.id} knittingtime={kt} meId={this.props.meId} />
           ))
           : null}
         </ul>

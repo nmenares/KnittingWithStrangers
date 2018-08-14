@@ -14,7 +14,9 @@ class KnittingTimeBox extends React.Component{
   }
 
   render(){
-    const dateinfo = moment(this.state.date)
+    let dateinfo = moment(this.state.date)
+    let label= this.state.users.length < 5 ? "this one →" : "join waitlist"
+    let included = this.state.users[this.props.meId];
     return(
       <li className="kt-container">
         {dateinfo >= moment() ?
@@ -33,12 +35,13 @@ class KnittingTimeBox extends React.Component{
             </div>
 
             <p>{this.state.address_1} <br/> {this.state.city}</p>
-            <ProgressBar users={this.state.users.length}/>
+            <ProgressBar users={this.state.users.length} kt={this.state}/>
           </div>
 
-          <div onClick={this.handleClick.bind(this)} className="go-kt">
-            <h2>this one →</h2>
-          </div>
+          <button onClick={this.handleClick.bind(this)} className="go-kt">
+            {included ? <h2 class="normal">signed up</h2> : <h2 class="normal">{label}</h2>}
+            <h2 class="hover">check it out →</h2>
+          </button>
         </div>
         : null
         }

@@ -3,10 +3,7 @@ import KnittingTimeBoxMain from '../knitting_time/knitting_time_box_main';
 import { withRouter } from 'react-router-dom';
 
 class KnittingTimeShow extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = this.props.knittingtime;
-  }
+
   componentDidMount(){
     this.props.fetchKnittingTime(this.props.ktId);
   };
@@ -15,9 +12,8 @@ class KnittingTimeShow extends React.Component {
     e.preventDefault();
     this.props.me ?
     this.props.createEnrollment({user_id: this.props.meId, knittingtime_id: this.props.ktId}, () => {
-      this.setState();
-      this.props.history.push('/knitting_times')})
-    : this.props.history.push(`/login`)
+      this.props.history.push('/me')})
+    : this.props.history.push('/login')
   }
 
   render(){
