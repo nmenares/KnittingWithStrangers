@@ -239,7 +239,7 @@ footer {
 }
 
 
-.menu p{
+.menu p, .menu a{
   line-height: 1.625em;
   font-size: 18px;
   padding-left: 100px;
@@ -247,9 +247,10 @@ footer {
   width: max-content;
   line-height: 0.8em;
   font-weight: 500;
+  color: white;
 }
 
-.menu p:hover{
+.menu p:hover, .menu a:hover{
   cursor: pointer;
 }
 

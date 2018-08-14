@@ -12,7 +12,6 @@ class KnittingTimeShow extends React.Component {
     this.props.me ?
     this.props.createEnrollment({user_id: this.props.meId, knittingtime_id: this.props.ktId})
     : this.props.history.push(`/login`)
-    this.props.knittingtime
   }
 
   render(){

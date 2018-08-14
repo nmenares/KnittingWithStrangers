@@ -43,7 +43,7 @@ const App = () => (
     <footer>
       <div className="menu">
         <p>About</p>
-        <p>Knitting Times</p>
+        <Link to="/knitting_times">Knitting Times</Link>
         <p>Facebook</p>
         <p>Twitter</p>
         <p>Terms of Service</p>

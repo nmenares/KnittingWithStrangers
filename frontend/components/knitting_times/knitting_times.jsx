@@ -17,6 +17,10 @@ class KnittingTimes extends React.Component {
   }
 
   render(){
+    const today = moment();
+
+    const next_kt_gap = (21 - today.date());
+
     const areas = this.props.areas.map((area, idx) => (
       <li key={idx}><HashLink to={`/knitting_times#city-${area.id}`}>{area.name}</HashLink></li>
     ));
@@ -30,7 +34,7 @@ class KnittingTimes extends React.Component {
               <button onClick={this.handleHosting.bind(this, area)}>Host a knitting time</button>
             </h2>
           </li>
-          {area.knitting_times.length > 0 ?
+          { area.knitting_times.length > 0 ?
           area.knitting_times.map((kt)=> (
             <KnittingTimeBox key={kt.id} knittingtime={kt} />
           ))
@@ -64,13 +68,13 @@ class KnittingTimes extends React.Component {
             <div className="month">
               <img src={window.calendar} />
               knitting times in {moment().format('MMMM')}
-              {(21 - moment().date()) <= 0 ? moment().add(1, "month").format('MMMM') : null}
+              {next_kt_gap <= 0 ? ` and ${today.add(1, "month").format('MMMM')}` : null}
             </div>
             <div className="nextmonth">
-              {(21 - moment().date()) > 0 ?
-                <div>{`${moment().add(1, "month").format('MMMM')}'s`} knitting times available in {21 - moment().date()} days</div>
+              {next_kt_gap > 0 ?
+                <div>{`${today.add(1, "month").format('MMMM')}'s`} knitting times available in {next_kt_gap} days</div>
                 :
-                null
+                <div>{`${today.add(1, "month").format('MMMM')}'s`} knitting times available in 1 month</div>
               }
             </div>
           </div>
