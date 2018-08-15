@@ -1153,14 +1153,65 @@ var KnittingTimeShow = function (_React$Component) {
           'div',
           { className: 'kt-info' },
           _react2.default.createElement(
-            'h2',
-            null,
-            'Meet your Host, .'
+            'div',
+            { className: 'host' },
+            _react2.default.createElement(
+              'h2',
+              null,
+              'Meet your Host, ',
+              host.username,
+              '.'
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              '(It\'ll be helpful to know what they look like when you\'re looking for a group of confused strangers.)'
+            )
           ),
+          _react2.default.createElement('img', { src: 'http://via.placeholder.com/300x300' }),
           _react2.default.createElement(
-            'p',
-            null,
-            '(It\'ll be helpful to know what they look like when you\'re looking for a group of confused strangers.)'
+            'div',
+            { className: 'kt-description' },
+            _react2.default.createElement(
+              'p',
+              null,
+              'Hey there! I\u2019m passionate about learning as much as an can. Usually, that means learning about others and how they view the world and how all those views and their interactions create humanity. I love to ask questions that are at times a bit much for normal conversation so if you like answering questions about your own thinking, let\u2019s tea time! (Can I use that as a verb?)'
+            ),
+            _react2.default.createElement(
+              'h3',
+              null,
+              'What\'s your story?'
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              'My life story is not super interesting, so I\u2019ll just say my story is an amalgamation of the conversations and stories I\u2019ve had and heard from others. This includes the conversations I\u2019ve had with myself (which might happen more often than sanity would permit). I\u2019ve gone from the non-stop talking kid (who sat in a lawn chair talking at my neighbor for hours while he gardened) to a more quiet (read: still not fully quiet) adult. Today, I spend more of that time talking at my notebook. ',
+              _react2.default.createElement('br', null),
+              'I am currently attending a university that takes me to a new city each semester (I\u2019ve been to San Francisco, Seoul, and Hyderabad so far), so I have a few \u201Ctravel stories\u201D and love to find the small things that make one city, country, or culture different from others. ',
+              _react2.default.createElement('br', null),
+              'Also, I use parentheses too often (sorry)'
+            ),
+            _react2.default.createElement(
+              'h3',
+              null,
+              'What might we talk about?'
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              'Currently, I am super interested in how people interact with the relationships (friendships, romantic relationships, relationships with relatives etc) in their lives, so I might ask you questions like: what\u2019s been the most influential relationship you\u2019ve had? How do you determine what a good relationship is for yourself? (remember what I said about questions that are maybe a bit too much for normal conversation?) ',
+              _react2.default.createElement('br', null),
+              'Really, I\u2019m game to talk about anything (especially things that have no answer and are difficult to understand) so please come with all the questions you\u2019ve ever wanted to ask a stranger and all the things you ever wanted to share. ',
+              _react2.default.createElement('br', null),
+              '(Otherwise, I\u2019m not the best at small talk, so if you reaaaallly wanted to talk about the weather, I\u2019m sure I could use some practice\u2026) ',
+              _react2.default.createElement('br', null),
+              'See ya!'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'host-msg' },
+              'I honest to god believe in unicorns.'
+            )
           )
         )
       );

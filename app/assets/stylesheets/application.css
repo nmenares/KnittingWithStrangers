@@ -564,7 +564,7 @@ footer {
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   font-feature-settings: "kern", "liga", "frac", "pnum";
   -webkit-font-smoothing: antialiased;
-  width: 312px;
+  min-width: 312px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -773,4 +773,79 @@ footer {
   text-align: center;
   color: #EF6236;
   margin-bottom: 0;
+}
+
+.kt-info {
+  margin-top: 50px;
+  margin-bottom: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 36px;
+}
+
+.host {
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  margin: 0 21px 18px 79px;
+}
+
+.host h2{
+  color: #EF6236;
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.host p{
+  color: #929292;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5em;
+  margin: 0;
+  margin-top: 7.2px;
+  letter-spacing: 0.01em;
+}
+
+.kt-info img{
+  margin-bottom: 36px;
+  padding: 13.5px;
+  background-color: #FEFEFE;
+  border: 2px solid #DDD;
+}
+
+.kt-info .kt-description {
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  background-color: #FEFEFE;
+  border: 1px solid #929292;
+  margin: 0 79px 0 79px;
+  padding: 0;
+  padding-top: 26px;
+  color: #333;
+  text-align: left;
+  line-height: 1.625;
+}
+
+.kt-info .kt-description p{
+  margin: 0 36px 13px 36px;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+}
+
+.kt-info .kt-description h3{
+  margin: 0 36px 0px 36px;
+}
+
+.host-msg {
+  background-color: #f1e9c6;
+  color: #eda20b;
+  border-top: 1px solid #929292;
+  padding: 18px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.625;
+  letter-spacing: 0.01em;
 }
