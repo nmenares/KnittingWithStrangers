@@ -7,9 +7,7 @@ export default (state = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_ALL_AREAS:
-      let knitting_times = Object.values(action.areas.knitting_areas).map(area => area.knitting_times);
-      let kts = toObject(knitting_times);
-      return merge({}, state, kts)
+      return action.areas.knitting_times;
     case RECEIVE_KNITTING_TIME:
       return merge({}, state, { [action.knitting_time.id]: action.knitting_time })
     default:

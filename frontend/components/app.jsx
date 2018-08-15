@@ -34,9 +34,9 @@ const App = () => (
       <Route exact path="/login" component={LoginFormContainer} />
       <Route exact path="/me" component={ProfileContainer} />
       <Route exact path="/signup" component={SignupFormContainer} />
+      <Route path="/knitting_times/:knittingtimeId" component={KnittingTimeShowContainer} />
       <Route exact path="/knitting_times" component={KnittingTimesContainer} />
       <Route path="/areas/:areaId/hosting" component={HostingContainer} />
-      <Route path="/knitting_times/:knittingtimeId" component={KnittingTimeShowContainer} />
       <Route path="/" render={() => <Redirect to="/" />} />
     </Switch>
 

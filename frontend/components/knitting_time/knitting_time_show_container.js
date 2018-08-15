@@ -6,10 +6,12 @@ import { createEnrollment } from '../../actions/enrollment_actions';
 
 
 const msp = (state, ownprops) => ({
+  users: state.entities.users,
+  knitting_time_enrollments: Object.values(state.entities.knitting_time_enrollments),
+  me: state.entities.users[state.session.id],
+  meId: state.session.id,
   ktId: ownprops.match.params.knittingtimeId,
   knittingtime: state.entities.knitting_times[ownprops.match.params.knittingtimeId],
-  meId: state.session.id,
-  me: state.entities.users[state.session.id]
 });
 
 const mdp = (dispatch) => ({

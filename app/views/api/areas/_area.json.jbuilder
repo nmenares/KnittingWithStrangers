@@ -1,1 +1,1 @@
-json.extract! area, :id, :name, :knitting_times
+json.extract! area, :id, :name, :knitting_times, :enrollments, :users

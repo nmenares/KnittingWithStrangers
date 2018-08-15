@@ -20,15 +20,21 @@ class KnittingTimeShow extends React.Component {
     if(!this.props.knittingtime) {
       return null;
     }
+
+    const knittingtime= this.props.knittingtime
+    const enrollments= this.props.knitting_time_enrollments.filter( kte => kte.knittingtime_id === parseInt(this.props.ktId))
+    const me= this.props.knitting_time_enrollments.some( info => info.user_id === this.props.meId && info.knittingtime_id === this.props.ktId )
+    const host= this.props.users[this.props.knittingtime.host_id]
+
     return (
       <div className="kt-show">
         <div className="kt-sidebar">
           <KnittingTimeBoxMain
-            knittingtime ={this.props.knittingtime}
+            knittingtime={knittingtime}  users={enrollments}  me={me}  host={host}
             />
           <form onSubmit={this.handleSubmit.bind(this)}>
             {this.props.me ?
-              <div>
+              <div className="me-info">
                 <label>Name</label>
                 <div>{this.props.me.username}</div>
 
@@ -36,13 +42,13 @@ class KnittingTimeShow extends React.Component {
                 <div>{this.props.me.email}</div>
 
                 <label>Mobile Number
-                  <p>Optional, but helps {this.props.knittingtime.host.username} get in touch the day of your knitting time</p>
+                  <p>Optional, but helps to get in touch the day of your knitting time</p>
                   <input type="text" placeholder="(555) 345-6789"></input>
                 </label>
               </div>
               : null
             }
-            <input type="submit" valor={this.props.knittingtime.users.length === 5 ? "sign me up" : "join waitlist"}></input>
+            <input type="submit" valor={enrollments === 5 ? "sign me up" : "join waitlist"}></input>
           </form>
 
           <div className="kt-description">
@@ -61,7 +67,7 @@ class KnittingTimeShow extends React.Component {
 
         </div>
         <div className="kt-info">
-          <h2>Meet your Host, {this.props.knittingtime.host.username}.</h2>
+          <h2>Meet your Host, .</h2>
           <p>(It'll be helpful to know what they look like when you're looking for a group of confused strangers.)</p>
         </div>
       </div>

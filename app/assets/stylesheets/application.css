@@ -155,7 +155,8 @@
 #errors {
   text-align: center;
   font-size: 1em;
-  border-top: 2px solid #FEFEFE;
+  border-top: 1.5px solid #FEFEFE;
+  border-bottom: 1.5px solid #FEFEFE;
   background-color: #EF6236;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   line-height: 1.25;
@@ -525,6 +526,10 @@ footer {
   height: 45px;
 }
 
+.go-kt #signup {
+  color: #57C370;
+}
+
 .go-kt .hover {
   display:none;
 }
@@ -559,7 +564,7 @@ footer {
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   font-feature-settings: "kern", "liga", "frac", "pnum";
   -webkit-font-smoothing: antialiased;
-  width: 300px;
+  width: 312px;
   display: flex;
   flex-direction: column;
 }
@@ -568,7 +573,7 @@ footer {
   margin-top: 50px;
   background-color: #FEFEFE;
   width: auto;
-  height: 380px;
+  height: 358px;
   padding: 13.4px;
   display: flex;
   flex-direction: column;
@@ -582,11 +587,12 @@ footer {
   align-items: center;
   justify-content: flex-start;
   height: 30px;
-  margin: 10px;
+  margin: 8px;
 }
 
 .kt-main img{
-  height: 28px;
+  height: 25px;
+  margin-right: 5px;
 }
 
 .kt-main h2 {
@@ -634,7 +640,7 @@ footer {
 }
 
 .availability h2 {
-  font-weight: lighter;
+  font-weight: normal;
   color: #929292;
   font-size: 14.4px;
   text-transform: uppercase;
@@ -666,4 +672,28 @@ footer {
   font-size: 0.8em;
   text-align: left;
   margin-top: 10px;
+}
+
+.me-info {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 13.4px;
+}
+
+.me-info label{
+  color: #333;
+  text-transform: uppercase;
+  margin-bottom: 0.5em;
+  line-height: 1.25;
+}
+
+.me-info div{
+  width: 100%;
+  border: 1px solid #F7BF4D;
+  padding: 12px;
+  color: #333;
+  background-color: #fcebc7;
+  margin: 0 0 0.8125em 0;
+  border-radius: 3px;
 }

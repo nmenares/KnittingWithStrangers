@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 class KnittingTimes extends React.Component {
   constructor(props){
     super(props);
-    this.state = this.props.areas;
+    // this.state = Object.assign({}, this.props.areas);
   }
 
   componentDidMount(){
@@ -21,6 +21,11 @@ class KnittingTimes extends React.Component {
   }
 
   render(){
+
+    if (!this.props.areas || !this.props.knitting_time_enrollments ) {
+      return null;
+    }
+
     const today = moment();
 
     const next_kt_gap = (21 - today.date());
@@ -39,8 +44,15 @@ class KnittingTimes extends React.Component {
             </h2>
           </li>
           { area.knitting_times.length > 0 ?
+
           area.knitting_times.map((kt)=> (
-            <KnittingTimeBox key={kt.id} knittingtime={kt} meId={this.props.meId} />
+            <KnittingTimeBox
+              key={kt}
+              knittingtime={this.props.knitting_times[kt]}
+              enrollments={this.props.knitting_time_enrollments.filter( kte => kte.knittingtime_id === kt).length}
+              me={this.props.knitting_time_enrollments.some( info => info.user_id === this.props.meId && info.knittingtime_id === kt )}
+              host={this.props.users[this.props.knitting_times[kt].host_id]}
+              />
           ))
           : null}
         </ul>

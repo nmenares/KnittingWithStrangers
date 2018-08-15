@@ -10,13 +10,20 @@ class KnittingTimeBox extends React.Component{
   }
 
   handleClick(e){
+    e.preventDefault();
     this.props.history.push(`/knitting_times/${this.state.id}`)
   }
 
   render(){
-    let dateinfo = moment(this.state.date)
-    let label= this.state.users.length < 5 ? "this one →" : "join waitlist"
-    let included = this.state.users[this.props.meId];
+
+    if (!this.props.knittingtime) {
+      return null;
+    }
+
+    let dateinfo = moment(this.state.date);
+    let label = this.props.enrollments < 5 ? "this one →" : "join waitlist";
+    let included = this.props.me;
+
     return(
       <li className="kt-container">
         {dateinfo >= moment() ?
@@ -30,17 +37,17 @@ class KnittingTimeBox extends React.Component{
               </div>
               <div className="host-icon">
                 <img src="http://via.placeholder.com/77x77"/>
-                <h4>{this.state.host.username}</h4>
+                <h4>{this.props.host.username}</h4>
               </div>
             </div>
 
             <p>{this.state.address_1} <br/> {this.state.city}</p>
-            <ProgressBar users={this.state.users.length} kt={this.state}/>
+            <ProgressBar users={this.props.enrollments} kt={this.state}/>
           </div>
 
           <button onClick={this.handleClick.bind(this)} className="go-kt">
-            {included ? <h2 class="normal">signed up</h2> : <h2 class="normal">{label}</h2>}
-            <h2 class="hover">check it out →</h2>
+            {included ? <h2 className="normal" id="signup">signed up</h2> : <h2 className="normal">{label}</h2>}
+            <h2 className="hover">check it out →</h2>
           </button>
         </div>
         : null

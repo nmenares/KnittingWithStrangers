@@ -17,4 +17,12 @@ class Area < ApplicationRecord
   foreign_key: :area_id,
   class_name: :KnittingTime
 
+  has_many :enrollments,
+  through: :knitting_times,
+  source: :ktenrollments
+
+  has_many :users,
+  through: :enrollments,
+  source: :user
+
 end
