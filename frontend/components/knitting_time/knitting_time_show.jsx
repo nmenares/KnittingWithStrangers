@@ -23,7 +23,7 @@ class KnittingTimeShow extends React.Component {
 
     const knittingtime= this.props.knittingtime
     const enrollments= this.props.knitting_time_enrollments.filter( kte => kte.knittingtime_id === parseInt(this.props.ktId))
-    const me= this.props.knitting_time_enrollments.some( info => info.user_id === this.props.meId && info.knittingtime_id === this.props.ktId )
+    const me= this.props.knitting_time_enrollments.some( info => info.user_id === parseInt(this.props.meId) && info.knittingtime_id === parseInt(this.props.ktId) )
     const host= this.props.users[this.props.knittingtime.host_id]
 
     return (
@@ -41,18 +41,22 @@ class KnittingTimeShow extends React.Component {
                 <label>Email</label>
                 <div>{this.props.me.email}</div>
 
-                <label>Mobile Number
-                  <span> Optional, but helps to get in touch the day of your knitting time</span>
-                </label>
-                <input className="phone" type="text" placeholder="(555) 345-6789"></input>
+                {me ? <h2>You're already signed up!</h2> :
+                  <div className="mobileinfo">
+                    <label>Mobile Number
+                      <span> Optional, but helps to get in touch the day of your knitting time</span>
+                    </label>
+                    <input className="phone" type="text" placeholder="(555) 345-6789"></input>
+                    {enrollments.length === 5 ? <p>You'll get an email the moment someone cancels their seat.</p> : null}
+                    <button className="join" onClick={this.handleSubmit.bind(this)}>{enrollments.length === 5 ? "join waitlist" : "sign me up"}</button>
+                  </div>
+                }
               </div>
-              : null
+              : <button className="join" onClick={this.handleSubmit.bind(this)}>sign me up</button>
             }
           </div>
 
-          {enrollments.length === 5 ? <p>You'll get an email the moment someone cancels their seat.</p> : null}
 
-          <button className="join" onSubmit={this.handleSubmit.bind(this)}>{enrollments.length === 5 ? "join waitlist" : "sign me up"}</button>
 
           <Link to="/knitting_times">See Other Tea Times</Link>
 

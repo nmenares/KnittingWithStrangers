@@ -721,6 +721,7 @@ footer {
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   font-feature-settings: "kern", "liga", "frac", "pnum";
   -webkit-font-smoothing: antialiased;
+  width: 276px;
 }
 
 .join {
@@ -738,6 +739,7 @@ footer {
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 2px;
+  width: 100%;
 }
 
 .kt-sidebar p {
@@ -756,4 +758,19 @@ footer {
 
 .kt-sidebar a:hover {
   color: #B53D39;
+}
+
+.me-info .mobileinfo {
+  border: none;
+  padding: 0;
+  background-color: Transparent;
+  margin-top: 20px;
+  border-radius: 0;
+  width: 100%;
+}
+
+.me-info h2 {
+  text-align: center;
+  color: #EF6236;
+  margin-bottom: 0;
 }

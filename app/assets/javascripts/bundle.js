@@ -1044,7 +1044,7 @@ var KnittingTimeShow = function (_React$Component) {
         return kte.knittingtime_id === parseInt(_this3.props.ktId);
       });
       var me = this.props.knitting_time_enrollments.some(function (info) {
-        return info.user_id === _this3.props.meId && info.knittingtime_id === _this3.props.ktId;
+        return info.user_id === parseInt(_this3.props.meId) && info.knittingtime_id === parseInt(_this3.props.ktId);
       });
       var host = this.props.users[this.props.knittingtime.host_id];
 
@@ -1083,28 +1083,40 @@ var KnittingTimeShow = function (_React$Component) {
                 null,
                 this.props.me.email
               ),
-              _react2.default.createElement(
-                'label',
+              me ? _react2.default.createElement(
+                'h2',
                 null,
-                'Mobile Number',
+                'You\'re already signed up!'
+              ) : _react2.default.createElement(
+                'div',
+                { className: 'mobileinfo' },
                 _react2.default.createElement(
-                  'span',
+                  'label',
                   null,
-                  ' Optional, but helps to get in touch the day of your knitting time'
+                  'Mobile Number',
+                  _react2.default.createElement(
+                    'span',
+                    null,
+                    ' Optional, but helps to get in touch the day of your knitting time'
+                  )
+                ),
+                _react2.default.createElement('input', { className: 'phone', type: 'text', placeholder: '(555) 345-6789' }),
+                enrollments.length === 5 ? _react2.default.createElement(
+                  'p',
+                  null,
+                  'You\'ll get an email the moment someone cancels their seat.'
+                ) : null,
+                _react2.default.createElement(
+                  'button',
+                  { className: 'join', onClick: this.handleSubmit.bind(this) },
+                  enrollments.length === 5 ? "join waitlist" : "sign me up"
                 )
-              ),
-              _react2.default.createElement('input', { className: 'phone', type: 'text', placeholder: '(555) 345-6789' })
-            ) : null
-          ),
-          enrollments.length === 5 ? _react2.default.createElement(
-            'p',
-            null,
-            'You\'ll get an email the moment someone cancels their seat.'
-          ) : null,
-          _react2.default.createElement(
-            'button',
-            { className: 'join', onSubmit: this.handleSubmit.bind(this) },
-            enrollments.length === 5 ? "join waitlist" : "sign me up"
+              )
+            ) : _react2.default.createElement(
+              'button',
+              { className: 'join', onClick: this.handleSubmit.bind(this) },
+              'sign me up'
+            )
           ),
           _react2.default.createElement(
             _reactRouterDom.Link,
