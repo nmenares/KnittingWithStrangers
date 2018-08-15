@@ -1,6 +1,6 @@
 import React from 'react';
 import KnittingTimeBoxMain from '../knitting_time/knitting_time_box_main';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 class KnittingTimeShow extends React.Component {
 
@@ -32,7 +32,7 @@ class KnittingTimeShow extends React.Component {
           <KnittingTimeBoxMain
             knittingtime={knittingtime}  users={enrollments}  me={me}  host={host}
             />
-          <form onSubmit={this.handleSubmit.bind(this)}>
+          <div>
             {this.props.me ?
               <div className="me-info">
                 <label>Name</label>
@@ -42,14 +42,19 @@ class KnittingTimeShow extends React.Component {
                 <div>{this.props.me.email}</div>
 
                 <label>Mobile Number
-                  <p>Optional, but helps to get in touch the day of your knitting time</p>
-                  <input type="text" placeholder="(555) 345-6789"></input>
+                  <span> Optional, but helps to get in touch the day of your knitting time</span>
                 </label>
+                <input className="phone" type="text" placeholder="(555) 345-6789"></input>
               </div>
               : null
             }
-            <input type="submit" valor={enrollments === 5 ? "sign me up" : "join waitlist"}></input>
-          </form>
+          </div>
+
+          {enrollments.length === 5 ? <p>You'll get an email the moment someone cancels their seat.</p> : null}
+
+          <button className="join" onSubmit={this.handleSubmit.bind(this)}>{enrollments.length === 5 ? "join waitlist" : "sign me up"}</button>
+
+          <Link to="/knitting_times">See Other Tea Times</Link>
 
           <div className="kt-description">
             <h2>What is knitting time, exactly?</h2>

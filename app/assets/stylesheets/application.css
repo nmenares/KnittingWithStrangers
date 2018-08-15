@@ -567,6 +567,7 @@ footer {
   width: 312px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .kt-main {
@@ -649,7 +650,7 @@ footer {
 }
 
 .kt-description {
-  margin-top: 50px;
+  margin-top: 36px;
   background-color: #f1e9c6;
   color: #eda20b;
   width: auto;
@@ -678,22 +679,81 @@ footer {
   width: auto;
   display: flex;
   flex-direction: column;
-  padding: 13.4px;
 }
 
 .me-info label{
   color: #333;
   text-transform: uppercase;
-  margin-bottom: 0.5em;
+  margin-top: 20px;
   line-height: 1.25;
+  font-size: 13px;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  font-weight: 600;
 }
 
 .me-info div{
-  width: 100%;
   border: 1px solid #F7BF4D;
-  padding: 12px;
+  padding: 18px;
   color: #333;
   background-color: #fcebc7;
-  margin: 0 0 0.8125em 0;
+  margin-top: 10px;
   border-radius: 3px;
+}
+
+.me-info label span{
+  font-size: 12px;
+  color: #929292;
+  text-transform: none;
+  font-weight: normal;
+  margin: 0;
+}
+
+.me-info .phone {
+  border: 1px solid #929292;
+  padding: 18px;
+  color: #333;
+  background-color: #FEFEFE;
+  margin-top: 10px;
+  border-radius: 3px;
+  font-size: 18px;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+}
+
+.join {
+  display: block;
+  border: 1px solid #EF6236;
+  padding: 18px;
+  color: #FEFEFE;
+  background-color: #EF6236;
+  margin-top: 36px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.kt-sidebar p {
+  margin-top: 18px;
+  margin-bottom: 0px;
+}
+
+.kt-sidebar a {
+  margin-top: 18px;
+}
+
+.join:hover {
+  border: 1px solid #B53D39;
+  background-color: #B53D39;
+}
+
+.kt-sidebar a:hover {
+  color: #B53D39;
 }

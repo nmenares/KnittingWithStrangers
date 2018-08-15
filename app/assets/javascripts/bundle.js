@@ -1058,8 +1058,8 @@ var KnittingTimeShow = function (_React$Component) {
             knittingtime: knittingtime, users: enrollments, me: me, host: host
           }),
           _react2.default.createElement(
-            'form',
-            { onSubmit: this.handleSubmit.bind(this) },
+            'div',
+            null,
             this.props.me ? _react2.default.createElement(
               'div',
               { className: 'me-info' },
@@ -1088,14 +1088,28 @@ var KnittingTimeShow = function (_React$Component) {
                 null,
                 'Mobile Number',
                 _react2.default.createElement(
-                  'p',
+                  'span',
                   null,
-                  'Optional, but helps to get in touch the day of your knitting time'
-                ),
-                _react2.default.createElement('input', { type: 'text', placeholder: '(555) 345-6789' })
-              )
-            ) : null,
-            _react2.default.createElement('input', { type: 'submit', valor: enrollments === 5 ? "sign me up" : "join waitlist" })
+                  ' Optional, but helps to get in touch the day of your knitting time'
+                )
+              ),
+              _react2.default.createElement('input', { className: 'phone', type: 'text', placeholder: '(555) 345-6789' })
+            ) : null
+          ),
+          enrollments.length === 5 ? _react2.default.createElement(
+            'p',
+            null,
+            'You\'ll get an email the moment someone cancels their seat.'
+          ) : null,
+          _react2.default.createElement(
+            'button',
+            { className: 'join', onSubmit: this.handleSubmit.bind(this) },
+            enrollments.length === 5 ? "join waitlist" : "sign me up"
+          ),
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/knitting_times' },
+            'See Other Tea Times'
           ),
           _react2.default.createElement(
             'div',
