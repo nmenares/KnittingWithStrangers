@@ -8,6 +8,10 @@ class KnittingTimeShow extends React.Component {
     this.props.fetchKnittingTime(this.props.ktId);
   };
 
+  componentWillMount(){
+    this.props.fetchAreas();
+  };
+
   handleSubmit(e){
     e.preventDefault();
     this.props.me ?

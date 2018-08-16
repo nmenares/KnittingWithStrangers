@@ -1107,6 +1107,11 @@ var KnittingTimeShow = function (_React$Component) {
       this.props.fetchKnittingTime(this.props.ktId);
     }
   }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.fetchAreas();
+    }
+  }, {
     key: 'handleSubmit',
     value: function handleSubmit(e) {
       var _this2 = this;
@@ -1341,6 +1346,8 @@ var _knitting_time_actions = __webpack_require__(/*! ../../actions/knitting_time
 
 var _enrollment_actions = __webpack_require__(/*! ../../actions/enrollment_actions */ "./frontend/actions/enrollment_actions.js");
 
+var _area_actions = __webpack_require__(/*! ../../actions/area_actions */ "./frontend/actions/area_actions.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state, ownprops) {
@@ -1361,6 +1368,9 @@ var mdp = function mdp(dispatch) {
     },
     createEnrollment: function createEnrollment(enrollment, callback) {
       return dispatch((0, _enrollment_actions.createEnrollment)(enrollment, callback));
+    },
+    fetchAreas: function fetchAreas() {
+      return dispatch((0, _area_actions.fetchAreas)());
     }
   };
 };
@@ -1910,10 +1920,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Profile = function (_React$Component) {
   _inherits(Profile, _React$Component);
 
-  function Profile() {
+  function Profile(props) {
     _classCallCheck(this, Profile);
 
-    return _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).call(this, props));
+
+    _this.state = { photoFile: null };
+    return _this;
   }
 
   _createClass(Profile, [{
@@ -1922,14 +1935,28 @@ var Profile = function (_React$Component) {
       this.props.fetchMe();
     }
   }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.fetchAreas();
+    }
+  }, {
+    key: 'handleFile',
+    value: function handleFile(e) {
+      this.setState({ photoFile: e.currentTarget.files[0] });
+    }
+  }, {
     key: 'render',
     value: function render() {
 
-      return this.props.me ? _react2.default.createElement(
-        'h1',
+      return _react2.default.createElement(
+        'div',
         null,
-        'profile'
-      ) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/login' });
+        this.props.me ? _react2.default.createElement(
+          'h1',
+          null,
+          'profile'
+        ) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/login' })
+      );
     }
   }]);
 
@@ -1968,11 +1995,15 @@ var _profile2 = _interopRequireDefault(_profile);
 
 var _session_actions = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
 
+var _area_actions = __webpack_require__(/*! ../../actions/area_actions */ "./frontend/actions/area_actions.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state) {
   return {
-    me: state.entities.users[state.session.id]
+    me: state.entities.users[state.session.id],
+    knitting_times: Object.values(state.entities.knitting_times),
+    knitting_time_enrollments: state.entities.knitting_times
   };
 };
 
@@ -1980,6 +2011,9 @@ var mdp = function mdp(dispatch) {
   return {
     fetchMe: function fetchMe() {
       return dispatch((0, _session_actions.fetchMe)());
+    },
+    fetchAreas: function fetchAreas() {
+      return dispatch((0, _area_actions.fetchAreas)());
     }
   };
 };
@@ -2319,13 +2353,236 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Splash = function Splash() {
   return _react2.default.createElement(
     'div',
-    null,
-    'splash'
+    { className: 'knittingtimes' },
+    _react2.default.createElement(
+      'div',
+      { className: 'mainimage' },
+      _react2.default.createElement('img', { src: window.knittingtimes }),
+      _react2.default.createElement(
+        'div',
+        { className: 'maintext' },
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Everyone is interesting'
+        ),
+        _react2.default.createElement(
+          'h2',
+          null,
+          'But you don\u2019t discover that when you\u2019re staring at a screen.'
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/knitting_times' },
+          'let\'s get tea'
+        )
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'transversal', id: 'flex' },
+      _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h2',
+          null,
+          'Show up for tea time'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'You and a few others join a host at a cafe.'
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h2',
+          null,
+          'Have a real conversation'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'You talk for two hours about anything.'
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h2',
+          null,
+          'See what happens'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'That\'s it. No strings attached.'
+        )
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'body' },
+      _react2.default.createElement(
+        'h2',
+        null,
+        'SO WHY ARE THOUSANDS OF PEOPLE DOING IT?'
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'mono_desc' },
+        _react2.default.createElement(
+          'div',
+          null,
+          'MONO'
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h2',
+            null,
+            'It\u2019s weird.'
+          ),
+          _react2.default.createElement(
+            'h4',
+            null,
+            'Everyone at tea time is stepping a little out of their comfort zone. This makes it so much easier to actually learn something unexpected about the people around you. Because open minds are a prerequisite around here.'
+          )
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'mono_desc' },
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h2',
+            null,
+            'We won\'t meet otherwise.'
+          ),
+          _react2.default.createElement(
+            'h4',
+            null,
+            'In all likelihood, our paths won\u2019t cross for any reason. So often, we only meet people through work, school, or friends of friends. And even then, it\u2019s questionable. So basically, we manufacture serendipity.\u2028'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          'MONO'
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'mono_desc' },
+        _react2.default.createElement(
+          'div',
+          null,
+          'MONO'
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h2',
+            null,
+            'Your hands are made for high fiving!'
+          ),
+          _react2.default.createElement(
+            'h4',
+            null,
+            'And your eyes are made\u2026for eye contact! Real humans are so much cooler than their tweets or Instagram pictures. Tea time has real humans! #nofilter!'
+          )
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'transversal' },
+        _react2.default.createElement(
+          'div',
+          null,
+          'Actually talk to people.'
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/knitting_times' },
+          'let\'s get tea'
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'mono_desc' },
+        _react2.default.createElement(
+          'div',
+          null,
+          '\u201DI met people who I continue to be in touch with almost a year later, and people who I shared delightful conversations with that day but no more. Both are their own kind of fun.\u201D Freia, NYC'
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          '\u201DI\u2019m not the type of person who talks to strangers. This doesn\u2019t mean I don\u2019t want to. Tea With Strangers just makes it easier because you know everyone there wants it too.\u201D Molly, SF'
+        )
+      ),
+      _react2.default.createElement(
+        'h2',
+        null,
+        'THERE\'S NO SUCH THING AS A STRANGER.'
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'mono_desc' },
+        _react2.default.createElement(
+          'div',
+          null,
+          'MONO'
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h2',
+            null,
+            'It\u2019s weird.'
+          ),
+          _react2.default.createElement(
+            'h4',
+            null,
+            'You\'d never think of yourself as a stranger. But everyone else does. You know your story. Your embarrassments. Your joy. Your idiocyncrasies \u2014 the thing that make you, you. But they don\'t.',
+            _react2.default.createElement('br', null),
+            'And everyone has these \u2014 whether or not we know what they are. Everyone around you is a person, loaded with stories that you can\'t even begin to fathom. They are different from yours, but the fact that we all have them is what brings us together.',
+            _react2.default.createElement('br', null),
+            'In a stranger\'s story, we might discover parts of our own. And in seeing where a stranger is coming from, we might realize they\'re actually not so strange. But we don\'t discover much just by thinking about it. So let\'s find out.'
+          )
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'transversal' },
+        _react2.default.createElement(
+          'div',
+          null,
+          'Do we get to high five yet?'
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/knitting_times' },
+          'yes'
+        )
+      )
+    )
   );
 };
 

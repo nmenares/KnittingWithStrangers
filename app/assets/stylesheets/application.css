@@ -587,7 +587,7 @@ footer {
   align-items: center;
   justify-content: flex-start;
   height: 30px;
-  margin: 8px;
+  margin: 6px;
 }
 
 .kt-main img{
@@ -630,6 +630,7 @@ footer {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  margin-top: 28px;
 }
 
 .kt-main .availability .progressbar div {
@@ -899,4 +900,40 @@ footer {
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 0.05px;
+}
+
+/* splash */
+
+.transversal {
+  width: 100%;
+  background: #F3ECCE;
+  text-align: center;
+  padding: 2em 1em;
+}
+
+#flex, .mono_desc {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.mono_desc {
+  max-width: 800px;
+}
+
+.motives {
+  display: inline-flex;
+  padding: 30px;
+}
+
+.motives {
+  margin-right: 24px;
+}
+
+.body {
+  background-color: #FEFEFE;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }

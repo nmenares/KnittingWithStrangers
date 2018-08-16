@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import KnittingTimeShow from './knitting_time_show';
 import { fetchKnittingTime } from '../../actions/knitting_time_actions';
 import { createEnrollment } from '../../actions/enrollment_actions';
+import { fetchAreas } from '../../actions/area_actions';
 
 
 const msp = (state, ownprops) => ({
@@ -16,7 +17,8 @@ const msp = (state, ownprops) => ({
 
 const mdp = (dispatch) => ({
   fetchKnittingTime: (knittingtimeId) => dispatch(fetchKnittingTime(knittingtimeId)),
-  createEnrollment: (enrollment, callback) => dispatch(createEnrollment(enrollment, callback))
+  createEnrollment: (enrollment, callback) => dispatch(createEnrollment(enrollment, callback)),
+  fetchAreas: () => dispatch(fetchAreas())
 });
 
 export default connect(msp, mdp)(KnittingTimeShow);
