@@ -15,7 +15,6 @@ class SessionForm extends React.Component {
     this.props.deleteErrors();
   }
 
-
   handleSubmit(e){
     const user = Object.assign({}, this.state);
     this.props.processForm(user, () => {

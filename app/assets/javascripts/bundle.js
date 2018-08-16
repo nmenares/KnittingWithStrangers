@@ -181,7 +181,7 @@ var createEnrollment = exports.createEnrollment = function createEnrollment(data
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createKnittingTime = exports.fetchKnittingTime = exports.RECEIVE_KNITTING_TIME = undefined;
+exports.createKnittingTime = exports.deleteErrors = exports.fetchKnittingTime = exports.DELETE_KNITTING_TIME_ERRORS = exports.RECEIVE_KNITTING_TIME_ERRORS = exports.RECEIVE_KNITTING_TIME = undefined;
 
 var _knitting_time_api_util = __webpack_require__(/*! ../util/knitting_time_api_util */ "./frontend/util/knitting_time_api_util.js");
 
@@ -190,9 +190,14 @@ var ApiKnittingTimeUtil = _interopRequireWildcard(_knitting_time_api_util);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var RECEIVE_KNITTING_TIME = exports.RECEIVE_KNITTING_TIME = 'RECEIVE_KNITTING_TIME';
+var RECEIVE_KNITTING_TIME_ERRORS = exports.RECEIVE_KNITTING_TIME_ERRORS = 'RECEIVE_KNITTING_TIME_ERRORS';
+var DELETE_KNITTING_TIME_ERRORS = exports.DELETE_KNITTING_TIME_ERRORS = 'DELETE_KNITTING_TIME_ERRORS';
 
 var receiveKnittingTime = function receiveKnittingTime(knitting_time) {
   return { type: RECEIVE_KNITTING_TIME, knitting_time: knitting_time };
+};
+var receiveErrors = function receiveErrors(errors) {
+  return { type: RECEIVE_KNITTING_TIME_ERRORS, errors: errors };
 };
 
 var fetchKnittingTime = exports.fetchKnittingTime = function fetchKnittingTime(id) {
@@ -203,13 +208,29 @@ var fetchKnittingTime = exports.fetchKnittingTime = function fetchKnittingTime(i
   };
 };
 
-var createKnittingTime = exports.createKnittingTime = function createKnittingTime(areaId, data) {
+var deleteErrors = exports.deleteErrors = function deleteErrors() {
+  return function (dispatch) {
+    return dispatch({ type: DELETE_KNITTING_TIME_ERRORS });
+  };
+};
+
+var createKnittingTime = exports.createKnittingTime = function createKnittingTime(areaId, data, callback) {
   return function (dispatch) {
     return ApiKnittingTimeUtil.createKnittingTime(areaId, data).then(function (kt) {
-      return dispatch(receiveKnittingTime(kt));
+      dispatch(receiveKnittingTime(kt));
+      callback();
+    }, function (err) {
+      return dispatch(receiveErrors(err.responseJSON));
     });
   };
 };
+
+// export const createKnittingTime = (areaId, data) => {
+//   return dispatch =>
+//     ApiKnittingTimeUtil.createKnittingTime(areaId, data).then(kt =>
+//       dispatch(receiveKnittingTime(kt))
+//     )
+// };
 
 /***/ }),
 
@@ -510,6 +531,11 @@ var HostingForm = function (_React$Component) {
   }
 
   _createClass(HostingForm, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.deleteErrors();
+    }
+  }, {
     key: 'handleEvent',
     value: function handleEvent(field) {
       var _this2 = this;
@@ -524,8 +550,8 @@ var HostingForm = function (_React$Component) {
       var _this3 = this;
 
       e.preventDefault();
-      this.props.formType(this.props.area.id, this.state).then(function () {
-        return _this3.props.history.push("/knitting_times");
+      this.props.formType(this.props.area.id, this.state, function () {
+        _this3.props.history.push('/knitting_times');
       });
     }
   }, {
@@ -543,68 +569,121 @@ var HostingForm = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(
-          'form',
-          { onSubmit: this.handleSubmit.bind(this) },
+          'div',
+          { className: 'errors' },
+          this.props.errors.length > 0 ? _react2.default.createElement(
+            'div',
+            { id: 'errors' },
+            this.props.msg
+          ) : null
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'hostingform' },
           _react2.default.createElement(
-            'h2',
-            null,
-            'Knitting Time Details'
-          ),
-          _react2.default.createElement(
-            'label',
-            null,
-            'Date:',
-            _react2.default.createElement('input', { type: 'date', onChange: this.handleEvent("date"), value: this.state.date, min: year + '-' + month + '-' + day })
-          ),
-          _react2.default.createElement(
-            'label',
-            null,
-            'Start Time:',
-            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("start_time"), value: this.state.start_time })
-          ),
-          _react2.default.createElement(
-            'label',
-            null,
-            'End Time:',
-            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("end_time"), value: this.state.end_time })
-          ),
-          _react2.default.createElement(
-            'label',
-            null,
-            'Address 1:',
-            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("address_1"), value: this.state.address_1 })
-          ),
-          _react2.default.createElement(
-            'label',
-            null,
-            'Address 2:',
-            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("address_2"), value: this.state.address_2 })
-          ),
-          _react2.default.createElement(
-            'label',
-            null,
-            'City:',
-            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("city"), value: this.state.city })
-          ),
-          _react2.default.createElement(
-            'label',
-            null,
-            'State:',
-            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("state"), value: this.state.state })
-          ),
-          _react2.default.createElement(
-            'label',
-            null,
-            'Zip:',
-            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("zip"), value: this.state.zip })
-          ),
-          _react2.default.createElement(
-            'label',
-            null,
-            'Brief Description:',
-            _react2.default.createElement('textarea', { onChange: this.handleEvent("description"), value: this.state.description })
-          ),
-          _react2.default.createElement('input', { type: 'submit', value: this.props.action })
+            'form',
+            { onSubmit: this.handleSubmit.bind(this) },
+            _react2.default.createElement(
+              'h2',
+              null,
+              'Knitting Time Details'
+            ),
+            _react2.default.createElement(
+              'label',
+              null,
+              'Date',
+              _react2.default.createElement(
+                'span',
+                null,
+                '*'
+              )
+            ),
+            _react2.default.createElement('input', { type: 'date', onChange: this.handleEvent("date"), value: this.state.date, min: year + '-' + month + '-' + day }),
+            _react2.default.createElement(
+              'label',
+              null,
+              'Start Time',
+              _react2.default.createElement(
+                'span',
+                null,
+                '*'
+              )
+            ),
+            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("start_time"), value: this.state.start_time }),
+            _react2.default.createElement(
+              'label',
+              null,
+              'End Time',
+              _react2.default.createElement(
+                'span',
+                null,
+                '*'
+              )
+            ),
+            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("end_time"), value: this.state.end_time }),
+            _react2.default.createElement(
+              'label',
+              null,
+              'Address 1',
+              _react2.default.createElement(
+                'span',
+                null,
+                '*'
+              )
+            ),
+            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("address_1"), value: this.state.address_1 }),
+            _react2.default.createElement(
+              'label',
+              null,
+              'Address 2'
+            ),
+            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("address_2"), value: this.state.address_2 }),
+            _react2.default.createElement(
+              'label',
+              null,
+              'City',
+              _react2.default.createElement(
+                'span',
+                null,
+                '*'
+              )
+            ),
+            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("city"), value: this.state.city }),
+            _react2.default.createElement(
+              'label',
+              null,
+              'State'
+            ),
+            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("state"), value: this.state.state }),
+            _react2.default.createElement(
+              'label',
+              null,
+              'Zip'
+            ),
+            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("zip"), value: this.state.zip }),
+            _react2.default.createElement(
+              'label',
+              null,
+              'Description',
+              _react2.default.createElement(
+                'span',
+                null,
+                '*'
+              )
+            ),
+            _react2.default.createElement('textarea', { onChange: this.handleEvent("description"), value: this.state.description }),
+            _react2.default.createElement('input', { className: 'create', type: 'submit', value: this.props.action }),
+            _react2.default.createElement(
+              'p',
+              null,
+              _react2.default.createElement(
+                'span',
+                null,
+                '*'
+              ),
+              ' These fields must be filled'
+            )
+          )
         )
       );
     }
@@ -645,10 +724,14 @@ var _hosting_form2 = _interopRequireDefault(_hosting_form);
 
 var _knitting_time_actions = __webpack_require__(/*! ../../actions/knitting_time_actions */ "./frontend/actions/knitting_time_actions.js");
 
+var _session_actions = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state, ownprops) {
   return {
+    errors: state.errors.knitting_time_errors,
+    msg: "We've made a mistake.",
     action: "create",
     knittingtime: { date: '', start_time: '', end_time: '', address_1: '', address_2: '', city: '', state: '', zip: '', area_id: ownprops.match.params.areaId, host_id: state.session.id, description: '' },
     sessionId: state.session.id,
@@ -659,8 +742,11 @@ var msp = function msp(state, ownprops) {
 
 var mdp = function mdp(dispatch) {
   return {
-    formType: function formType(areaid, kt) {
-      return dispatch((0, _knitting_time_actions.createKnittingTime)(areaid, kt));
+    formType: function formType(areaid, kt, callback) {
+      return dispatch((0, _knitting_time_actions.createKnittingTime)(areaid, kt, callback));
+    },
+    deleteErrors: function deleteErrors() {
+      return dispatch((0, _session_actions.deleteErrors)());
     }
   };
 };
@@ -1979,7 +2065,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var msp = function msp(state) {
   return {
-    errors: state.errors.errors,
+    errors: state.errors.session_errors,
     formType: "login",
     email: "Email",
     msg: "Invalid email or password.",
@@ -2184,7 +2270,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var msp = function msp(state) {
   return {
-    errors: state.errors.errors,
+    errors: state.errors.session_errors,
     formType: "signup",
     email: "Email address",
     msg: "We've made a mistake.",
@@ -2459,13 +2545,53 @@ var _session_errors_reducer = __webpack_require__(/*! ./session_errors_reducer *
 
 var _session_errors_reducer2 = _interopRequireDefault(_session_errors_reducer);
 
+var _knitting_time_errors_reducer = __webpack_require__(/*! ./knitting_time_errors_reducer */ "./frontend/reducers/knitting_time_errors_reducer.js");
+
+var _knitting_time_errors_reducer2 = _interopRequireDefault(_knitting_time_errors_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var errors = (0, _redux.combineReducers)({
-  errors: _session_errors_reducer2.default
+  session_errors: _session_errors_reducer2.default,
+  knitting_time_errors: _knitting_time_errors_reducer2.default
 });
 
 exports.default = errors;
+
+/***/ }),
+
+/***/ "./frontend/reducers/knitting_time_errors_reducer.js":
+/*!***********************************************************!*\
+  !*** ./frontend/reducers/knitting_time_errors_reducer.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _knitting_time_actions = __webpack_require__(/*! ../actions/knitting_time_actions */ "./frontend/actions/knitting_time_actions.js");
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
+
+  Object.freeze(state);
+  switch (action.type) {
+    case _knitting_time_actions.RECEIVE_KNITTING_TIME_ERRORS:
+      return action.errors;
+    case _knitting_time_actions.DELETE_KNITTING_TIME_ERRORS:
+      return [];
+    case _knitting_time_actions.RECEIVE_KNITTING_TIME:
+      return [];
+    default:
+      return state;
+  }
+};
 
 /***/ }),
 

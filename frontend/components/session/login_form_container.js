@@ -5,7 +5,7 @@ import { login, deleteErrors } from '../../actions/session_actions';
 import { Link, withRouter } from 'react-router-dom';
 
 const msp = (state) => ({
-  errors: state.errors.errors,
+  errors: state.errors.session_errors,
   formType: "login",
   email: "Email",
   msg: "Invalid email or password.",

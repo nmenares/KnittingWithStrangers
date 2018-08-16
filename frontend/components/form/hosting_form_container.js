@@ -2,10 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import HostingForm from './hosting_form';
 import { createKnittingTime } from '../../actions/knitting_time_actions';
+import { deleteErrors } from '../../actions/session_actions';
 
 
 
 const msp = (state, ownprops) => ({
+  errors: state.errors.knitting_time_errors,
+  msg: "We've made a mistake.",
   action: "create",
   knittingtime: {date: '', start_time: '', end_time: '', address_1: '' , address_2: '', city: '', state: '', zip:'', area_id: ownprops.match.params.areaId, host_id: state.session.id, description: ''},
   sessionId: state.session.id,
@@ -14,7 +17,8 @@ const msp = (state, ownprops) => ({
 });
 
 const mdp = (dispatch) => ({
-  formType: (areaid, kt) => dispatch(createKnittingTime(areaid, kt))
+  formType: (areaid, kt, callback) => dispatch(createKnittingTime(areaid, kt, callback)),
+  deleteErrors: () => dispatch(deleteErrors())
 });
 
 export default connect(msp, mdp)(HostingForm);

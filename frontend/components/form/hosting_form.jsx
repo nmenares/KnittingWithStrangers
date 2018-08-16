@@ -8,6 +8,10 @@ class HostingForm extends React.Component {
     this.state = this.props.knittingtime;
   }
 
+  componentDidMount(){
+    this.props.deleteErrors();
+  }
+
   handleEvent(field){
     return e => this.setState({
       [field]: e.currentTarget.value
@@ -16,7 +20,9 @@ class HostingForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.formType( this.props.area.id ,this.state).then(() => this.props.history.push("/knitting_times"));
+    this.props.formType( this.props.area.id ,this.state, () => {
+    this.props.history.push('/knitting_times')
+    } )
   }
 
   render(){
@@ -30,46 +36,51 @@ class HostingForm extends React.Component {
 
     return (
       <div>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <h2>Knitting Time Details</h2>
-          <label>Date:
+        <div className="errors">
+          {this.props.errors.length > 0 ? <div id="errors">{this.props.msg}</div> : null}
+        </div>
+
+        <div className="hostingform">
+
+          <form onSubmit={this.handleSubmit.bind(this)}>
+            <h2>Knitting Time Details</h2>
+
+            <label>Date<span>*</span></label>
             <input type="date" onChange={this.handleEvent("date")} value={this.state.date} min={`${year}-${month}-${day}`}></input>
-          </label>
 
-          <label>Start Time:
+
+            <label>Start Time<span>*</span></label>
             <input type="text" onChange={this.handleEvent("start_time")} value={this.state.start_time}></input>
-          </label>
 
-          <label>End Time:
+            <label>End Time<span>*</span></label>
             <input type="text" onChange={this.handleEvent("end_time")} value={this.state.end_time}></input>
-          </label>
-          <label>Address 1:
+
+            <label>Address 1<span>*</span></label>
             <input type="text" onChange={this.handleEvent("address_1")} value={this.state.address_1}></input>
-          </label>
 
-          <label>Address 2:
+            <label>Address 2</label>
             <input type="text" onChange={this.handleEvent("address_2")} value={this.state.address_2}></input>
-          </label>
 
-          <label>City:
+
+            <label>City<span>*</span></label>
             <input type="text" onChange={this.handleEvent("city")} value={this.state.city}></input>
-          </label>
 
-          <label>State:
+
+            <label>State</label>
             <input type="text" onChange={this.handleEvent("state")} value={this.state.state}></input>
-          </label>
 
-          <label>Zip:
+            <label>Zip</label>
             <input type="text" onChange={this.handleEvent("zip")} value={this.state.zip}></input>
-          </label>
 
-          <label>Brief Description:
+            <label>Description<span>*</span></label>
             <textarea onChange={this.handleEvent("description")} value={this.state.description}></textarea>
-          </label>
 
-          <input type="submit" value={this.props.action}></input>
-        </form>
 
+            <input className="create" type="submit" value={this.props.action}></input>
+            <p><span>*</span> These fields must be filled</p>
+          </form>
+
+        </div>
       </div>
     )
   }

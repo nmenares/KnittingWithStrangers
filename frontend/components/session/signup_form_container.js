@@ -5,7 +5,7 @@ import { signup, deleteErrors } from '../../actions/session_actions';
 import { Link } from 'react-router-dom';
 
 const msp = (state) => ({
-  errors: state.errors.errors,
+  errors: state.errors.session_errors,
   formType: "signup",
   email: "Email address",
   msg: "We've made a mistake.",
