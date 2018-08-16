@@ -1909,6 +1909,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
+var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
+var _moment2 = _interopRequireDefault(_moment);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1920,13 +1924,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Profile = function (_React$Component) {
   _inherits(Profile, _React$Component);
 
-  function Profile(props) {
+  function Profile() {
     _classCallCheck(this, Profile);
 
-    var _this = _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).call(this, props));
-
-    _this.state = { photoFile: null };
-    return _this;
+    return _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).apply(this, arguments));
   }
 
   _createClass(Profile, [{
@@ -1947,14 +1948,129 @@ var Profile = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      if (!this.props.me) {
+        return null;
+      }
 
       return _react2.default.createElement(
         'div',
         null,
         this.props.me ? _react2.default.createElement(
-          'h1',
+          'div',
           null,
-          'profile'
+          _react2.default.createElement(
+            'div',
+            { className: 'profile-menu' },
+            _react2.default.createElement(
+              'p',
+              null,
+              'QUICK LOOK'
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              'HISTORY'
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              'ACCOUNT DETAILS'
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'profile-content' },
+            _react2.default.createElement(
+              'div',
+              { className: 'profile-sidebar' },
+              _react2.default.createElement(
+                'h2',
+                null,
+                'Welcome home, ',
+                this.props.me.username,
+                '!'
+              ),
+              _react2.default.createElement(
+                'h3',
+                null,
+                'What are you grateful today?'
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'link3' },
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { to: '/knitting_times' },
+                  'find another knitting time!'
+                )
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'profile-body' },
+              _react2.default.createElement(
+                'div',
+                { className: 'list-profile' },
+                _react2.default.createElement(
+                  'h2',
+                  null,
+                  'Knitting times you\'re attending'
+                ),
+                'ATTENDING'
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'list-profile' },
+                _react2.default.createElement(
+                  'h2',
+                  null,
+                  'Knitting times you\'re hosting'
+                ),
+                _react2.default.createElement(
+                  'ul',
+                  null,
+                  ' ',
+                  this.props.hosted_knitting_times.map(function (hkt) {
+                    return _react2.default.createElement(
+                      'li',
+                      { key: hkt.id },
+                      _react2.default.createElement(
+                        'p',
+                        null,
+                        (0, _moment2.default)(hkt.date).format('dddd')
+                      ),
+                      _react2.default.createElement(
+                        'h3',
+                        null,
+                        (0, _moment2.default)(hkt.date).format('MMMM'),
+                        ' ',
+                        (0, _moment2.default)(hkt.date).date()
+                      ),
+                      _react2.default.createElement(
+                        'h4',
+                        null,
+                        hkt.start_time,
+                        ' - ',
+                        hkt.end_time
+                      ),
+                      _react2.default.createElement(
+                        'p',
+                        null,
+                        hkt.address_1,
+                        hkt.address_2 ? ', ' + hkt.address_2 : null,
+                        ', ',
+                        hkt.city,
+                        ', ',
+                        hkt.state,
+                        ', ',
+                        hkt.zip
+                      )
+                    );
+                  })
+                )
+              )
+            )
+          )
         ) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/login' })
       );
     }
@@ -2002,8 +2118,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var msp = function msp(state) {
   return {
     me: state.entities.users[state.session.id],
+    hosted_knitting_times: Object.values(state.entities.knitting_times).filter(function (kt) {
+      return kt.host_id === parseInt(state.session.id);
+    }),
+    attending_enrollments: Object.values(state.entities.knitting_time_enrollments).filter(function (kt) {
+      return kt.user_id === parseInt(state.session.id);
+    }),
     knitting_times: Object.values(state.entities.knitting_times),
-    knitting_time_enrollments: state.entities.knitting_times
+    users: state.entities.users
   };
 };
 

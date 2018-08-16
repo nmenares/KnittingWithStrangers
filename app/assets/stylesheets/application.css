@@ -182,7 +182,7 @@
   color: #333;
 }
 
-.intro h2, .introknittingtimes h2, .hostingform h2{
+.intro h2, .introknittingtimes h2, .hostingform h2, .profile-sidebar h2, .list-profile h2{
   color: #EF6236;
   font-size: 1.5em;
   margin: auto;
@@ -1150,4 +1150,109 @@ blockquote span {
   line-height: 1.625;
   letter-spacing: 0.001em;
   color: black;
+}
+
+.profile-menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 10px 20px 10px 220px;
+  background-color: #fce6b8;
+  margin-bottom: 18px;
+}
+
+.profile-menu p{
+  padding-right: 14.4px;
+  font-weight: 600;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  letter-spacing: 0.006em;
+}
+
+.profile-content {
+  display: flex;
+  flex-direction: row;
+  margin: 0 220px;
+}
+
+.profile-sidebar {
+  width: 229px;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.006em;
+  margin-right: 23px;
+}
+
+.profile-sidebar h3{
+  margin-top: 6.750px;
+  margin-bottom: 13.5px;
+  line-height: 1.25;
+  font-size: 17px;
+  color: #333;
+}
+
+.link3 {
+  width: auto;
+  height: 58px;
+  background-color: #EF6236;
+  text-align: center;
+  border-radius: 10px;
+  border: 3px solid #EF6236;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.link3 a {
+  color: #FEFEFE;
+  text-transform: uppercase;
+  font-size: 14px;
+  padding: 14.4px 21.6px;
+}
+
+.list-profile {
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.006em;
+}
+
+.list-profile li{
+  list-style: none;
+  border: 1px solid #DDD;
+  margin-bottom: 18px;
+  padding: 13.5px;
+  background-color: #FEFEFE;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.25;
+}
+
+.list-profile p{
+  color: #929292;
+  font-weight: 400;
+  font-size: 0.8em;
+  margin: 0;
+}
+
+.list-profile h3{
+  color: #333;
+  font-weight: 600;
+  font-size: 1em;
+  margin: 0;
+}
+
+.list-profile h4{
+  color: #333;
+  font-weight: 600;
+  font-size: 0.8em;
+  margin: 0;
 }
