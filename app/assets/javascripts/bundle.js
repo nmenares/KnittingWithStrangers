@@ -1259,7 +1259,7 @@ var KnittingTimeShow = function (_React$Component) {
               '(It\'ll be helpful to know what they look like when you\'re looking for a group of confused strangers.)'
             )
           ),
-          _react2.default.createElement('img', { src: 'http://via.placeholder.com/300x300' }),
+          _react2.default.createElement('img', { src: window.profile }),
           _react2.default.createElement(
             'div',
             { className: 'kt-description' },
@@ -1449,7 +1449,7 @@ var KnittingTimeBox = function (_React$Component) {
 
       return _react2.default.createElement(
         'li',
-        { className: 'kt-container' },
+        { className: 'kt-container', onClick: this.handleClick.bind(this) },
         dateinfo >= (0, _moment2.default)() ? _react2.default.createElement(
           'div',
           null,
@@ -1485,7 +1485,7 @@ var KnittingTimeBox = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 { className: 'host-icon' },
-                _react2.default.createElement('img', { src: 'http://via.placeholder.com/77x77' }),
+                _react2.default.createElement('img', { src: window.profile }),
                 _react2.default.createElement(
                   'h4',
                   null,
@@ -1506,7 +1506,7 @@ var KnittingTimeBox = function (_React$Component) {
           ),
           _react2.default.createElement(
             'button',
-            { onClick: this.handleClick.bind(this), className: 'go-kt' },
+            { className: 'go-kt' },
             included ? _react2.default.createElement(
               'h2',
               { className: 'normal', id: 'signup' },

@@ -85,7 +85,7 @@ class KnittingTimeShow extends React.Component {
             <p>(It'll be helpful to know what they look like when you're looking for a group of confused strangers.)</p>
           </div>
 
-          <img src="http://via.placeholder.com/300x300"/>
+          <img src={window.profile} />
           <div className="kt-description">
             <p>Hey there! I’m passionate about learning as much as an can. Usually, that means learning about others and how they view the world and how all those views and their interactions create humanity. I love to ask questions that are at times a bit much for normal conversation so if you like answering questions about your own thinking, let’s tea time! (Can I use that as a verb?)</p>
             <h3>What's your story?</h3>

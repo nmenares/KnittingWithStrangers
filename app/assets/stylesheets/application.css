@@ -432,6 +432,10 @@ footer {
   list-style: none;
 }
 
+.kt-container:hover {
+  cursor: pointer;
+}
+
 .kt-top {
   display: flex;
   justify-content: space-around;
@@ -443,8 +447,20 @@ footer {
   width: 78px;
   border: solid 2px #eda20b;
   border-radius: 3px;
-  padding: 5px;
+  padding: 4.5px;
   background: white;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.host-icon img{
+  width: 77px;
+  object-fit: cover;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 3px;
 }
 
 .host-icon h4 {
@@ -671,6 +687,10 @@ footer {
   align-self: center;
   width: 40px;
   height: auto;
+  object-fit: cover;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .kt-description p{

@@ -25,7 +25,7 @@ class KnittingTimeBox extends React.Component{
     let included = this.props.me;
 
     return(
-      <li className="kt-container">
+      <li className="kt-container" onClick={this.handleClick.bind(this)}>
         {dateinfo >= moment() ?
         <div>
           <div className="kt">
@@ -36,7 +36,7 @@ class KnittingTimeBox extends React.Component{
                 <h2>{this.state.start_time} - {this.state.end_time}</h2>
               </div>
               <div className="host-icon">
-                <img src="http://via.placeholder.com/77x77"/>
+                <img src={window.profile} />
                 <h4>{this.props.host.username}</h4>
               </div>
             </div>
@@ -45,7 +45,7 @@ class KnittingTimeBox extends React.Component{
             <ProgressBar users={this.props.enrollments} kt={this.state}/>
           </div>
 
-          <button onClick={this.handleClick.bind(this)} className="go-kt">
+          <button className="go-kt">
             {included ? <h2 className="normal" id="signup">signed up</h2> : <h2 className="normal">{label}</h2>}
             <h2 className="hover">check it out →</h2>
           </button>
