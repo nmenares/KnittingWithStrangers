@@ -22,6 +22,9 @@ class Profile extends React.Component {
       return null;
     }
 
+    const my_kt_ids = this.props.attending_enrollments.map(ae => ae.knittingtime_id);
+    const my_kts = my_kt_ids.map(id => this.props.knitting_times[id]);
+
     return (
       <div>
         {this.props.me ?
@@ -40,7 +43,16 @@ class Profile extends React.Component {
             <div className="profile-body">
               <div className="list-profile">
                 <h2>Knitting times you're attending</h2>
-                ATTENDING
+                <ul> {my_kts.map(kt => (
+                    <li key={kt.id}>
+                      <p>{moment(kt.date).format('dddd')}</p>
+                      <h3>{moment(kt.date).format('MMMM')} {moment(kt.date).date()}</h3>
+                      <h4>{kt.start_time} - {kt.end_time}</h4>
+                      <p>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
+                    </li>
+                  ))
+                  }
+                </ul>
               </div>
               <div className="list-profile">
                 <h2>Knitting times you're hosting</h2>

@@ -1948,9 +1948,18 @@ var Profile = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       if (!this.props.me) {
         return null;
       }
+
+      var my_kt_ids = this.props.attending_enrollments.map(function (ae) {
+        return ae.knittingtime_id;
+      });
+      var my_kts = my_kt_ids.map(function (id) {
+        return _this2.props.knitting_times[id];
+      });
 
       return _react2.default.createElement(
         'div',
@@ -2016,7 +2025,48 @@ var Profile = function (_React$Component) {
                   null,
                   'Knitting times you\'re attending'
                 ),
-                'ATTENDING'
+                _react2.default.createElement(
+                  'ul',
+                  null,
+                  ' ',
+                  my_kts.map(function (kt) {
+                    return _react2.default.createElement(
+                      'li',
+                      { key: kt.id },
+                      _react2.default.createElement(
+                        'p',
+                        null,
+                        (0, _moment2.default)(kt.date).format('dddd')
+                      ),
+                      _react2.default.createElement(
+                        'h3',
+                        null,
+                        (0, _moment2.default)(kt.date).format('MMMM'),
+                        ' ',
+                        (0, _moment2.default)(kt.date).date()
+                      ),
+                      _react2.default.createElement(
+                        'h4',
+                        null,
+                        kt.start_time,
+                        ' - ',
+                        kt.end_time
+                      ),
+                      _react2.default.createElement(
+                        'p',
+                        null,
+                        kt.address_1,
+                        kt.address_2 ? ', ' + kt.address_2 : null,
+                        ', ',
+                        kt.city,
+                        ', ',
+                        kt.state,
+                        ', ',
+                        kt.zip
+                      )
+                    );
+                  })
+                )
               ),
               _react2.default.createElement(
                 'div',
@@ -2124,7 +2174,7 @@ var msp = function msp(state) {
     attending_enrollments: Object.values(state.entities.knitting_time_enrollments).filter(function (kt) {
       return kt.user_id === parseInt(state.session.id);
     }),
-    knitting_times: Object.values(state.entities.knitting_times),
+    knitting_times: state.entities.knitting_times,
     users: state.entities.users
   };
 };
