@@ -925,21 +925,82 @@ footer {
 /* splash */
 
 .transversal {
-  width: 100%;
+  width: auto;
   background: #F3ECCE;
   text-align: center;
-  padding: 2em 1em;
+  padding: 36px 210px;
 }
 
-#flex, .mono_desc {
+.transversal h1{
+  color: #5C5C5C;
+  margin: 0;
+  margin-bottom: 27px;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+#flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#flex div{
+  width: 312px;
+  margin-right: 24px;
+  letter-spacing: 0.001em;
+}
+
+#flex div h2, .mono_desc div h2{
+  font-size: 1.5em;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  line-height: 1.25;
+  font-weight: 600;color: #EF6236;
+  margin: 0;
+  margin-bottom: 9px;
+}
+
+#flex div p{
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  color: #333;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  line-height: 1.625;
+  margin: 0;
+  font-weight: 400;
+}
+
+.mono_desc, .mono_desc2 {
+  max-width: 816px;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin: 36px 23px 36px 84px;
 }
 
-.mono_desc {
-  max-width: 800px;
+.mono_desc img, .mono_desc3 img{
+  height: 300px;
+  padding: 0 30px 0 30px;
 }
+
+.mono_desc div {
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  padding: 30px;
+  text-align: left;
+}
+
+.mono_desc div h4{
+  font-weight: normal;
+  font-size: 17px;
+  line-height: 1.625;
+  letter-spacing: 0.001em;
+  color: black;
+}
+
 
 .motives {
   display: inline-flex;
@@ -951,11 +1012,19 @@ footer {
 }
 
 .body {
-  background-color: #FEFEFE;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+}
+
+.body h2 {
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  line-height: 1.25;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 18px;
+  font-size: 18px;
 }
 
 .mainimage-splash {
@@ -978,7 +1047,12 @@ footer {
   z-index: 1;
 }
 
-.knittingtimes .link {
+.knittingtimes2 {
+  background-color: #FEFEFE;
+}
+
+
+.knittingtimes2 .link, .transversal .link2 {
   width: 350px;
   height: 58px;
   background-color: #EF6236;
@@ -991,14 +1065,89 @@ footer {
 
 }
 
-.knittingtimes a{
+.knittingtimes2 a {
   color: #FFF;
   z-index: 3;
 }
 
-
-.knittingtimes .link:hover {
+.knittingtimes2 .link:hover, .transversal .link2:hover {
   background-color: #FF5500;
   border: 3px solid #FF5500;
   cursor: pointer;
+}
+
+.transversal .link2 {
+  width: 540px;
+}
+
+.transversal .link2 a{
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  margin-bottom: 9px;
+  font-weight: 600;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  font-size: 1.3em;
+  margin: 0;
+}
+
+.mono_desc2 {
+  justify-content: space-between;
+  margin: auto;
+  margin-top: 54px;
+  max-width: 866px
+}
+
+blockquote {
+  padding: 0.5em 3em 0.5em;
+  border-right: 1em solid #fcebc7;
+  border-left: 0;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-style: normal;
+  font-size: 15px;
+  color: #595959;
+  margin: 0.625em 0;
+  line-height: 1.5em;
+}
+
+blockquote span {
+  font-weight: 600;
+  color: #EF6236;
+}
+
+.mono_desc3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mono_desc3 img{
+  margin-bottom: 72px;
+  margin-top: 54px;
+}
+
+.mono_desc3 h2{
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  line-height: 1.25;
+  font-weight: 600;
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 18px;
+  letter-spacing: 0.006em;
+}
+
+.mono_desc h4 {
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  padding: 30px;
+  padding-top: 0px;
+  margin-top: 0px;
+  text-align: left;
+  font-weight: normal;
+  font-size: 17px;
+  line-height: 1.625;
+  letter-spacing: 0.001em;
+  color: black;
 }

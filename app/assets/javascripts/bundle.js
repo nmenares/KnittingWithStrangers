@@ -2363,93 +2363,51 @@ var Splash = function Splash() {
     { className: 'knittingtimes' },
     _react2.default.createElement(
       'div',
-      { className: 'mainimage-splash' },
-      _react2.default.createElement('img', { src: window.splash }),
+      { className: 'knittingtimes2' },
       _react2.default.createElement(
         'div',
-        { className: 'maintext' },
-        _react2.default.createElement(
-          'h1',
-          null,
-          'Everyone is interesting'
-        ),
-        _react2.default.createElement(
-          'h2',
-          null,
-          'But you don\u2019t discover that when you\u2019re staring at a screen.'
-        ),
+        { className: 'mainimage-splash' },
+        _react2.default.createElement('img', { src: window.splash }),
         _react2.default.createElement(
           'div',
-          { className: 'link' },
+          { className: 'maintext' },
           _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/knitting_times' },
-            'let\'s get tea'
+            'h1',
+            null,
+            'Everyone is interesting'
+          ),
+          _react2.default.createElement(
+            'h2',
+            null,
+            'But you don\u2019t discover that when you\u2019re staring at a screen.'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'link' },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/knitting_times' },
+              'let\'s talk and knit'
+            )
           )
         )
-      )
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: 'transversal', id: 'flex' },
-      _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'h2',
-          null,
-          'Show up for tea time'
-        ),
-        _react2.default.createElement(
-          'p',
-          null,
-          'You and a few others join a host at a cafe.'
-        )
       ),
       _react2.default.createElement(
         'div',
-        null,
-        _react2.default.createElement(
-          'h2',
-          null,
-          'Have a real conversation'
-        ),
-        _react2.default.createElement(
-          'p',
-          null,
-          'You talk for two hours about anything.'
-        )
-      ),
-      _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'h2',
-          null,
-          'See what happens'
-        ),
-        _react2.default.createElement(
-          'p',
-          null,
-          'That\'s it. No strings attached.'
-        )
-      )
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: 'body' },
-      _react2.default.createElement(
-        'h2',
-        null,
-        'SO WHY ARE THOUSANDS OF PEOPLE DOING IT?'
-      ),
-      _react2.default.createElement(
-        'div',
-        { className: 'mono_desc' },
+        { className: 'transversal', id: 'flex' },
         _react2.default.createElement(
           'div',
           null,
-          'MONO'
+          _react2.default.createElement(
+            'h2',
+            null,
+            'Show up for knitting time'
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            'You and a few others join a host at a cafe o public place.'
+          )
         ),
         _react2.default.createElement(
           'div',
@@ -2457,45 +2415,13 @@ var Splash = function Splash() {
           _react2.default.createElement(
             'h2',
             null,
-            'It\u2019s weird.'
+            'Have a real conversation'
           ),
           _react2.default.createElement(
-            'h4',
+            'p',
             null,
-            'Everyone at tea time is stepping a little out of their comfort zone. This makes it so much easier to actually learn something unexpected about the people around you. Because open minds are a prerequisite around here.'
+            'You talk for two hours about anything, while knitting.'
           )
-        )
-      ),
-      _react2.default.createElement(
-        'div',
-        { className: 'mono_desc' },
-        _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'h2',
-            null,
-            'We won\'t meet otherwise.'
-          ),
-          _react2.default.createElement(
-            'h4',
-            null,
-            'In all likelihood, our paths won\u2019t cross for any reason. So often, we only meet people through work, school, or friends of friends. And even then, it\u2019s questionable. So basically, we manufacture serendipity.\u2028'
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          null,
-          'MONO'
-        )
-      ),
-      _react2.default.createElement(
-        'div',
-        { className: 'mono_desc' },
-        _react2.default.createElement(
-          'div',
-          null,
-          'MONO'
         ),
         _react2.default.createElement(
           'div',
@@ -2503,12 +2429,78 @@ var Splash = function Splash() {
           _react2.default.createElement(
             'h2',
             null,
-            'Your hands are made for high fiving!'
+            'See what happens'
           ),
           _react2.default.createElement(
-            'h4',
+            'p',
             null,
-            'And your eyes are made\u2026for eye contact! Real humans are so much cooler than their tweets or Instagram pictures. Tea time has real humans! #nofilter!'
+            'That\'s it. No strings attached.'
+          )
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'body' },
+        _react2.default.createElement(
+          'h2',
+          null,
+          'SO WHY ARE THOUSANDS OF PEOPLE DOING IT?'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'mono_desc' },
+          _react2.default.createElement('img', { src: window.sheep1 }),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'h2',
+              null,
+              'It\u2019s weird.'
+            ),
+            _react2.default.createElement(
+              'h4',
+              null,
+              'Everyone at knitting time is stepping a little out of their comfort zone. This makes it so much easier to actually learn something unexpected about the people around you. Because open minds are a prerequisite around here.'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'mono_desc' },
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'h2',
+              null,
+              'We won\'t meet otherwise.'
+            ),
+            _react2.default.createElement(
+              'h4',
+              null,
+              'In all likelihood, our paths won\u2019t cross for any reason. So often, we only meet people through work, school, or friends of friends. And even then, it\u2019s questionable. So basically, we manufacture serendipity.\u2028'
+            )
+          ),
+          _react2.default.createElement('img', { src: window.sheep1 })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'mono_desc' },
+          _react2.default.createElement('img', { src: window.sheep1 }),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'h2',
+              null,
+              'Your hands are made for high fiving and knitting!'
+            ),
+            _react2.default.createElement(
+              'h4',
+              null,
+              'And your eyes are made\u2026 for eye contact! Real humans are so much cooler than their tweets or Instagram pictures. Knitting time has real humans and real yarns! #nofilter!'
+            )
           )
         )
       ),
@@ -2516,55 +2508,61 @@ var Splash = function Splash() {
         'div',
         { className: 'transversal' },
         _react2.default.createElement(
-          'div',
+          'h1',
           null,
           'Actually talk to people.'
         ),
         _react2.default.createElement(
           'div',
-          { className: 'link' },
+          { className: 'link2' },
           _react2.default.createElement(
             _reactRouterDom.Link,
             { to: '/knitting_times' },
-            'let\'s get tea'
+            'let\'s talk and knit'
           )
         )
       ),
       _react2.default.createElement(
         'div',
-        { className: 'mono_desc' },
+        { className: 'mono_desc2' },
         _react2.default.createElement(
-          'div',
+          'blockquote',
           null,
-          '\u201DI met people who I continue to be in touch with almost a year later, and people who I shared delightful conversations with that day but no more. Both are their own kind of fun.\u201D Freia, NYC'
+          '\u201DI met people who I continue to be in touch with almost a year later, and people who I shared delightful conversations and knitting patterns with that day but no more. Both are their own kind of fun.\u201D',
+          _react2.default.createElement(
+            'span',
+            null,
+            ' Freia, NYC'
+          )
         ),
         _react2.default.createElement(
-          'div',
+          'blockquote',
           null,
-          '\u201DI\u2019m not the type of person who talks to strangers. This doesn\u2019t mean I don\u2019t want to. Tea With Strangers just makes it easier because you know everyone there wants it too.\u201D Molly, SF'
+          '\u201DI\u2019m not the type of person who talks to strangers. This doesn\u2019t mean I don\u2019t want to. Knitting With Strangers just makes it easier because you know everyone there wants it too.\u201D',
+          _react2.default.createElement(
+            'span',
+            null,
+            ' Molly, SF'
+          )
         )
       ),
       _react2.default.createElement(
-        'h2',
-        null,
-        'THERE\'S NO SUCH THING AS A STRANGER.'
+        'div',
+        { className: 'mono_desc3' },
+        _react2.default.createElement('img', { src: window.sheep1 }),
+        _react2.default.createElement(
+          'h2',
+          null,
+          'THERE\'S NO SUCH THING AS A STRANGER.'
+        )
       ),
       _react2.default.createElement(
         'div',
-        { className: 'mono_desc' },
+        { className: 'body' },
         _react2.default.createElement(
           'div',
-          null,
-          'MONO'
-        ),
-        _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'h2',
-            null,
-            'It\u2019s weird.'
-          ),
+          { className: 'mono_desc' },
+          _react2.default.createElement('img', { src: window.sheep1 }),
           _react2.default.createElement(
             'h4',
             null,
@@ -2580,13 +2578,13 @@ var Splash = function Splash() {
         'div',
         { className: 'transversal' },
         _react2.default.createElement(
-          'div',
+          'h1',
           null,
           'Do we get to high five yet?'
         ),
         _react2.default.createElement(
           'div',
-          { className: 'link' },
+          { className: 'link2' },
           _react2.default.createElement(
             _reactRouterDom.Link,
             { to: '/knitting_times' },
