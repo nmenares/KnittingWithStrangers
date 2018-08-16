@@ -5,12 +5,12 @@ const Splash = () => {
   return (
     <div className="knittingtimes">
 
-      <div className="mainimage">
-        <img src={window.knittingtimes} />
+      <div className="mainimage-splash">
+        <img src={window.splash} />
         <div className="maintext">
           <h1>Everyone is interesting</h1>
           <h2>But you don’t discover that when you’re staring at a screen.</h2>
-          <Link to="/knitting_times">let's get tea</Link>
+          <div className="link"><Link to="/knitting_times">let's get tea</Link></div>
         </div>
       </div>
       <div className="transversal" id="flex">
@@ -52,7 +52,7 @@ const Splash = () => {
         </div>
         <div className="transversal">
           <div>Actually talk to people.</div>
-          <Link to="/knitting_times">let's get tea</Link>
+          <div className="link"><Link to="/knitting_times">let's get tea</Link></div>
         </div>
         <div className="mono_desc">
           <div>”I met people who I continue to be in touch with almost a year later, and people who I shared delightful conversations with that day but no more. Both are their own kind of fun.” Freia, NYC</div>
@@ -70,7 +70,7 @@ const Splash = () => {
         </div>
         <div className="transversal">
           <div>Do we get to high five yet?</div>
-          <Link to="/knitting_times">yes</Link>
+          <div className="link"><Link to="/knitting_times">yes</Link></div>
         </div>
       </div>
     </div>

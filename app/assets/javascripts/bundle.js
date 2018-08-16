@@ -1448,11 +1448,11 @@ var KnittingTimeBox = function (_React$Component) {
       var included = this.props.me;
 
       return _react2.default.createElement(
-        'li',
-        { className: 'kt-container', onClick: this.handleClick.bind(this) },
+        'div',
+        null,
         dateinfo >= (0, _moment2.default)() ? _react2.default.createElement(
-          'div',
-          null,
+          'li',
+          { className: 'kt-container', onClick: this.handleClick.bind(this) },
           _react2.default.createElement(
             'div',
             { className: 'kt' },
@@ -2363,8 +2363,8 @@ var Splash = function Splash() {
     { className: 'knittingtimes' },
     _react2.default.createElement(
       'div',
-      { className: 'mainimage' },
-      _react2.default.createElement('img', { src: window.knittingtimes }),
+      { className: 'mainimage-splash' },
+      _react2.default.createElement('img', { src: window.splash }),
       _react2.default.createElement(
         'div',
         { className: 'maintext' },
@@ -2379,9 +2379,13 @@ var Splash = function Splash() {
           'But you don\u2019t discover that when you\u2019re staring at a screen.'
         ),
         _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/knitting_times' },
-          'let\'s get tea'
+          'div',
+          { className: 'link' },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/knitting_times' },
+            'let\'s get tea'
+          )
         )
       )
     ),
@@ -2517,9 +2521,13 @@ var Splash = function Splash() {
           'Actually talk to people.'
         ),
         _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/knitting_times' },
-          'let\'s get tea'
+          'div',
+          { className: 'link' },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/knitting_times' },
+            'let\'s get tea'
+          )
         )
       ),
       _react2.default.createElement(
@@ -2577,9 +2585,13 @@ var Splash = function Splash() {
           'Do we get to high five yet?'
         ),
         _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/knitting_times' },
-          'yes'
+          'div',
+          { className: 'link' },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/knitting_times' },
+            'yes'
+          )
         )
       )
     )

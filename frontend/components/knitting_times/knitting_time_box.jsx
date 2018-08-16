@@ -25,9 +25,9 @@ class KnittingTimeBox extends React.Component{
     let included = this.props.me;
 
     return(
-      <li className="kt-container" onClick={this.handleClick.bind(this)}>
+      <div>
         {dateinfo >= moment() ?
-        <div>
+        <li className="kt-container" onClick={this.handleClick.bind(this)} >
           <div className="kt">
             <div className="kt-top">
               <div>
@@ -49,11 +49,10 @@ class KnittingTimeBox extends React.Component{
             {included ? <h2 className="normal" id="signup">signed up</h2> : <h2 className="normal">{label}</h2>}
             <h2 className="hover">check it out →</h2>
           </button>
-        </div>
+        </li>
         : null
         }
-      </li>
-
+      </div>
     )
   }
 
