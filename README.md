@@ -24,13 +24,17 @@ This project is a [Tea With Strangers](http://www.teawithstrangers.com/) clone, 
 
 ### Home
 Home page it is a presentational component that contain information of the web app.
-From this page users can go to Knitting Time Index, Sign up and Sign in. Also, there is DEMO option, where any user can sign in to "Stranger" session, and go through the app.
+From this page users can go to Knitting Time Index, Sign up and Sign in.
+Also, there is DEMO option, where any user can sign in to "Stranger" session, and go through the app.
 ![home](app/assets/README/home.png)
 ### City Index with Knitting Times
-This page contain all areas and their Knitting Times. From here, any logged in user can go to Knitting Time Create page or an specific KnittingTime Show page.
+This page contain all areas and their Knitting Times.
+From here, any logged in user can go to Knitting Time Create page or an specific KnittingTime Show page.
 ![index](app/assets/README/index.png)
 ### Knitting Time Show Page
-Here the user, logged in or not, can see all Knitting Time information. The user can book an spot if he/she is logged in and is not attending or hosting the Knitting Time. The max capability of a Knitting Time is 5 users, if there are more than 5 users, he/she will be added to the waitlist.
+Here the user, logged in or not, can see all Knitting Time information.
+The user can book an spot if he/she is logged in and is not attending or hosting the Knitting Time.
+The max capability of a Knitting Time is 5 users, if there are more than 5 users, he/she will be added to the waitlist.
 ![show](app/assets/README/show.png)
 ### Session
 If the user have already an account can sign in using his/her email and password.
