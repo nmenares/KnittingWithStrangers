@@ -28,11 +28,3 @@ export const createKnittingTime = (areaId, data, callback) => {
     dispatch(receiveErrors(err.responseJSON))
   )
 )};
-
-
-// export const createKnittingTime = (areaId, data) => {
-//   return dispatch =>
-//     ApiKnittingTimeUtil.createKnittingTime(areaId, data).then(kt =>
-//       dispatch(receiveKnittingTime(kt))
-//     )
-// };

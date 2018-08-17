@@ -29,7 +29,7 @@
 
 .navbar {
   background-color: rgba(247,191,77,0.87);
-  color: #fff;
+  color: #FEFEFE;
   font-family: 'Indie Flower', cursive;
   font-style: italic;
   font-size: 25px;
@@ -72,7 +72,7 @@
   border-radius: 2px;
   text-transform: uppercase;
   font-size: 14px;
-  color: #FFF;
+  color: #FEFEFE;
   text-decoration: none;
   font-style: normal;
   letter-spacing: 1px;
@@ -87,7 +87,7 @@
   background-repeat:no-repeat;
   border: none;
   margin-left: 10px;
-  color: #FFF;
+  color: #FEFEFE;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   font-feature-settings: "kern", "liga", "frac", "pnum";
   -webkit-font-smoothing: antialiased;
@@ -99,14 +99,14 @@
 }
 
 .signup a, .demo button, .areaindex button {
-  background-color: #FFF;
+  background-color: #FEFEFE;
   margin-left: 10px;
   color: rgba(247,191,77,0.87);
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   font-feature-settings: "kern", "liga", "frac", "pnum";
   -webkit-font-smoothing: antialiased;
   border-radius: 3px;
-  border: 2px solid #FFF;
+  border: 2px solid #FEFEFE;
   text-transform: uppercase;
   font-size: 14px;
   padding: 6px 13px 6px 13px;
@@ -118,21 +118,22 @@
   width: 100px;
   height: 38px;
   background-color: rgba(247,191,77,0.87);
-  color: #FFF;
-  border: 2px solid #FFF;
+  color: #FEFEFE;
+  border: 2px solid #FEFEFE;
   font-weight: 600;
 }
 
 .signup a:hover {
   background-color: rgba(247,191,77,0.87);
-  color: #FFF;
-  border: 2px solid #FFF;
+  color: #FEFEFE;
+  border: 2px solid #FEFEFE;
+  cursor: pointer;
 }
 
 .demo button:hover, .areaindex button:hover{
-  background-color: #FFF;
+  background-color: #FEFEFE;
   color: rgba(247,191,77,0.87);
-  border: 2px solid #FFF;
+  border: 2px solid #FEFEFE;
   cursor: pointer;
 }
 
@@ -778,10 +779,12 @@ footer {
 .join:hover {
   border: 1px solid #B53D39;
   background-color: #B53D39;
+  cursor: pointer;
 }
 
 .kt-sidebar a:hover {
   color: #B53D39;
+  cursor: pointer;
 }
 
 .me-info .mobileinfo {
@@ -844,7 +847,7 @@ footer {
   font-feature-settings: "kern", "liga", "frac", "pnum";
   -webkit-font-smoothing: antialiased;
   background-color: #FEFEFE;
-  border: 1px solid #929292;
+  border: 2px solid #DDDD;
   margin: 0 79px 0 79px;
   padding: 0;
   padding-top: 26px;
@@ -977,7 +980,7 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 36px 23px 36px 84px;
+  margin: 0px 23px 72px 84px;
 }
 
 .mono_desc img, .mono_desc3 img{
@@ -989,7 +992,6 @@ footer {
   font-feature-settings: "kern", "liga", "frac", "pnum";
   -webkit-font-smoothing: antialiased;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
-  padding: 30px;
   text-align: left;
 }
 
@@ -999,6 +1001,7 @@ footer {
   line-height: 1.625;
   letter-spacing: 0.001em;
   color: black;
+  padding: 0;
 }
 
 
@@ -1022,8 +1025,8 @@ footer {
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   line-height: 1.25;
   font-weight: 600;
-  margin: 0;
-  margin-bottom: 18px;
+  margin: 54px 0 26px 0;
+  margin-bottom: 36px;
   font-size: 18px;
 }
 
@@ -1048,7 +1051,7 @@ footer {
 }
 
 .knittingtimes2 {
-  background-color: #FEFEFE;
+  background-color: #FFF;
 }
 
 
@@ -1095,7 +1098,7 @@ footer {
 .mono_desc2 {
   justify-content: space-between;
   margin: auto;
-  margin-top: 54px;
+  margin-top: 40px;
   max-width: 866px
 }
 
@@ -1123,15 +1126,15 @@ blockquote span {
 }
 
 .mono_desc3 img{
-  margin-bottom: 72px;
-  margin-top: 54px;
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 .mono_desc3 h2{
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   line-height: 1.25;
   font-weight: 600;
-  margin: 0;
+  margin: 36px 0;
   text-transform: uppercase;
   font-size: 18px;
   letter-spacing: 0.006em;
@@ -1178,7 +1181,7 @@ blockquote span {
 }
 
 .profile-sidebar {
-  width: 229px;
+  min-width: 229px;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   font-feature-settings: "kern", "liga", "frac", "pnum";
   -webkit-font-smoothing: antialiased;
@@ -1208,6 +1211,12 @@ blockquote span {
   justify-content: space-around;
 }
 
+.link3:hover {
+  background-color: #B53D39;
+  border: 3px solid #B53D39;
+  cursor: pointer;
+}
+
 .link3 a {
   color: #FEFEFE;
   text-transform: uppercase;
@@ -1228,16 +1237,20 @@ blockquote span {
   padding: 0;
 }
 
-.list-profile li{
+.list-profile li {
   list-style: none;
+}
+
+.list-profile .profile-kt-box, .list-profile .profile-kt-box2 {
   border: 1px solid #DDD;
-  margin-bottom: 18px;
+  margin-bottom: 25px;
   padding: 13.5px;
   background-color: #FEFEFE;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   font-feature-settings: "kern", "liga", "frac", "pnum";
   -webkit-font-smoothing: antialiased;
   line-height: 1.4;
+  height: 102px;
 }
 
 .list-profile p{
@@ -1258,5 +1271,139 @@ blockquote span {
   color: #333;
   font-weight: 600;
   font-size: 0.8em;
+  margin: 0;
+}
+
+.li-attending, .photo-p{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.li-attending{
+  margin-bottom: 54px;
+}
+
+.hostphoto{
+  max-width: 145px;
+  max-height: 97px;
+  padding: 9px;
+  border: 1px solid #F7BF4D;
+  background-color: #FEFEFE;
+  margin-bottom: 27px;
+  margin-right: 18px;
+}
+
+.hostphoto img {
+  max-width: 137px;
+  max-height: 79px;
+  object-fit: cover;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  align-items: center;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.profile-host-box, .profile-kt-box{
+  min-width: 350px;
+}
+
+.profile-host-box {
+  padding-left: 30px;
+}
+
+.profile-host-box h3 {
+  color: #929292;
+  margin-bottom: 13.5px;
+}
+
+
+.cancel-kt {
+  width: auto;
+  border-top: 1px solid #DDD;
+  color: #EF6236;
+  margin-left: -14px;
+  margin-right: -14px;
+  padding: 7px 13.5px 7px 13.5px;
+  color: #EF6236;
+  font-size: 10px;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
+}
+
+.cancel-kt:hover {
+  color: #B53D39;
+  cursor: pointer;
+}
+
+.profile-host-info, .profile-host-info2 {
+  background-color: Transparent;
+  border: 2px solid #EF6236;
+  color: #EF6236;
+  font-size: 10px;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
+  margin-right: 23px;
+  margin-bottom: 10.8px;
+  width: 150px;
+  text-align: center;
+  font-weight: 600;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.profile-host-info:hover {
+  background-color: #EF6236;
+  color: #FEFEFE;
+  cursor: pointer;
+}
+
+.hosted-li {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.profile-kt-box2 {
+  width: 350px;
+  margin-right: 30px;
+}
+
+.modify-hosted {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-host-info2 {
+  width: 150px;
+  background-color: #EF6236;
+  border: 2px solid #EF6236;
+  color: #FEFEFE;
+}
+
+.profile-host-info2:hover {
+  background-color: #B53D39;
+  border: 2px solid #B53D39;
+  color: #FEFEFE;
+  cursor: pointer;
+}
+
+.me-info .ghost {
+  background-color: Transparent;
+  border: none;
+  padding: 0;
+  text-align: center;
+  margin: 0;
+}
+
+.mono_desc .last-sheep {
+  padding: 0;
   margin: 0;
 }

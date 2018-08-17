@@ -225,13 +225,6 @@ var createKnittingTime = exports.createKnittingTime = function createKnittingTim
   };
 };
 
-// export const createKnittingTime = (areaId, data) => {
-//   return dispatch =>
-//     ApiKnittingTimeUtil.createKnittingTime(areaId, data).then(kt =>
-//       dispatch(receiveKnittingTime(kt))
-//     )
-// };
-
 /***/ }),
 
 /***/ "./frontend/actions/session_actions.js":
@@ -1180,27 +1173,35 @@ var KnittingTimeShow = function (_React$Component) {
                 'You\'re already signed up!'
               ) : _react2.default.createElement(
                 'div',
-                { className: 'mobileinfo' },
-                _react2.default.createElement(
-                  'label',
+                { className: 'ghost' },
+                knittingtime.host_id === this.props.me.id ? _react2.default.createElement(
+                  'h2',
                   null,
-                  'Mobile Number',
+                  'You\'re the host!'
+                ) : _react2.default.createElement(
+                  'div',
+                  { className: 'mobileinfo' },
                   _react2.default.createElement(
-                    'span',
+                    'label',
                     null,
-                    ' Optional, but helps to get in touch the day of your knitting time'
+                    'Mobile Number',
+                    _react2.default.createElement(
+                      'span',
+                      null,
+                      ' Optional, but helps to get in touch the day of your knitting time'
+                    )
+                  ),
+                  _react2.default.createElement('input', { className: 'phone', type: 'text', placeholder: '(555) 345-6789' }),
+                  enrollments.length === 5 ? _react2.default.createElement(
+                    'p',
+                    null,
+                    'You\'ll get an email the moment someone cancels their seat.'
+                  ) : null,
+                  _react2.default.createElement(
+                    'button',
+                    { className: 'join', onClick: this.handleSubmit.bind(this) },
+                    enrollments.length === 5 ? "join waitlist" : "sign me up"
                   )
-                ),
-                _react2.default.createElement('input', { className: 'phone', type: 'text', placeholder: '(555) 345-6789' }),
-                enrollments.length === 5 ? _react2.default.createElement(
-                  'p',
-                  null,
-                  'You\'ll get an email the moment someone cancels their seat.'
-                ) : null,
-                _react2.default.createElement(
-                  'button',
-                  { className: 'join', onClick: this.handleSubmit.bind(this) },
-                  enrollments.length === 5 ? "join waitlist" : "sign me up"
                 )
               )
             ) : _react2.default.createElement(
@@ -2032,37 +2033,87 @@ var Profile = function (_React$Component) {
                   my_kts.map(function (kt) {
                     return _react2.default.createElement(
                       'li',
-                      { key: kt.id },
+                      { className: 'li-attending', key: kt.id },
                       _react2.default.createElement(
-                        'p',
-                        null,
-                        (0, _moment2.default)(kt.date).format('dddd')
+                        'div',
+                        { className: 'profile-kt-box' },
+                        _react2.default.createElement(
+                          'p',
+                          null,
+                          (0, _moment2.default)(kt.date).format('dddd')
+                        ),
+                        _react2.default.createElement(
+                          'h3',
+                          null,
+                          (0, _moment2.default)(kt.date).format('MMMM'),
+                          ' ',
+                          (0, _moment2.default)(kt.date).date()
+                        ),
+                        _react2.default.createElement(
+                          'h4',
+                          null,
+                          kt.start_time,
+                          ' - ',
+                          kt.end_time
+                        ),
+                        _react2.default.createElement(
+                          'p',
+                          null,
+                          kt.address_1,
+                          kt.address_2 ? ', ' + kt.address_2 : null,
+                          ', ',
+                          kt.city,
+                          ', ',
+                          kt.state,
+                          ', ',
+                          kt.zip
+                        ),
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'cancel-kt' },
+                          'CANCEL MY SPOT'
+                        )
                       ),
                       _react2.default.createElement(
-                        'h3',
-                        null,
-                        (0, _moment2.default)(kt.date).format('MMMM'),
-                        ' ',
-                        (0, _moment2.default)(kt.date).date()
-                      ),
-                      _react2.default.createElement(
-                        'h4',
-                        null,
-                        kt.start_time,
-                        ' - ',
-                        kt.end_time
-                      ),
-                      _react2.default.createElement(
-                        'p',
-                        null,
-                        kt.address_1,
-                        kt.address_2 ? ', ' + kt.address_2 : null,
-                        ', ',
-                        kt.city,
-                        ', ',
-                        kt.state,
-                        ', ',
-                        kt.zip
+                        'div',
+                        { className: 'profile-host-box' },
+                        _react2.default.createElement(
+                          'h3',
+                          null,
+                          'Get to know your host'
+                        ),
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'photo-p' },
+                          _react2.default.createElement(
+                            'div',
+                            { className: 'hostphoto' },
+                            _react2.default.createElement('img', { src: window.profile })
+                          ),
+                          _react2.default.createElement(
+                            'p',
+                            null,
+                            'Keep an eye open for ',
+                            _this2.props.users[kt.host_id].username,
+                            '! So it\'s easier, here\'s what they look like :).'
+                          )
+                        ),
+                        _react2.default.createElement(
+                          'div',
+                          null,
+                          _react2.default.createElement(
+                            'button',
+                            { className: 'profile-host-info' },
+                            _this2.props.users[kt.host_id].username + '\'s',
+                            ' profile'
+                          ),
+                          _react2.default.createElement(
+                            'button',
+                            { className: 'profile-host-info' },
+                            'email ',
+                            _this2.props.users[kt.host_id].username
+                          )
+                        )
                       )
                     );
                   })
@@ -2083,37 +2134,55 @@ var Profile = function (_React$Component) {
                   this.props.hosted_knitting_times.map(function (hkt) {
                     return _react2.default.createElement(
                       'li',
-                      { key: hkt.id },
+                      { key: hkt.id, className: 'hosted-li' },
                       _react2.default.createElement(
-                        'p',
-                        null,
-                        (0, _moment2.default)(hkt.date).format('dddd')
+                        'div',
+                        { className: 'profile-kt-box2' },
+                        _react2.default.createElement(
+                          'p',
+                          null,
+                          (0, _moment2.default)(hkt.date).format('dddd')
+                        ),
+                        _react2.default.createElement(
+                          'h3',
+                          null,
+                          (0, _moment2.default)(hkt.date).format('MMMM'),
+                          ' ',
+                          (0, _moment2.default)(hkt.date).date()
+                        ),
+                        _react2.default.createElement(
+                          'h4',
+                          null,
+                          hkt.start_time,
+                          ' - ',
+                          hkt.end_time
+                        ),
+                        _react2.default.createElement(
+                          'p',
+                          null,
+                          hkt.address_1,
+                          hkt.address_2 ? ', ' + hkt.address_2 : null,
+                          ', ',
+                          hkt.city,
+                          ', ',
+                          hkt.state,
+                          ', ',
+                          hkt.zip
+                        )
                       ),
                       _react2.default.createElement(
-                        'h3',
-                        null,
-                        (0, _moment2.default)(hkt.date).format('MMMM'),
-                        ' ',
-                        (0, _moment2.default)(hkt.date).date()
-                      ),
-                      _react2.default.createElement(
-                        'h4',
-                        null,
-                        hkt.start_time,
-                        ' - ',
-                        hkt.end_time
-                      ),
-                      _react2.default.createElement(
-                        'p',
-                        null,
-                        hkt.address_1,
-                        hkt.address_2 ? ', ' + hkt.address_2 : null,
-                        ', ',
-                        hkt.city,
-                        ', ',
-                        hkt.state,
-                        ', ',
-                        hkt.zip
+                        'div',
+                        { className: 'modify-hosted' },
+                        _react2.default.createElement(
+                          'button',
+                          { className: 'profile-host-info' },
+                          'update'
+                        ),
+                        _react2.default.createElement(
+                          'button',
+                          { className: 'profile-host-info2' },
+                          'delete'
+                        )
                       )
                     );
                   })
@@ -2654,12 +2723,12 @@ var Splash = function Splash() {
               'In all likelihood, our paths won\u2019t cross for any reason. So often, we only meet people through work, school, or friends of friends. And even then, it\u2019s questionable. So basically, we manufacture serendipity.\u2028'
             )
           ),
-          _react2.default.createElement('img', { src: window.sheep1 })
+          _react2.default.createElement('img', { src: window.sheep4 })
         ),
         _react2.default.createElement(
           'div',
           { className: 'mono_desc' },
-          _react2.default.createElement('img', { src: window.sheep1 }),
+          _react2.default.createElement('img', { src: window.sheep3 }),
           _react2.default.createElement(
             'div',
             null,
@@ -2721,7 +2790,7 @@ var Splash = function Splash() {
       _react2.default.createElement(
         'div',
         { className: 'mono_desc3' },
-        _react2.default.createElement('img', { src: window.sheep1 }),
+        _react2.default.createElement('img', { src: window.sheep2 }),
         _react2.default.createElement(
           'h2',
           null,
@@ -2734,7 +2803,7 @@ var Splash = function Splash() {
         _react2.default.createElement(
           'div',
           { className: 'mono_desc' },
-          _react2.default.createElement('img', { src: window.sheep1 }),
+          _react2.default.createElement('img', { className: 'last-sheep', src: window.sheep5 }),
           _react2.default.createElement(
             'h4',
             null,
@@ -3394,14 +3463,6 @@ var deleteKnittingTime = exports.deleteKnittingTime = function deleteKnittingTim
   return $.ajax({
     method: 'DELETE',
     url: 'api/knitting_times/' + id
-  });
-};
-
-var createEnrollment = exports.createEnrollment = function createEnrollment(enrollment) {
-  return $.ajax({
-    method: 'POST',
-    url: '/api/knitting_times/' + enrollment.knittingtime_id + '/knitting_time_enrollments',
-    data: { enrollment: enrollment }
   });
 };
 
