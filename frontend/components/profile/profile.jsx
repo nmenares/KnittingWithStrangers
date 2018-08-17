@@ -2,7 +2,8 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import { toObject } from '../../util/functions'
+import { toObject } from '../../util/functions';
+import merge from 'lodash/merge';
 
 class Profile extends React.Component {
 
@@ -21,7 +22,7 @@ class Profile extends React.Component {
 
     const my_kt_ids = this.props.attending_enrollments.map(ae => ae.knittingtime_id);
     const my_kts = my_kt_ids.map(id => this.props.knitting_times[id]);
-    const enr = (kt_id) => this.props.attending_enrollments.filter(enr => enr.knittingtime_id === parseInt(kt_id));
+    const enr = (kt_id) => merge([], this.props.attending_enrollments.filter(enr => enr.knittingtime_id === parseInt(kt_id)));
 
     return (
       <div>

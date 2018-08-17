@@ -16,6 +16,7 @@ class Api::KnittingTimeEnrollmentsController < ApplicationController
   def destroy
     knitting_time_enrollment = KnittingTimeEnrollment.find_by(id: params[:id])
     knitting_time_enrollment.destroy
+    # render :show
   end
 
   private

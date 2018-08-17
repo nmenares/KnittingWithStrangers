@@ -1932,6 +1932,10 @@ var _moment2 = _interopRequireDefault(_moment);
 
 var _functions = __webpack_require__(/*! ../../util/functions */ "./frontend/util/functions.js");
 
+var _merge = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
+
+var _merge2 = _interopRequireDefault(_merge);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1975,9 +1979,9 @@ var Profile = function (_React$Component) {
         return _this2.props.knitting_times[id];
       });
       var enr = function enr(kt_id) {
-        return _this2.props.attending_enrollments.filter(function (enr) {
+        return (0, _merge2.default)([], _this2.props.attending_enrollments.filter(function (enr) {
           return enr.knittingtime_id === parseInt(kt_id);
-        });
+        }));
       };
 
       return _react2.default.createElement(
