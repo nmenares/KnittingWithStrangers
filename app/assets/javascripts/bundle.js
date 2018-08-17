@@ -140,7 +140,7 @@ var createArea = exports.createArea = function createArea(area) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createEnrollment = exports.receiveEnrollment = exports.RECEIVE_ENROLLMENT = undefined;
+exports.deleteEnrollment = exports.createEnrollment = exports.DELETE_ENROLLMENT = exports.RECEIVE_ENROLLMENT = undefined;
 
 var _enrollment_api_util = __webpack_require__(/*! ../util/enrollment_api_util */ "./frontend/util/enrollment_api_util.js");
 
@@ -149,11 +149,19 @@ var ApiEnrollmentUtil = _interopRequireWildcard(_enrollment_api_util);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var RECEIVE_ENROLLMENT = exports.RECEIVE_ENROLLMENT = 'RECEIVE_ENROLLMENT';
+var DELETE_ENROLLMENT = exports.DELETE_ENROLLMENT = 'DELETE_ENROLLMENT';
 
-var receiveEnrollment = exports.receiveEnrollment = function receiveEnrollment(knitting_time_enrollment) {
+var receiveEnrollment = function receiveEnrollment(knitting_time_enrollment) {
   return {
     type: RECEIVE_ENROLLMENT,
     knitting_time_enrollment: knitting_time_enrollment
+  };
+};
+
+var removeEnrollment = function removeEnrollment(enrollmentId) {
+  return {
+    type: DELETE_ENROLLMENT,
+    enrollmentId: enrollmentId
   };
 };
 
@@ -162,6 +170,14 @@ var createEnrollment = exports.createEnrollment = function createEnrollment(data
     return ApiEnrollmentUtil.createEnrollment(data).then(function (knitting_time_enrollment) {
       dispatch(receiveEnrollment(knitting_time_enrollment));
       callback();
+    });
+  };
+};
+
+var deleteEnrollment = exports.deleteEnrollment = function deleteEnrollment(id) {
+  return function (dispatch) {
+    return ApiEnrollmentUtil.deleteEnrollment(id).then(function () {
+      dispatch(removeEnrollment(id));
     });
   };
 };
@@ -1942,11 +1958,6 @@ var Profile = function (_React$Component) {
       this.props.fetchAreas();
     }
   }, {
-    key: 'handleFile',
-    value: function handleFile(e) {
-      this.setState({ photoFile: e.currentTarget.files[0] });
-    }
-  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -1961,6 +1972,15 @@ var Profile = function (_React$Component) {
       var my_kts = my_kt_ids.map(function (id) {
         return _this2.props.knitting_times[id];
       });
+      var enr = function enr(kt_id) {
+        return _this2.props.attending_enrollments.filter(function (enr) {
+          return enr.knittingtime_id === parseInt(kt_id);
+        });
+      };
+
+      if (!enr) {
+        return null;
+      }
 
       return _react2.default.createElement(
         'div',
@@ -2070,7 +2090,9 @@ var Profile = function (_React$Component) {
                         ),
                         _react2.default.createElement(
                           'div',
-                          { className: 'cancel-kt' },
+                          { className: 'cancel-kt', onClick: function onClick() {
+                              return _this2.props.deleteEnrollment(enr(kt.id)[0].id);
+                            } },
                           'CANCEL MY SPOT'
                         )
                       ),
@@ -2232,6 +2254,8 @@ var _session_actions = __webpack_require__(/*! ../../actions/session_actions */ 
 
 var _area_actions = __webpack_require__(/*! ../../actions/area_actions */ "./frontend/actions/area_actions.js");
 
+var _enrollment_actions = __webpack_require__(/*! ../../actions/enrollment_actions */ "./frontend/actions/enrollment_actions.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state) {
@@ -2255,6 +2279,9 @@ var mdp = function mdp(dispatch) {
     },
     fetchAreas: function fetchAreas() {
       return dispatch((0, _area_actions.fetchAreas)());
+    },
+    deleteEnrollment: function deleteEnrollment(id) {
+      return dispatch((0, _enrollment_actions.deleteEnrollment)(id));
     }
   };
 };
@@ -2977,6 +3004,10 @@ var enrollmentsReducer = function enrollmentsReducer() {
   switch (action.type) {
     case _area_actions.RECEIVE_ALL_AREAS:
       return action.areas.knitting_time_enrollments;
+    case _enrollment_actions.DELETE_ENROLLMENT:
+      var newState = (0, _merge3.default)({}, state);
+      delete newState[action.enrollmentId];
+      return newState;
     case _enrollment_actions.RECEIVE_ENROLLMENT:
       return (0, _merge3.default)({}, state, _defineProperty({}, action.knitting_time_enrollment.id, action.knitting_time_enrollment));
     default:
@@ -3394,6 +3425,13 @@ var createEnrollment = exports.createEnrollment = function createEnrollment(enro
     method: 'POST',
     url: '/api/knitting_times/' + enrollment.knittingtime_id + '/knitting_time_enrollments',
     data: { enrollment: enrollment }
+  });
+};
+
+var deleteEnrollment = exports.deleteEnrollment = function deleteEnrollment(id) {
+  return $.ajax({
+    method: 'DELETE',
+    url: '/api/knitting_time_enrollments/' + id
   });
 };
 

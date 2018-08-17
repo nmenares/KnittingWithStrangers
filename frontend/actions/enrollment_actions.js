@@ -1,10 +1,16 @@
 import * as ApiEnrollmentUtil from '../util/enrollment_api_util'
 
 export const RECEIVE_ENROLLMENT = 'RECEIVE_ENROLLMENT';
+export const DELETE_ENROLLMENT = 'DELETE_ENROLLMENT';
 
-export const receiveEnrollment = knitting_time_enrollment => ({
+const receiveEnrollment = knitting_time_enrollment => ({
   type: RECEIVE_ENROLLMENT,
   knitting_time_enrollment
+});
+
+const removeEnrollment = enrollmentId => ({
+  type: DELETE_ENROLLMENT,
+  enrollmentId
 });
 
 export const createEnrollment = (data, callback) => dispatch => (
@@ -13,3 +19,9 @@ export const createEnrollment = (data, callback) => dispatch => (
     callback();
   })
 );
+
+export const deleteEnrollment = (id) => dispatch => (
+  ApiEnrollmentUtil.deleteEnrollment(id).then(() => {
+    dispatch(removeEnrollment(id))
+  })
+)

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Profile from './profile';
 import { fetchMe } from '../../actions/session_actions';
 import { fetchAreas } from '../../actions/area_actions';
+import {deleteEnrollment} from '../../actions/enrollment_actions';
 
 
 const msp = (state) => ({
@@ -15,7 +16,8 @@ const msp = (state) => ({
 
 const mdp = (dispatch) => ({
   fetchMe: () => dispatch(fetchMe()),
-  fetchAreas: () => dispatch(fetchAreas())
+  fetchAreas: () => dispatch(fetchAreas()),
+  deleteEnrollment: (id) => dispatch(deleteEnrollment(id))
 });
 
 export default connect(msp, mdp)(Profile);

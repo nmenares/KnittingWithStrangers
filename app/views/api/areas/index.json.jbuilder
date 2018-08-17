@@ -28,11 +28,9 @@ json.knitting_time_enrollments do
 end
 
 json.users do
-  usrs = []
-  @areas.each do |area|
-    usrs.concat(area.users)
-  end
-  usrs.each do |u|
-    json.set! u.id, u
+  @users.each do |u|
+    json.set! u.id do
+      json.extract! u, :id, :username, :email, :phone, :description
+    end
   end
 end

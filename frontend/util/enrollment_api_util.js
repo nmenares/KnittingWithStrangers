@@ -5,3 +5,10 @@ export const createEnrollment = (enrollment) => (
     data: {enrollment}
   })
 )
+
+export const deleteEnrollment = (id) => (
+  $.ajax({
+    method: 'DELETE',
+    url: `/api/knitting_time_enrollments/${id}`
+  })
+)

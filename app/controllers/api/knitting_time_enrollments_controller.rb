@@ -13,6 +13,11 @@ class Api::KnittingTimeEnrollmentsController < ApplicationController
     end
   end
 
+  def destroy
+    knitting_time_enrollment = KnittingTimeEnrollment.find_by(id: params[:id])
+    knitting_time_enrollment.destroy
+  end
+
   private
 
   def knitting_time_enrollment_params

@@ -6,16 +6,12 @@ import moment from 'moment';
 class Profile extends React.Component {
 
   componentDidMount(){
-    this.props.fetchMe()
+    this.props.fetchMe();
   }
 
   componentWillMount(){
     this.props.fetchAreas();
   };
-
-  handleFile(e){
-    this.setState({photoFile: e.currentTarget.files[0]})
-  }
 
   render(){
     if(!this.props.me) {
@@ -24,6 +20,11 @@ class Profile extends React.Component {
 
     const my_kt_ids = this.props.attending_enrollments.map(ae => ae.knittingtime_id);
     const my_kts = my_kt_ids.map(id => this.props.knitting_times[id]);
+    const enr = (kt_id) => this.props.attending_enrollments.filter(enr => enr.knittingtime_id === parseInt(kt_id));
+
+    if(!enr) {
+      return null;
+    }
 
     return (
       <div>
@@ -50,7 +51,8 @@ class Profile extends React.Component {
                         <h3>{moment(kt.date).format('MMMM')} {moment(kt.date).date()}</h3>
                         <h4>{kt.start_time} - {kt.end_time}</h4>
                         <p>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
-                        <div className="cancel-kt">CANCEL MY SPOT</div>
+
+                        <div className="cancel-kt" onClick={()=>this.props.deleteEnrollment(enr(kt.id)[0].id)}>CANCEL MY SPOT</div>
                       </div>
                       <div className="profile-host-box">
                         <h3>Get to know your host</h3>

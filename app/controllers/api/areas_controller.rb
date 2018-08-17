@@ -2,6 +2,7 @@ class Api::AreasController < ApplicationController
 
   def index
     @areas = Area.all
+    @users = User.all
   end
 
   def create
