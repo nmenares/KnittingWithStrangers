@@ -46,7 +46,7 @@ It is a simple form where the future host can set Knitting Time informacion
 ![create](app/assets/README/create.png)
 ### Profile Page
 Here the user can see in details her/his future Knitting Times, which is attending and hosting.
-![profile](app/assets/README/profile.png)
+![profile](app/assets/README/profile2.png)
 
 ## Tables and Associations.
 Knitting with Strangers uses 4 tables: `users`, `knitting_times`, `areas`, and `knitting_times_enrollments`.
