@@ -566,7 +566,7 @@ var HostingForm = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      if (!this.props.sessionId) {
+      if (!this.props.sessionId || !this.props.area) {
         return null;
       }
 

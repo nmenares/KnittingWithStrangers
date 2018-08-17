@@ -26,7 +26,7 @@ class HostingForm extends React.Component {
   }
 
   render(){
-    if(!this.props.sessionId) {
+    if(!this.props.sessionId || !this.props.area) {
       return null;
     }
 
