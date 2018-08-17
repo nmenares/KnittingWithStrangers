@@ -6,11 +6,15 @@ class HostingForm extends React.Component {
   constructor(props){
     super(props);
     this.state = this.props.knittingtime;
-  }
+  };
 
   componentDidMount(){
     this.props.deleteErrors();
-  }
+  };
+
+  componentWillMount(){
+    this.props.fetchAreas();
+  };
 
   handleEvent(field){
     return e => this.setState({
@@ -33,6 +37,21 @@ class HostingForm extends React.Component {
     const year = moment().format("YYYY");
     const month = moment().format("M").length < 2 ? "0" + moment().format("M") : moment().format("M");
     const day = moment().format("D").length < 2 ? "0" + moment().format("D") : moment().format("D");
+    const hours = ["8:00 AM", "8:30 AM",
+                   "9:00 AM", "9:30 AM",
+                   "10:00 AM", "10:30 AM",
+                   "11:00 AM", "11:30 AM",
+                   "12:00 AM", "12:30 AM",
+                   "1:00 PM", "1:30 PM",
+                   "2:00 PM", "2:30 PM",
+                   "3:00 PM", "3:30 PM",
+                   "4:00 PM", "4:30 PM",
+                   "5:00 PM", "5:30 PM",
+                   "6:00 PM", "6:30 PM",
+                   "7:00 PM", "7:30 PM",
+                   "8:00 PM", "8:30 PM",
+                   "9:00 PM", "9:30 PM",
+                   "10:00 PM", "10:30 PM"]
 
     return (
       <div>
@@ -48,12 +67,21 @@ class HostingForm extends React.Component {
             <label>Date<span>*</span></label>
             <input type="date" onChange={this.handleEvent("date")} value={this.state.date} min={`${year}-${month}-${day}`}></input>
 
+            <div className="host-form-time">
+              <label>Start Time<span>*</span>
+                <select onChange={this.handleEvent("start_time")} value={this.state.start_time}>
+                  <option defaultValue disabled>Set a start time</option>
+                  {hours.map((hr, idx) => <option key={idx} value={hr}>{hr}</option>)}
+                </select>
+              </label>
 
-            <label>Start Time<span>*</span></label>
-            <input type="text" onChange={this.handleEvent("start_time")} value={this.state.start_time}></input>
-
-            <label>End Time<span>*</span></label>
-            <input type="text" onChange={this.handleEvent("end_time")} value={this.state.end_time}></input>
+              <label>End Time<span>*</span>
+                <select onChange={this.handleEvent("end_time")} value={this.state.end_time}>
+                  <option defaultValue disabled>Set an end time</option>
+                  {hours.slice(hours.indexOf(this.state.start_time)).map((hr, idx) => <option key={idx} value={hr}>{hr}</option>)}
+                </select>
+              </label>
+            </div>
 
             <label>Address 1<span>*</span></label>
             <input type="text" onChange={this.handleEvent("address_1")} value={this.state.address_1}></input>

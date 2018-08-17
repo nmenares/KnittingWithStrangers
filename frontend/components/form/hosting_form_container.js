@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import HostingForm from './hosting_form';
 import { createKnittingTime } from '../../actions/knitting_time_actions';
 import { deleteErrors } from '../../actions/session_actions';
+import { fetchAreas } from '../../actions/area_actions'
 
 
 
@@ -18,7 +19,8 @@ const msp = (state, ownprops) => ({
 
 const mdp = (dispatch) => ({
   formType: (areaid, kt, callback) => dispatch(createKnittingTime(areaid, kt, callback)),
-  deleteErrors: () => dispatch(deleteErrors())
+  deleteErrors: () => dispatch(deleteErrors()),
+  fetchAreas: () => dispatch(fetchAreas())
 });
 
 export default connect(msp, mdp)(HostingForm);

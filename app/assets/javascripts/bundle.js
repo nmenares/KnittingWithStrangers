@@ -545,6 +545,11 @@ var HostingForm = function (_React$Component) {
       this.props.deleteErrors();
     }
   }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.fetchAreas();
+    }
+  }, {
     key: 'handleEvent',
     value: function handleEvent(field) {
       var _this2 = this;
@@ -573,6 +578,7 @@ var HostingForm = function (_React$Component) {
       var year = (0, _moment2.default)().format("YYYY");
       var month = (0, _moment2.default)().format("M").length < 2 ? "0" + (0, _moment2.default)().format("M") : (0, _moment2.default)().format("M");
       var day = (0, _moment2.default)().format("D").length < 2 ? "0" + (0, _moment2.default)().format("D") : (0, _moment2.default)().format("D");
+      var hours = ["8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 AM", "12:30 AM", "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM", "8:00 PM", "8:30 PM", "9:00 PM", "9:30 PM", "10:00 PM", "10:30 PM"];
 
       return _react2.default.createElement(
         'div',
@@ -609,27 +615,61 @@ var HostingForm = function (_React$Component) {
             ),
             _react2.default.createElement('input', { type: 'date', onChange: this.handleEvent("date"), value: this.state.date, min: year + '-' + month + '-' + day }),
             _react2.default.createElement(
-              'label',
-              null,
-              'Start Time',
+              'div',
+              { className: 'host-form-time' },
               _react2.default.createElement(
-                'span',
+                'label',
                 null,
-                '*'
+                'Start Time',
+                _react2.default.createElement(
+                  'span',
+                  null,
+                  '*'
+                ),
+                _react2.default.createElement(
+                  'select',
+                  { onChange: this.handleEvent("start_time"), value: this.state.start_time },
+                  _react2.default.createElement(
+                    'option',
+                    { defaultValue: true, disabled: true },
+                    'Set a start time'
+                  ),
+                  hours.map(function (hr, idx) {
+                    return _react2.default.createElement(
+                      'option',
+                      { key: idx, value: hr },
+                      hr
+                    );
+                  })
+                )
+              ),
+              _react2.default.createElement(
+                'label',
+                null,
+                'End Time',
+                _react2.default.createElement(
+                  'span',
+                  null,
+                  '*'
+                ),
+                _react2.default.createElement(
+                  'select',
+                  { onChange: this.handleEvent("end_time"), value: this.state.end_time },
+                  _react2.default.createElement(
+                    'option',
+                    { defaultValue: true, disabled: true },
+                    'Set an end time'
+                  ),
+                  hours.slice(hours.indexOf(this.state.start_time)).map(function (hr, idx) {
+                    return _react2.default.createElement(
+                      'option',
+                      { key: idx, value: hr },
+                      hr
+                    );
+                  })
+                )
               )
             ),
-            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("start_time"), value: this.state.start_time }),
-            _react2.default.createElement(
-              'label',
-              null,
-              'End Time',
-              _react2.default.createElement(
-                'span',
-                null,
-                '*'
-              )
-            ),
-            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("end_time"), value: this.state.end_time }),
             _react2.default.createElement(
               'label',
               null,
@@ -735,6 +775,8 @@ var _knitting_time_actions = __webpack_require__(/*! ../../actions/knitting_time
 
 var _session_actions = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
 
+var _area_actions = __webpack_require__(/*! ../../actions/area_actions */ "./frontend/actions/area_actions.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state, ownprops) {
@@ -756,6 +798,9 @@ var mdp = function mdp(dispatch) {
     },
     deleteErrors: function deleteErrors() {
       return dispatch((0, _session_actions.deleteErrors)());
+    },
+    fetchAreas: function fetchAreas() {
+      return dispatch((0, _area_actions.fetchAreas)());
     }
   };
 };
@@ -2146,7 +2191,7 @@ var Profile = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 { className: 'list-profile' },
-                my_kts.length > 0 ? _react2.default.createElement(
+                this.props.hosted_knitting_times.length > 0 ? _react2.default.createElement(
                   'h2',
                   null,
                   'Knitting times you\'re hosting'

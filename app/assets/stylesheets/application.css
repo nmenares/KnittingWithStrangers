@@ -880,30 +880,39 @@ footer {
 /*host form*/
 
 .hostingform form{
-  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
-  font-feature-settings: "kern", "liga", "frac", "pnum";
-  -webkit-font-smoothing: antialiased;
   display: flex;
   flex-direction: column;
   margin-top: 36px;
 }
 
 .hostingform form span{
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
   color: #B53D39;
 }
 
 .hostingform form label{
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
   display: block;
   margin-top: 18px;
   margin-bottom: 8px;
 }
 
 .hostingform form input{
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
   font-size: 18px;
   padding: 5px 10px 5px 10px;
 }
 
 .hostingform form textarea{
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
   font-size: 14px;
   padding: 5px 10px 5px 10px;
   min-height: 300px;
@@ -913,6 +922,9 @@ footer {
 }
 
 .hostingform form p{
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
   color: #333;
   font-size: 14px;
 }
@@ -924,6 +936,26 @@ footer {
   font-weight: 600;
   letter-spacing: 0.05px;
 }
+
+.host-form-time {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.host-form-time select{
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  font-size: 18px;
+  background-color: #FEFEFE;
+}
+
+.host-form-time option{
+  padding: 5px 10px 5px 10px;
+}
+
+
 
 /* splash */
 

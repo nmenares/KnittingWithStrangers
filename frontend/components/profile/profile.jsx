@@ -71,7 +71,7 @@ class Profile extends React.Component {
                 </ul>
               </div>
               <div className="list-profile">
-                {my_kts.length > 0 ? <h2>Knitting times you're hosting</h2> : null }
+                {this.props.hosted_knitting_times.length > 0 ? <h2>Knitting times you're hosting</h2> : null }
                 <ul> {this.props.hosted_knitting_times.map(hkt => (
                     <li key={hkt.id} className="hosted-li">
 
