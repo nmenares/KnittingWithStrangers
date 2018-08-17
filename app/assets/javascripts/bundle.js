@@ -1930,6 +1930,8 @@ var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js
 
 var _moment2 = _interopRequireDefault(_moment);
 
+var _functions = __webpack_require__(/*! ../../util/functions */ "./frontend/util/functions.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1962,7 +1964,7 @@ var Profile = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      if (!this.props.me) {
+      if (!this.props.me || !this.props.attending_enrollments || !this.props.knitting_times) {
         return null;
       }
 
@@ -1977,10 +1979,6 @@ var Profile = function (_React$Component) {
           return enr.knittingtime_id === parseInt(kt_id);
         });
       };
-
-      if (!enr) {
-        return null;
-      }
 
       return _react2.default.createElement(
         'div',
@@ -2041,11 +2039,11 @@ var Profile = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 { className: 'list-profile' },
-                _react2.default.createElement(
+                my_kts.length > 0 ? _react2.default.createElement(
                   'h2',
                   null,
                   'Knitting times you\'re attending'
-                ),
+                ) : null,
                 _react2.default.createElement(
                   'ul',
                   null,
@@ -2144,11 +2142,11 @@ var Profile = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 { className: 'list-profile' },
-                _react2.default.createElement(
+                my_kts.length > 0 ? _react2.default.createElement(
                   'h2',
                   null,
                   'Knitting times you\'re hosting'
-                ),
+                ) : null,
                 _react2.default.createElement(
                   'ul',
                   null,

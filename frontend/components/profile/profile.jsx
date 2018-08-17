@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { toObject } from '../../util/functions'
 
 class Profile extends React.Component {
 
@@ -14,17 +15,13 @@ class Profile extends React.Component {
   };
 
   render(){
-    if(!this.props.me) {
+    if(!this.props.me || !this.props.attending_enrollments || !this.props.knitting_times) {
       return null;
     }
 
     const my_kt_ids = this.props.attending_enrollments.map(ae => ae.knittingtime_id);
     const my_kts = my_kt_ids.map(id => this.props.knitting_times[id]);
     const enr = (kt_id) => this.props.attending_enrollments.filter(enr => enr.knittingtime_id === parseInt(kt_id));
-
-    if(!enr) {
-      return null;
-    }
 
     return (
       <div>
@@ -43,7 +40,8 @@ class Profile extends React.Component {
             </div>
             <div className="profile-body">
               <div className="list-profile">
-                <h2>Knitting times you're attending</h2>
+
+                {my_kts.length > 0 ? <h2>Knitting times you're attending</h2> : null }
                 <ul> {my_kts.map(kt => (
                     <li className="li-attending" key={kt.id}>
                       <div className="profile-kt-box">
@@ -71,7 +69,7 @@ class Profile extends React.Component {
                 </ul>
               </div>
               <div className="list-profile">
-                <h2>Knitting times you're hosting</h2>
+                {my_kts.length > 0 ? <h2>Knitting times you're hosting</h2> : null }
                 <ul> {this.props.hosted_knitting_times.map(hkt => (
                     <li key={hkt.id} className="hosted-li">
 
