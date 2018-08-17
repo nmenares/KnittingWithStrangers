@@ -24,6 +24,7 @@ class Profile extends React.Component {
     const my_kts = my_kt_ids.map(id => this.props.knitting_times[id]);
     const enr = (kt_id) => merge([], this.props.attending_enrollments.filter(enr => enr.knittingtime_id === parseInt(kt_id)));
 
+
     return (
       <div>
         {this.props.me ?
