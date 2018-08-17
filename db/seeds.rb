@@ -36,6 +36,8 @@ knittingtime2 = KnittingTime.create(date: '2018-08-21', start_time: '6 PM', end_
 
 knittingtime3 = KnittingTime.create(date: '2018-08-20', start_time: '5 PM', end_time: '7 PM', address_1: '825 Battery Street' , city: 'San Francisco', state: 'CA', zip:'94111', area_id: area1.id, host_id: user1.id, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
 
+knittingtime4 = KnittingTime.create(date: '2018-08-24', start_time: '5 PM', end_time: '7 PM', address_1: '825 Battery Street' , city: 'San Francisco', state: 'CA', zip:'94111', area_id: area1.id, host_id: user5.id, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+
 enrollment1 = KnittingTimeEnrollment.create(user_id: user1.id, knittingtime_id: knittingtime1.id)
 enrollment2 = KnittingTimeEnrollment.create(user_id: user2.id, knittingtime_id: knittingtime1.id)
 enrollment3 = KnittingTimeEnrollment.create(user_id: user3.id, knittingtime_id: knittingtime1.id)
@@ -47,3 +49,4 @@ enrollment8 = KnittingTimeEnrollment.create(user_id: user8.id, knittingtime_id: 
 enrollment9 = KnittingTimeEnrollment.create(user_id: user9.id, knittingtime_id: knittingtime3.id)
 enrollment10 = KnittingTimeEnrollment.create(user_id: user10.id, knittingtime_id: knittingtime3.id)
 enrollment11 = KnittingTimeEnrollment.create(user_id: user2.id, knittingtime_id: knittingtime3.id)
+enrollment12 = KnittingTimeEnrollment.create(user_id: user5.id, knittingtime_id: knittingtime3.id)
