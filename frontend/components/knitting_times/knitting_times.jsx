@@ -12,6 +12,7 @@ class KnittingTimes extends React.Component {
 
   componentDidMount(){
     this.props.fetchAreas();
+    window.scrollTo(0, 0);
   }
 
   handleHosting(area, e){

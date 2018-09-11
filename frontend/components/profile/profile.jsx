@@ -9,6 +9,7 @@ class Profile extends React.Component {
 
   componentDidMount(){
     this.props.fetchMe();
+    window.scrollTo(0, 0);
   }
 
   componentWillMount(){

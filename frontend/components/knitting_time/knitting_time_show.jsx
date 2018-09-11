@@ -6,6 +6,7 @@ class KnittingTimeShow extends React.Component {
 
   componentDidMount(){
     this.props.fetchKnittingTime(this.props.ktId);
+    window.scrollTo(0, 0);
   };
 
   componentWillMount(){

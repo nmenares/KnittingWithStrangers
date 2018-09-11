@@ -555,6 +555,7 @@ var HostingForm = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.deleteErrors();
+      window.scrollTo(0, 0);
     }
   }, {
     key: 'componentWillMount',
@@ -612,7 +613,7 @@ var HostingForm = function (_React$Component) {
             { onSubmit: this.handleSubmit.bind(this) },
             _react2.default.createElement(
               'h2',
-              null,
+              { style: { marginTop: '0px' } },
               'Knitting Time Details'
             ),
             _react2.default.createElement(
@@ -640,11 +641,16 @@ var HostingForm = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                   'select',
-                  { onChange: this.handleEvent("start_time"), value: this.state.start_time },
+                  { onChange: this.handleEvent("start_time"), value: this.state.start_time, style: { width: '150px', fontSize: '15px', height: '30px' } },
                   _react2.default.createElement(
                     'option',
-                    { defaultValue: true, disabled: true },
+                    { disabled: true },
                     'Set a start time'
+                  ),
+                  _react2.default.createElement(
+                    'option',
+                    { defaultValue: true },
+                    hours[0]
                   ),
                   hours.map(function (hr, idx) {
                     return _react2.default.createElement(
@@ -666,13 +672,18 @@ var HostingForm = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                   'select',
-                  { onChange: this.handleEvent("end_time"), value: this.state.end_time },
+                  { onChange: this.handleEvent("end_time"), value: this.state.end_time, style: { width: '150px', fontSize: '15px', height: '30px' } },
                   _react2.default.createElement(
                     'option',
-                    { defaultValue: true, disabled: true },
+                    { disabled: true },
                     'Set an end time'
                   ),
-                  hours.slice(hours.indexOf(this.state.start_time)).map(function (hr, idx) {
+                  _react2.default.createElement(
+                    'option',
+                    { defaultValue: true },
+                    hours[hours.indexOf(this.state.start_time) + 1]
+                  ),
+                  hours.slice(hours.indexOf(this.state.start_time) + 1).map(function (hr, idx) {
                     return _react2.default.createElement(
                       'option',
                       { key: idx, value: hr },
@@ -1212,6 +1223,7 @@ var KnittingTimeShow = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.fetchKnittingTime(this.props.ktId);
+      window.scrollTo(0, 0);
     }
   }, {
     key: 'componentWillMount',
@@ -1693,6 +1705,7 @@ var KnittingTimes = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.fetchAreas();
+      window.scrollTo(0, 0);
     }
   }, {
     key: 'handleHosting',
@@ -2045,6 +2058,7 @@ var Profile = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.fetchMe();
+      window.scrollTo(0, 0);
     }
   }, {
     key: 'componentWillMount',
@@ -2540,6 +2554,7 @@ var SessionForm = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.deleteErrors();
+      window.scrollTo(0, 0);
     }
   }, {
     key: 'handleSubmit',

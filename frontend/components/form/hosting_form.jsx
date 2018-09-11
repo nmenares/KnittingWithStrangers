@@ -10,6 +10,7 @@ class HostingForm extends React.Component {
 
   componentDidMount(){
     this.props.deleteErrors();
+    window.scrollTo(0, 0);
   };
 
   componentWillMount(){
@@ -62,23 +63,25 @@ class HostingForm extends React.Component {
         <div className="hostingform">
 
           <form onSubmit={this.handleSubmit.bind(this)}>
-            <h2>Knitting Time Details</h2>
+            <h2 style={{marginTop: '0px'}}>Knitting Time Details</h2>
 
             <label>Date<span>*</span></label>
             <input type="date" onChange={this.handleEvent("date")} value={this.state.date} min={`${year}-${month}-${day}`}></input>
 
             <div className="host-form-time">
               <label>Start Time<span>*</span>
-                <select onChange={this.handleEvent("start_time")} value={this.state.start_time}>
-                  <option defaultValue disabled>Set a start time</option>
+                <select onChange={this.handleEvent("start_time")} value={this.state.start_time} style={{width: '150px', fontSize: '15px', height: '30px'}}>
+                  <option disabled>Set a start time</option>
+                  <option defaultValue>{hours[0]}</option>
                   {hours.map((hr, idx) => <option key={idx} value={hr}>{hr}</option>)}
                 </select>
               </label>
 
               <label>End Time<span>*</span>
-                <select onChange={this.handleEvent("end_time")} value={this.state.end_time}>
-                  <option defaultValue disabled>Set an end time</option>
-                  {hours.slice(hours.indexOf(this.state.start_time)).map((hr, idx) => <option key={idx} value={hr}>{hr}</option>)}
+                <select onChange={this.handleEvent("end_time")} value={this.state.end_time} style={{width: '150px', fontSize: '15px', height: '30px'}}>
+                  <option disabled>Set an end time</option>
+                  <option defaultValue>{hours[hours.indexOf(this.state.start_time)+1]}</option>
+                  {hours.slice(hours.indexOf(this.state.start_time)+1).map((hr, idx) => <option key={idx} value={hr}>{hr}</option>)}
                 </select>
               </label>
             </div>

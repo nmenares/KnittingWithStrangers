@@ -13,6 +13,7 @@ class SessionForm extends React.Component {
 
   componentDidMount(){
     this.props.deleteErrors();
+    window.scrollTo(0, 0);
   }
 
   handleSubmit(e){
