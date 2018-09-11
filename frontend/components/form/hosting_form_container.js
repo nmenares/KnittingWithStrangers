@@ -14,7 +14,10 @@ const msp = (state, ownprops) => ({
   knittingtime: {date: '', start_time: '', end_time: '', address_1: '' , address_2: '', city: '', state: '', zip:'', area_id: ownprops.match.params.areaId, host_id: state.session.id, description: ''},
   sessionId: state.session.id,
   host: state.entities.users[state.session.id],
-  area: state.entities.areas[ownprops.match.params.areaId]
+  area: state.entities.areas[ownprops.match.params.areaId],
+  quote: state.entities.users[state.session.id].quote,
+  story: state.entities.users[state.session.id].story,
+  description: state.entities.users[state.session.id].description
 });
 
 const mdp = (dispatch) => ({

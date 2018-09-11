@@ -91,17 +91,12 @@ class KnittingTimeShow extends React.Component {
 
           <img src={window.profile} />
           <div className="kt-description">
-            <p>Hey there! I’m passionate about learning as much as an can. Usually, that means learning about others and how they view the world and how all those views and their interactions create humanity. I love to ask questions that are at times a bit much for normal conversation so if you like answering questions about your own thinking, let’s tea time! (Can I use that as a verb?)</p>
+            <p>{host.description}</p>
             <h3>What's your story?</h3>
-            <p>My life story is not super interesting, so I’ll just say my story is an amalgamation of the conversations and stories I’ve had and heard from others. This includes the conversations I’ve had with myself (which might happen more often than sanity would permit). I’ve gone from the non-stop talking kid (who sat in a lawn chair talking at my neighbor for hours while he gardened) to a more quiet (read: still not fully quiet) adult. Today, I spend more of that time talking at my notebook. <br/>
-            I am currently attending a university that takes me to a new city each semester (I’ve been to San Francisco, Seoul, and Hyderabad so far), so I have a few “travel stories” and love to find the small things that make one city, country, or culture different from others. <br/>
-            Also, I use parentheses too often (sorry)</p>
-            <h3>What might we talk about?</h3>
-            <p>Currently, I am super interested in how people interact with the relationships (friendships, romantic relationships, relationships with relatives etc) in their lives, so I might ask you questions like: what’s been the most influential relationship you’ve had? How do you determine what a good relationship is for yourself? (remember what I said about questions that are maybe a bit too much for normal conversation?) <br/>
-            Really, I’m game to talk about anything (especially things that have no answer and are difficult to understand) so please come with all the questions you’ve ever wanted to ask a stranger and all the things you ever wanted to share. <br/>
-            (Otherwise, I’m not the best at small talk, so if you reaaaallly wanted to talk about the weather, I’m sure I could use some practice…) <br/>
-            See ya!</p>
-            <div className="host-msg">I honest to god believe in unicorns.</div>
+            <p>{host.story}</p>
+          <h3>What might we talk about?</h3>
+            <p>{knittingtime.description}</p>
+            <div className="host-msg">{host.quote}</div>
           </div>
 
         </div>

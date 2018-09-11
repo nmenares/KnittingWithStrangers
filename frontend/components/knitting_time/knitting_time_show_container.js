@@ -12,7 +12,7 @@ const msp = (state, ownprops) => ({
   me: state.entities.users[state.session.id],
   meId: state.session.id,
   ktId: ownprops.match.params.knittingtimeId,
-  knittingtime: state.entities.knitting_times[ownprops.match.params.knittingtimeId],
+  knittingtime: state.entities.knitting_times[ownprops.match.params.knittingtimeId]
 });
 
 const mdp = (dispatch) => ({

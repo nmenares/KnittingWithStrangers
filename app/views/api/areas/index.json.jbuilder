@@ -30,7 +30,7 @@ end
 json.users do
   @users.each do |u|
     json.set! u.id do
-      json.extract! u, :id, :username, :email, :phone, :description
+      json.extract! u, :id, :username, :email, :phone, :description, :quote, :story
     end
   end
 end

@@ -100,9 +100,19 @@ class HostingForm extends React.Component {
             <label>Zip</label>
             <input type="text" onChange={this.handleEvent("zip")} value={this.state.zip}></input>
 
-            <label>Description<span>*</span></label>
+            <label>What might you talk about?<span>*</span></label>
             <textarea onChange={this.handleEvent("description")} value={this.state.description}></textarea>
 
+            <h2>Personal Information</h2>
+
+            <label>A Brief about You<span>*</span></label>
+            <textarea onChange={this.handleEvent("description")} value={this.props.description}></textarea>
+
+            <label>Your Story<span>*</span></label>
+            <textarea onChange={this.handleEvent("story")} value={this.props.story}></textarea>
+
+            <label>Favorite Quote<span>*</span></label>
+            <input className="PreSubmit" onChange={this.handleEvent("quote")} value={this.props.quote}></input>
 
             <input className="create" type="submit" value={this.props.action}></input>
             <p><span>*</span> These fields must be filled</p>

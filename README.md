@@ -42,7 +42,7 @@ If the user have already an account can sign in using his/her email and password
 To create a new account the user need to register her/his name or nickname, in addition to the email and password.
 ![signup](app/assets/README/signup.png)
 ### Knitting Time Create Page
-It is a simple form where the future host can set Knitting Time informacion
+It is a simple form where the future host can set Knitting Time information
 ![create](app/assets/README/create.png)
 ### Profile Page
 Here the user can see in details her/his future Knitting Times, which is attending and hosting.

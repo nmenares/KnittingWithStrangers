@@ -14,6 +14,15 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def update
+    @user = User.find_by(id: params[:id])
+    if @user.update_attributes(user_params)
+      render "api/users/show"
+    else
+      render json: ["Nop possible update host information"], status: 401
+    end
+  end
+
   private
 
   def user_params

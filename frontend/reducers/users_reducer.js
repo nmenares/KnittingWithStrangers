@@ -15,3 +15,7 @@ const usersReducer = (state = {}, action) => {
 };
 
 export default usersReducer;
+
+
+// case UPDATE_USER_INFO:
+//   return merge({}, state, { [action.currentUser.id]: action.currentUser });

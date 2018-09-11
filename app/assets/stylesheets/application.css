@@ -187,6 +187,7 @@
   color: #EF6236;
   font-size: 1.5em;
   margin: auto;
+  margin-top: 36px;
   padding: 0px;
 }
 
@@ -240,7 +241,8 @@ footer {
   height: auto;
   letter-spacing: 0.06em;
   line-height: 1.625em;
-  padding-right: 100px;
+  padding: 10px 150px;
+  margin-top: 36px;
 }
 
 
@@ -356,10 +358,13 @@ footer {
 
 .areaslist ul{
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 
 .areaslist li {
+  display: inline-block;
+  white-space: nowrap;
   list-style: none;
   padding: 1px 14.4px 1px 14.4px;
   background-color: #FAF7E7;
@@ -378,7 +383,7 @@ footer {
 }
 
 .areaitems ul {
-  padding-left: 0;
+  padding: 0;
 }
 
 .areaitems li {
@@ -869,7 +874,7 @@ footer {
 .host-msg {
   background-color: #f1e9c6;
   color: #eda20b;
-  border-top: 1px solid #929292;
+  border-top: 2px solid #DDD;
   padding: 18px;
   text-align: center;
   font-size: 18px;
@@ -882,7 +887,6 @@ footer {
 .hostingform form{
   display: flex;
   flex-direction: column;
-  margin-top: 36px;
 }
 
 .hostingform form span{
@@ -907,6 +911,9 @@ footer {
   -webkit-font-smoothing: antialiased;
   font-size: 18px;
   padding: 5px 10px 5px 10px;
+  border: 1px solid #DDD;
+  border-radius: 3px;
+  height: 50px;
 }
 
 .hostingform form textarea{
@@ -916,9 +923,10 @@ footer {
   font-size: 14px;
   padding: 5px 10px 5px 10px;
   min-height: 300px;
-  margin-bottom: 18px;
   color: #333;
-
+  border: 1px solid #DDD;
+  border-radius: 3px;
+  height: 50px;
 }
 
 .hostingform form p{
@@ -935,6 +943,10 @@ footer {
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 0.05px;
+}
+
+.PreSubmit {
+  margin-bottom: 36px;
 }
 
 .host-form-time {
