@@ -28,16 +28,3 @@ export const createKnittingTime = (areaId, data, callback) => {
     dispatch(receiveErrors(err.responseJSON))
   )
 )};
-
-
-// export const createKnittingTime = (areaId, kt_data, user_data, callback) => {
-//   return dispatch =>
-//   Promise.all([ApiKnittingTimeUtil.createKnittingTime(areaId, kt_data), ApiUserUtil.updateUserInfo(user_data)])
-//     .then(([kt, user]) => {
-//     dispatch(receiveKnittingTime(kt));
-//     dispatch(updateUserInfo(user));
-//     callback();
-//   }, err => (
-//     dispatch(receiveErrors(err.responseJSON))
-//   )
-// )};

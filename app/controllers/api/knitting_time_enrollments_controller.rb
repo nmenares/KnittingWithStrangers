@@ -16,7 +16,16 @@ class Api::KnittingTimeEnrollmentsController < ApplicationController
   def destroy
     knitting_time_enrollment = KnittingTimeEnrollment.find_by(id: params[:id])
     knitting_time_enrollment.destroy
-    # render :show
+  end
+
+  def update
+    @knitting_time_enrollment = KnittingTimeEnrollment.find_by(id: params[:id])
+    @knitting_time_enrollment[going: true]
+    if @knitting_time_enrollment.update
+      render :show
+    else
+      render json: @knitting_time_enrollment.errors.full_messages, status: 422
+    end
   end
 
   private

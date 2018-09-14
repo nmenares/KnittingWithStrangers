@@ -20,6 +20,13 @@ export const createEnrollment = (data, callback) => dispatch => (
   })
 );
 
+export const updateEnrollment = (data, callback) => dispatch => (
+  ApiEnrollmentUtil.updateEnrollment(data).then(knitting_time_enrollment => {
+    dispatch(receiveEnrollment(knitting_time_enrollment));
+    callback();
+  })
+);
+
 export const deleteEnrollment = (id) => dispatch => (
   ApiEnrollmentUtil.deleteEnrollment(id).then(() => {
     dispatch(removeEnrollment(id))

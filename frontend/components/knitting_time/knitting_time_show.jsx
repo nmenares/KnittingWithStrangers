@@ -16,7 +16,7 @@ class KnittingTimeShow extends React.Component {
   handleSubmit(e){
     e.preventDefault();
     this.props.me ?
-    this.props.createEnrollment({user_id: this.props.meId, knittingtime_id: this.props.ktId}, () => {
+    this.props.createEnrollment({user_id: this.props.meId, knittingtime_id: this.props.ktId, going: this.props.going}, () => {
       this.props.history.push('/me')})
     : this.props.history.push('/login')
   }
@@ -54,8 +54,15 @@ class KnittingTimeShow extends React.Component {
                         <span> Optional, but helps to get in touch the day of your knitting time</span>
                       </label>
                       <input className="phone" type="text" placeholder="(555) 345-6789"></input>
-                      {enrollments.length === 5 ? <p>You'll get an email the moment someone cancels their seat.</p> : null}
-                      <button className="join" onClick={this.handleSubmit.bind(this)}>{enrollments.length === 5 ? "join waitlist" : "sign me up"}</button>
+                      {
+                        if (enrollments.length >= 5) {
+                          <p>You'll get an email the moment someone cancels their seat.</p>
+                        }else {
+                          this.props.going = true
+                          null
+                        }
+                      }
+                      <button className="join" onClick={this.handleSubmit.bind(this)}>{enrollments.length >= 5 ? "join waitlist" : "sign me up"}</button>
                     </div>
                   }
                 </div>

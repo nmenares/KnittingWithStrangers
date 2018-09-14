@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       resources :knitting_time_enrollments, only: [:create]
     end
 
-    resources :knitting_time_enrollments, only: [:show, :destroy]
+    resources :knitting_time_enrollments, only: [:show, :update, :destroy]
 
   end
   root "static_pages#root"

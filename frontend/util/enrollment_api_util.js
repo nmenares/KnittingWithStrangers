@@ -12,3 +12,11 @@ export const deleteEnrollment = (id) => (
     url: `/api/knitting_time_enrollments/${id}`
   })
 )
+
+export const updateEnrollment = (enrollment) => (
+  $.ajax({
+    method: 'PATCH',
+    url: `/api/knitting_time_enrollments/${enrollment.id}`,
+    data: {enrollment}
+  })
+)
