@@ -140,7 +140,7 @@ var createArea = exports.createArea = function createArea(area) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.deleteEnrollment = exports.createEnrollment = exports.DELETE_ENROLLMENT = exports.RECEIVE_ENROLLMENT = undefined;
+exports.deleteEnrollment = exports.updateEnrollment = exports.createEnrollment = exports.DELETE_ENROLLMENT = exports.RECEIVE_ENROLLMENT = undefined;
 
 var _enrollment_api_util = __webpack_require__(/*! ../util/enrollment_api_util */ "./frontend/util/enrollment_api_util.js");
 
@@ -168,6 +168,15 @@ var removeEnrollment = function removeEnrollment(enrollmentId) {
 var createEnrollment = exports.createEnrollment = function createEnrollment(data, callback) {
   return function (dispatch) {
     return ApiEnrollmentUtil.createEnrollment(data).then(function (knitting_time_enrollment) {
+      dispatch(receiveEnrollment(knitting_time_enrollment));
+      callback();
+    });
+  };
+};
+
+var updateEnrollment = exports.updateEnrollment = function updateEnrollment(data, callback) {
+  return function (dispatch) {
+    return ApiEnrollmentUtil.updateEnrollment(data).then(function (knitting_time_enrollment) {
       dispatch(receiveEnrollment(knitting_time_enrollment));
       callback();
     });
@@ -240,18 +249,6 @@ var createKnittingTime = exports.createKnittingTime = function createKnittingTim
     });
   };
 };
-
-// export const createKnittingTime = (areaId, kt_data, user_data, callback) => {
-//   return dispatch =>
-//   Promise.all([ApiKnittingTimeUtil.createKnittingTime(areaId, kt_data), ApiUserUtil.updateUserInfo(user_data)])
-//     .then(([kt, user]) => {
-//     dispatch(receiveKnittingTime(kt));
-//     dispatch(updateUserInfo(user));
-//     callback();
-//   }, err => (
-//     dispatch(receiveErrors(err.responseJSON))
-//   )
-// )};
 
 /***/ }),
 
@@ -1232,11 +1229,11 @@ var KnittingTimeShow = function (_React$Component) {
     }
   }, {
     key: 'handleSubmit',
-    value: function handleSubmit(e) {
+    value: function handleSubmit(going, e) {
       var _this2 = this;
 
       e.preventDefault();
-      this.props.me ? this.props.createEnrollment({ user_id: this.props.meId, knittingtime_id: this.props.ktId }, function () {
+      this.props.me ? this.props.createEnrollment({ user_id: this.props.meId, knittingtime_id: this.props.ktId, going: going }, function () {
         _this2.props.history.push('/me');
       }) : this.props.history.push('/login');
     }
@@ -1257,6 +1254,7 @@ var KnittingTimeShow = function (_React$Component) {
         return info.user_id === parseInt(_this3.props.meId) && info.knittingtime_id === parseInt(_this3.props.ktId);
       });
       var host = this.props.users[this.props.knittingtime.host_id];
+      var going = this.props.going;
 
       return _react2.default.createElement(
         'div',
@@ -1318,15 +1316,16 @@ var KnittingTimeShow = function (_React$Component) {
                     )
                   ),
                   _react2.default.createElement('input', { className: 'phone', type: 'text', placeholder: '(555) 345-6789' }),
-                  enrollments.length === 5 ? _react2.default.createElement(
+                  enrollments.length >= 5 ? _react2.default.createElement(
                     'p',
                     null,
                     'You\'ll get an email the moment someone cancels their seat.'
                   ) : null,
+                  enrollments.length >= 5 ? going = false : going = true,
                   _react2.default.createElement(
                     'button',
-                    { className: 'join', onClick: this.handleSubmit.bind(this) },
-                    enrollments.length === 5 ? "join waitlist" : "sign me up"
+                    { className: 'join', onClick: this.handleSubmit.bind(this, going) },
+                    enrollments.length >= 5 ? "join waitlist" : "sign me up"
                   )
                 )
               )
@@ -1474,7 +1473,8 @@ var msp = function msp(state, ownprops) {
     me: state.entities.users[state.session.id],
     meId: state.session.id,
     ktId: ownprops.match.params.knittingtimeId,
-    knittingtime: state.entities.knitting_times[ownprops.match.params.knittingtimeId]
+    knittingtime: state.entities.knitting_times[ownprops.match.params.knittingtimeId],
+    going: false
   };
 };
 
@@ -3536,6 +3536,14 @@ var deleteEnrollment = exports.deleteEnrollment = function deleteEnrollment(id) 
   return $.ajax({
     method: 'DELETE',
     url: '/api/knitting_time_enrollments/' + id
+  });
+};
+
+var updateEnrollment = exports.updateEnrollment = function updateEnrollment(enrollment) {
+  return $.ajax({
+    method: 'PATCH',
+    url: '/api/knitting_time_enrollments/' + enrollment.id,
+    data: { enrollment: enrollment }
   });
 };
 
