@@ -42,17 +42,19 @@ class Profile extends React.Component {
     }
 
     const today = moment();
-    const next_kt_gap = (21 - today.date());
 
+    const next_kt_gap = (21 - today.date());
     const my_kts_attending = this.props.attending_enrollments.filter(kte => kte.going);
     const my_kt_ids = my_kts_attending.map(ae => ae.knittingtime_id);
-    const my_kts_all = my_kt_ids.map(id => this.props.knitting_times[id]);
-    const my_kts = my_kt_all.filter(kt => kt.date >= today);
+    const my_kts = my_kt_ids.map(id => this.props.knitting_times[id]);
+    const my_kts_f = my_kts.filter(kt => kt.date >= today.format());
 
     const my_kts_maybe = this.props.attending_enrollments.filter(kte => !kte.going);
     const my_kt_ids_wl = my_kts_maybe.map(ae => ae.knittingtime_id);
-    const my_kts_wl_all = my_kt_ids_wl.map(id => this.props.knitting_times[id]);
-    const my_kts_wl = my_kt_wt_all.filter(kt => kt.date >= today);
+    const my_kts_wl = my_kt_ids_wl.map(id => this.props.knitting_times[id]);
+    const my_kts_wl_f = my_kts_wl.filter(kt => kt.date >= today.format());
+
+    const hosted_knitting_times_f = this.props.hosted_knitting_times.filter(kt => kt.date >= today.format())
 
     return (
       <div>
@@ -72,8 +74,8 @@ class Profile extends React.Component {
             <div className="profile-body">
               <div className="list-profile">
 
-                {my_kts.length > 0 ? <h2>Knitting times you're attending</h2> : null }
-                <ul> {my_kts.map(kt => (
+                {my_kts_f.length > 0 ? <h2>Knitting times you're attending</h2> : null }
+                <ul> {my_kts_f.map(kt => (
                     <li className="li-attending" key={kt.id}>
                       <div className="profile-kt-box">
                         <p>{moment(kt.date).format('dddd')}</p>
@@ -101,8 +103,8 @@ class Profile extends React.Component {
               </div>
               <div className="list-profile">
 
-                {my_kts_wl.length > 0 ? <h2>Knitting times you're in Waitlists</h2> : null }
-                <ul> {my_kts_wl.map(kt => (
+                {my_kts_wl_f.length > 0 ? <h2>Knitting times you're in Waitlists</h2> : null }
+                <ul> {my_kts_wl_f.map(kt => (
                     <li className="li-attending" key={kt.id}>
                       <div className="profile-kt-box">
                         <p>{moment(kt.date).format('dddd')}</p>
@@ -129,8 +131,8 @@ class Profile extends React.Component {
                 </ul>
               </div>
               <div className="list-profile">
-                {this.props.hosted_knitting_times.length > 0 ? <h2>Knitting times you're hosting</h2> : null }
-                <ul> {this.props.hosted_knitting_times.map(hkt => (
+                {hosted_knitting_times_f.length > 0 ? <h2>Knitting times you're hosting</h2> : null }
+                <ul> {hosted_knitting_times_f.map(hkt => (
                     <li key={hkt.id} className="hosted-li">
 
                       <div className="profile-kt-box2">

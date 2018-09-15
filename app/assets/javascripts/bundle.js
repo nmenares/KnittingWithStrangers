@@ -2106,19 +2106,19 @@ var Profile = function (_React$Component) {
       }
 
       var today = (0, _moment2.default)();
-      var next_kt_gap = 21 - today.date();
 
+      var next_kt_gap = 21 - today.date();
       var my_kts_attending = this.props.attending_enrollments.filter(function (kte) {
         return kte.going;
       });
       var my_kt_ids = my_kts_attending.map(function (ae) {
         return ae.knittingtime_id;
       });
-      var my_kts_all = my_kt_ids.map(function (id) {
+      var my_kts = my_kt_ids.map(function (id) {
         return _this3.props.knitting_times[id];
       });
-      var my_kts = my_kt_all.filter(function (kt) {
-        return kt.date >= today;
+      var my_kts_f = my_kts.filter(function (kt) {
+        return kt.date >= today.format();
       });
 
       var my_kts_maybe = this.props.attending_enrollments.filter(function (kte) {
@@ -2127,11 +2127,15 @@ var Profile = function (_React$Component) {
       var my_kt_ids_wl = my_kts_maybe.map(function (ae) {
         return ae.knittingtime_id;
       });
-      var my_kts_wl_all = my_kt_ids_wl.map(function (id) {
+      var my_kts_wl = my_kt_ids_wl.map(function (id) {
         return _this3.props.knitting_times[id];
       });
-      var my_kts_wl = my_kt_wt_all.filter(function (kt) {
-        return kt.date >= today;
+      var my_kts_wl_f = my_kts_wl.filter(function (kt) {
+        return kt.date >= today.format();
+      });
+
+      var hosted_knitting_times_f = this.props.hosted_knitting_times.filter(function (kt) {
+        return kt.date >= today.format();
       });
 
       return _react2.default.createElement(
@@ -2193,7 +2197,7 @@ var Profile = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 { className: 'list-profile' },
-                my_kts.length > 0 ? _react2.default.createElement(
+                my_kts_f.length > 0 ? _react2.default.createElement(
                   'h2',
                   null,
                   'Knitting times you\'re attending'
@@ -2202,7 +2206,7 @@ var Profile = function (_React$Component) {
                   'ul',
                   null,
                   ' ',
-                  my_kts.map(function (kt) {
+                  my_kts_f.map(function (kt) {
                     return _react2.default.createElement(
                       'li',
                       { className: 'li-attending', key: kt.id },
@@ -2294,7 +2298,7 @@ var Profile = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 { className: 'list-profile' },
-                my_kts_wl.length > 0 ? _react2.default.createElement(
+                my_kts_wl_f.length > 0 ? _react2.default.createElement(
                   'h2',
                   null,
                   'Knitting times you\'re in Waitlists'
@@ -2303,7 +2307,7 @@ var Profile = function (_React$Component) {
                   'ul',
                   null,
                   ' ',
-                  my_kts_wl.map(function (kt) {
+                  my_kts_wl_f.map(function (kt) {
                     return _react2.default.createElement(
                       'li',
                       { className: 'li-attending', key: kt.id },
@@ -2395,7 +2399,7 @@ var Profile = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 { className: 'list-profile' },
-                this.props.hosted_knitting_times.length > 0 ? _react2.default.createElement(
+                hosted_knitting_times_f.length > 0 ? _react2.default.createElement(
                   'h2',
                   null,
                   'Knitting times you\'re hosting'
@@ -2404,7 +2408,7 @@ var Profile = function (_React$Component) {
                   'ul',
                   null,
                   ' ',
-                  this.props.hosted_knitting_times.map(function (hkt) {
+                  hosted_knitting_times_f.map(function (hkt) {
                     return _react2.default.createElement(
                       'li',
                       { key: hkt.id, className: 'hosted-li' },

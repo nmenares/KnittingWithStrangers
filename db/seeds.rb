@@ -107,7 +107,7 @@ enrollment24 = KnittingTimeEnrollment.create(user_id: user32.id, knittingtime_id
 
 enrollment25 = KnittingTimeEnrollment.create(user_id: user33.id, knittingtime_id: knittingtime8.id, going: true)
 
-enrollment26 = KnittingTimeEnrollment.create(user_id: user9.id, knittingtime_id: knittingtime9.id, going: true)
+enrollment26 = KnittingTimeEnrollment.create(user_id: user5.id, knittingtime_id: knittingtime9.id, going: true)
 enrollment27 = KnittingTimeEnrollment.create(user_id: user10.id, knittingtime_id: knittingtime9.id, going: true)
 enrollment28 = KnittingTimeEnrollment.create(user_id: user11.id, knittingtime_id: knittingtime9.id, going: true)
 enrollment29 = KnittingTimeEnrollment.create(user_id: user12.id, knittingtime_id: knittingtime9.id, going: true)
