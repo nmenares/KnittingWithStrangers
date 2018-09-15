@@ -50,8 +50,8 @@ class KnittingTimes extends React.Component {
             <KnittingTimeBox
               key={kt}
               knittingtime={this.props.knitting_times[kt]}
-              enrollments={this.props.knitting_time_enrollments.filter( kte => kte.knittingtime_id === kt).length}
-              me={this.props.knitting_time_enrollments.some( info => info.user_id === this.props.meId && info.knittingtime_id === kt )}
+              enrollments={this.props.knitting_time_enrollments.filter( kte => kte.knittingtime_id === kt && kte.going).length}
+              me={this.props.knitting_time_enrollments.some( info => info.user_id === this.props.meId && info.knittingtime_id === kt && info.going)}
               host={this.props.users[this.props.knitting_times[kt].host_id]}
               />
           ))

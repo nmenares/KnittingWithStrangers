@@ -7,7 +7,7 @@ const KnittingTimeBoxMain = (props) => {
   const dateinfo = moment(props.knittingtime.date);
   return(
     <div className="kt-main">
-      {props.users.length === 5 ? <h2>GET ON WAIT LIST FOR THIS TEA TIME</h2> : <h2>JOIN {props.host.username} FOR KNITTING TIME</h2>}
+      {props.users.length >= 5 ? <h2>GET ON WAIT LIST FOR THIS TEA TIME</h2> : <h2>JOIN {props.host.username} FOR KNITTING TIME</h2>}
 
       <div className="kt-main-divs">
         <img src={window.calendar} />
@@ -34,7 +34,7 @@ const KnittingTimeBoxMain = (props) => {
         <p>Send to a friend that should be here (especially if you can't come yourself!)</p>
       </div>
 
-      <ProgressBar users = {props.users.length}/>
+      <ProgressBar users = {props.users.length > 5 ? 5 : props.users.length}/>
 
     </div>
 

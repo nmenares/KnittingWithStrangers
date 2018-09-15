@@ -1091,7 +1091,7 @@ var KnittingTimeBoxMain = function KnittingTimeBoxMain(props) {
   return _react2.default.createElement(
     'div',
     { className: 'kt-main' },
-    props.users.length === 5 ? _react2.default.createElement(
+    props.users.length >= 5 ? _react2.default.createElement(
       'h2',
       null,
       'GET ON WAIT LIST FOR THIS TEA TIME'
@@ -1165,7 +1165,7 @@ var KnittingTimeBoxMain = function KnittingTimeBoxMain(props) {
         'Send to a friend that should be here (especially if you can\'t come yourself!)'
       )
     ),
-    _react2.default.createElement(_progress_bar2.default, { users: props.users.length })
+    _react2.default.createElement(_progress_bar2.default, { users: props.users.length > 5 ? 5 : props.users.length })
   );
 };
 
@@ -1242,7 +1242,7 @@ var KnittingTimeShow = function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      if (!this.props.knittingtime) {
+      if (!this.props.knittingtime || !this.props.knitting_time_enrollments) {
         return null;
       }
 
@@ -1764,10 +1764,10 @@ var KnittingTimes = function (_React$Component) {
                 key: kt,
                 knittingtime: _this2.props.knitting_times[kt],
                 enrollments: _this2.props.knitting_time_enrollments.filter(function (kte) {
-                  return kte.knittingtime_id === kt;
+                  return kte.knittingtime_id === kt && kte.going;
                 }).length,
                 me: _this2.props.knitting_time_enrollments.some(function (info) {
-                  return info.user_id === _this2.props.meId && info.knittingtime_id === kt;
+                  return info.user_id === _this2.props.meId && info.knittingtime_id === kt && info.going;
                 }),
                 host: _this2.props.users[_this2.props.knitting_times[kt].host_id]
               });

@@ -22,7 +22,7 @@ class KnittingTimeShow extends React.Component {
   }
 
   render(){
-    if(!this.props.knittingtime) {
+    if(!this.props.knittingtime || !this.props.knitting_time_enrollments) {
       return null;
     }
 
