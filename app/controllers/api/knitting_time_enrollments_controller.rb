@@ -20,8 +20,7 @@ class Api::KnittingTimeEnrollmentsController < ApplicationController
 
   def update
     @knitting_time_enrollment = KnittingTimeEnrollment.find_by(id: params[:id])
-    @knitting_time_enrollment[going: true]
-    if @knitting_time_enrollment.update
+    if @knitting_time_enrollment.update_attributes(knitting_time_enrollment_params)
       render :show
     else
       render json: @knitting_time_enrollment.errors.full_messages, status: 422
@@ -31,7 +30,7 @@ class Api::KnittingTimeEnrollmentsController < ApplicationController
   private
 
   def knitting_time_enrollment_params
-    params.require(:enrollment).permit(:user_id, :knittingtime_id)
+    params.require(:enrollment).permit(:user_id, :knittingtime_id, :going)
   end
 
 end

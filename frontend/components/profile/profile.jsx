@@ -6,6 +6,26 @@ import { toObject } from '../../util/functions';
 import merge from 'lodash/merge';
 
 class Profile extends React.Component {
+  constructor(props){
+    super(props);
+    this.enr = (kt_id) => merge([], this.props.attending_enrollments.filter(enr => enr.knittingtime_id === parseInt(kt_id)));
+
+    this.false_enr = (kt_id) => merge([], this.props.all_enrollments.filter(enr => enr.knittingtime_id === parseInt(kt_id) && !enr.going));
+  }
+
+  handleClick(kt){
+    return e => {
+      e.preventDefault
+      const enr = this.enr(kt.id)[0];
+      const falses = this.false_enr(kt.id);
+      console.log("falses")
+      console.log(falses)
+      this.props.deleteEnrollment(enr.id);
+      if (falses.length > 0) {
+        this.props.updateEnrollment({id: falses[0].id, user_id: falses[0].user_id, knittingtime_id: falses[0].knittingtime_id, going: true })
+      }
+    }
+  }
 
   componentDidMount(){
     this.props.fetchMe();
@@ -21,10 +41,18 @@ class Profile extends React.Component {
       return null;
     }
 
-    const my_kt_ids = this.props.attending_enrollments.map(ae => ae.knittingtime_id);
-    const my_kts = my_kt_ids.map(id => this.props.knitting_times[id]);
-    const enr = (kt_id) => merge([], this.props.attending_enrollments.filter(enr => enr.knittingtime_id === parseInt(kt_id)));
+    const today = moment();
+    const next_kt_gap = (21 - today.date());
 
+    const my_kts_attending = this.props.attending_enrollments.filter(kte => kte.going);
+    const my_kt_ids = my_kts_attending.map(ae => ae.knittingtime_id);
+    const my_kts_all = my_kt_ids.map(id => this.props.knitting_times[id]);
+    const my_kts = my_kt_all.filter(kt => kt.date >= today);
+
+    const my_kts_maybe = this.props.attending_enrollments.filter(kte => !kte.going);
+    const my_kt_ids_wl = my_kts_maybe.map(ae => ae.knittingtime_id);
+    const my_kts_wl_all = my_kt_ids_wl.map(id => this.props.knitting_times[id]);
+    const my_kts_wl = my_kt_wt_all.filter(kt => kt.date >= today);
 
     return (
       <div>
@@ -53,7 +81,36 @@ class Profile extends React.Component {
                         <h4>{kt.start_time} - {kt.end_time}</h4>
                         <p>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
 
-                        <div className="cancel-kt" onClick={()=>this.props.deleteEnrollment(enr(kt.id)[0].id)}>CANCEL MY SPOT</div>
+                        <div className="cancel-kt" onClick={this.handleClick(kt)}>CANCEL MY SPOT</div>
+                      </div>
+                      <div className="profile-host-box">
+                        <h3>Get to know your host</h3>
+                        <div className="photo-p">
+                          <div className="hostphoto"><img src={window.profile} /></div>
+                          <p>Keep an eye open for {this.props.users[kt.host_id].username}! So it's easier, here's what they look like :).</p>
+                        </div>
+                        <div>
+                          <button className="profile-host-info">{`${this.props.users[kt.host_id].username}'s`} profile</button>
+                          <button className="profile-host-info">email {this.props.users[kt.host_id].username}</button>
+                        </div>
+                      </div>
+                    </li>
+                  ))
+                  }
+                </ul>
+              </div>
+              <div className="list-profile">
+
+                {my_kts_wl.length > 0 ? <h2>Knitting times you're in Waitlists</h2> : null }
+                <ul> {my_kts_wl.map(kt => (
+                    <li className="li-attending" key={kt.id}>
+                      <div className="profile-kt-box">
+                        <p>{moment(kt.date).format('dddd')}</p>
+                        <h3>{moment(kt.date).format('MMMM')} {moment(kt.date).date()}</h3>
+                        <h4>{kt.start_time} - {kt.end_time}</h4>
+                        <p>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
+
+                        <div className="cancel-kt" onClick={this.handleClick(kt)}>CANCEL MY SPOT</div>
                       </div>
                       <div className="profile-host-box">
                         <h3>Get to know your host</h3>

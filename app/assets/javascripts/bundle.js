@@ -174,11 +174,10 @@ var createEnrollment = exports.createEnrollment = function createEnrollment(data
   };
 };
 
-var updateEnrollment = exports.updateEnrollment = function updateEnrollment(data, callback) {
+var updateEnrollment = exports.updateEnrollment = function updateEnrollment(data) {
   return function (dispatch) {
     return ApiEnrollmentUtil.updateEnrollment(data).then(function (knitting_time_enrollment) {
       dispatch(receiveEnrollment(knitting_time_enrollment));
-      callback();
     });
   };
 };
@@ -1210,10 +1209,15 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var KnittingTimeShow = function (_React$Component) {
   _inherits(KnittingTimeShow, _React$Component);
 
-  function KnittingTimeShow() {
+  function KnittingTimeShow(props) {
     _classCallCheck(this, KnittingTimeShow);
 
-    return _possibleConstructorReturn(this, (KnittingTimeShow.__proto__ || Object.getPrototypeOf(KnittingTimeShow)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (KnittingTimeShow.__proto__ || Object.getPrototypeOf(KnittingTimeShow)).call(this, props));
+
+    _this.enrollments = _this.props.knitting_time_enrollments.filter(function (kte) {
+      return kte.knittingtime_id === parseInt(_this.props.ktId);
+    });
+    return _this;
   }
 
   _createClass(KnittingTimeShow, [{
@@ -1229,11 +1233,13 @@ var KnittingTimeShow = function (_React$Component) {
     }
   }, {
     key: 'handleSubmit',
-    value: function handleSubmit(going, e) {
+    value: function handleSubmit(e) {
       var _this2 = this;
 
       e.preventDefault();
-      this.props.me ? this.props.createEnrollment({ user_id: this.props.meId, knittingtime_id: this.props.ktId, going: going }, function () {
+      var going_state = this.enrollments.length >= 5 ? false : true;
+
+      this.props.me ? this.props.createEnrollment({ user_id: this.props.meId, knittingtime_id: this.props.ktId, going: going_state }, function () {
         _this2.props.history.push('/me');
       }) : this.props.history.push('/login');
     }
@@ -1247,14 +1253,10 @@ var KnittingTimeShow = function (_React$Component) {
       }
 
       var knittingtime = this.props.knittingtime;
-      var enrollments = this.props.knitting_time_enrollments.filter(function (kte) {
-        return kte.knittingtime_id === parseInt(_this3.props.ktId);
-      });
       var me = this.props.knitting_time_enrollments.some(function (info) {
         return info.user_id === parseInt(_this3.props.meId) && info.knittingtime_id === parseInt(_this3.props.ktId);
       });
       var host = this.props.users[this.props.knittingtime.host_id];
-      var going = this.props.going;
 
       return _react2.default.createElement(
         'div',
@@ -1263,7 +1265,7 @@ var KnittingTimeShow = function (_React$Component) {
           'div',
           { className: 'kt-sidebar' },
           _react2.default.createElement(_knitting_time_box_main2.default, {
-            knittingtime: knittingtime, users: enrollments, me: me, host: host
+            knittingtime: knittingtime, users: this.enrollments, me: me, host: host
           }),
           _react2.default.createElement(
             'div',
@@ -1316,16 +1318,15 @@ var KnittingTimeShow = function (_React$Component) {
                     )
                   ),
                   _react2.default.createElement('input', { className: 'phone', type: 'text', placeholder: '(555) 345-6789' }),
-                  enrollments.length >= 5 ? _react2.default.createElement(
+                  this.enrollments.length >= 5 ? _react2.default.createElement(
                     'p',
                     null,
                     'You\'ll get an email the moment someone cancels their seat.'
                   ) : null,
-                  enrollments.length >= 5 ? going = false : going = true,
                   _react2.default.createElement(
                     'button',
-                    { className: 'join', onClick: this.handleSubmit.bind(this, going) },
-                    enrollments.length >= 5 ? "join waitlist" : "sign me up"
+                    { className: 'join', onClick: this.handleSubmit.bind(this) },
+                    this.enrollments.length >= 5 ? "join waitlist" : "sign me up"
                   )
                 )
               )
@@ -2048,13 +2049,43 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Profile = function (_React$Component) {
   _inherits(Profile, _React$Component);
 
-  function Profile() {
+  function Profile(props) {
     _classCallCheck(this, Profile);
 
-    return _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).call(this, props));
+
+    _this.enr = function (kt_id) {
+      return (0, _merge2.default)([], _this.props.attending_enrollments.filter(function (enr) {
+        return enr.knittingtime_id === parseInt(kt_id);
+      }));
+    };
+
+    _this.false_enr = function (kt_id) {
+      return (0, _merge2.default)([], _this.props.all_enrollments.filter(function (enr) {
+        return enr.knittingtime_id === parseInt(kt_id) && !enr.going;
+      }));
+    };
+    return _this;
   }
 
   _createClass(Profile, [{
+    key: 'handleClick',
+    value: function handleClick(kt) {
+      var _this2 = this;
+
+      return function (e) {
+        e.preventDefault;
+        var enr = _this2.enr(kt.id)[0];
+        var falses = _this2.false_enr(kt.id);
+        console.log("falses");
+        console.log(falses);
+        _this2.props.deleteEnrollment(enr.id);
+        if (falses.length > 0) {
+          _this2.props.updateEnrollment({ id: falses[0].id, user_id: falses[0].user_id, knittingtime_id: falses[0].knittingtime_id, going: true });
+        }
+      };
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.fetchMe();
@@ -2068,23 +2099,40 @@ var Profile = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (!this.props.me || !this.props.attending_enrollments || !this.props.knitting_times) {
         return null;
       }
 
-      var my_kt_ids = this.props.attending_enrollments.map(function (ae) {
+      var today = (0, _moment2.default)();
+      var next_kt_gap = 21 - today.date();
+
+      var my_kts_attending = this.props.attending_enrollments.filter(function (kte) {
+        return kte.going;
+      });
+      var my_kt_ids = my_kts_attending.map(function (ae) {
         return ae.knittingtime_id;
       });
-      var my_kts = my_kt_ids.map(function (id) {
-        return _this2.props.knitting_times[id];
+      var my_kts_all = my_kt_ids.map(function (id) {
+        return _this3.props.knitting_times[id];
       });
-      var enr = function enr(kt_id) {
-        return (0, _merge2.default)([], _this2.props.attending_enrollments.filter(function (enr) {
-          return enr.knittingtime_id === parseInt(kt_id);
-        }));
-      };
+      var my_kts = my_kt_all.filter(function (kt) {
+        return kt.date >= today;
+      });
+
+      var my_kts_maybe = this.props.attending_enrollments.filter(function (kte) {
+        return !kte.going;
+      });
+      var my_kt_ids_wl = my_kts_maybe.map(function (ae) {
+        return ae.knittingtime_id;
+      });
+      var my_kts_wl_all = my_kt_ids_wl.map(function (id) {
+        return _this3.props.knitting_times[id];
+      });
+      var my_kts_wl = my_kt_wt_all.filter(function (kt) {
+        return kt.date >= today;
+      });
 
       return _react2.default.createElement(
         'div',
@@ -2194,9 +2242,7 @@ var Profile = function (_React$Component) {
                         ),
                         _react2.default.createElement(
                           'div',
-                          { className: 'cancel-kt', onClick: function onClick() {
-                              return _this2.props.deleteEnrollment(enr(kt.id)[0].id);
-                            } },
+                          { className: 'cancel-kt', onClick: _this3.handleClick(kt) },
                           'CANCEL MY SPOT'
                         )
                       ),
@@ -2220,7 +2266,7 @@ var Profile = function (_React$Component) {
                             'p',
                             null,
                             'Keep an eye open for ',
-                            _this2.props.users[kt.host_id].username,
+                            _this3.props.users[kt.host_id].username,
                             '! So it\'s easier, here\'s what they look like :).'
                           )
                         ),
@@ -2230,14 +2276,115 @@ var Profile = function (_React$Component) {
                           _react2.default.createElement(
                             'button',
                             { className: 'profile-host-info' },
-                            _this2.props.users[kt.host_id].username + '\'s',
+                            _this3.props.users[kt.host_id].username + '\'s',
                             ' profile'
                           ),
                           _react2.default.createElement(
                             'button',
                             { className: 'profile-host-info' },
                             'email ',
-                            _this2.props.users[kt.host_id].username
+                            _this3.props.users[kt.host_id].username
+                          )
+                        )
+                      )
+                    );
+                  })
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'list-profile' },
+                my_kts_wl.length > 0 ? _react2.default.createElement(
+                  'h2',
+                  null,
+                  'Knitting times you\'re in Waitlists'
+                ) : null,
+                _react2.default.createElement(
+                  'ul',
+                  null,
+                  ' ',
+                  my_kts_wl.map(function (kt) {
+                    return _react2.default.createElement(
+                      'li',
+                      { className: 'li-attending', key: kt.id },
+                      _react2.default.createElement(
+                        'div',
+                        { className: 'profile-kt-box' },
+                        _react2.default.createElement(
+                          'p',
+                          null,
+                          (0, _moment2.default)(kt.date).format('dddd')
+                        ),
+                        _react2.default.createElement(
+                          'h3',
+                          null,
+                          (0, _moment2.default)(kt.date).format('MMMM'),
+                          ' ',
+                          (0, _moment2.default)(kt.date).date()
+                        ),
+                        _react2.default.createElement(
+                          'h4',
+                          null,
+                          kt.start_time,
+                          ' - ',
+                          kt.end_time
+                        ),
+                        _react2.default.createElement(
+                          'p',
+                          null,
+                          kt.address_1,
+                          kt.address_2 ? ', ' + kt.address_2 : null,
+                          ', ',
+                          kt.city,
+                          ', ',
+                          kt.state,
+                          ', ',
+                          kt.zip
+                        ),
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'cancel-kt', onClick: _this3.handleClick(kt) },
+                          'CANCEL MY SPOT'
+                        )
+                      ),
+                      _react2.default.createElement(
+                        'div',
+                        { className: 'profile-host-box' },
+                        _react2.default.createElement(
+                          'h3',
+                          null,
+                          'Get to know your host'
+                        ),
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'photo-p' },
+                          _react2.default.createElement(
+                            'div',
+                            { className: 'hostphoto' },
+                            _react2.default.createElement('img', { src: window.profile })
+                          ),
+                          _react2.default.createElement(
+                            'p',
+                            null,
+                            'Keep an eye open for ',
+                            _this3.props.users[kt.host_id].username,
+                            '! So it\'s easier, here\'s what they look like :).'
+                          )
+                        ),
+                        _react2.default.createElement(
+                          'div',
+                          null,
+                          _react2.default.createElement(
+                            'button',
+                            { className: 'profile-host-info' },
+                            _this3.props.users[kt.host_id].username + '\'s',
+                            ' profile'
+                          ),
+                          _react2.default.createElement(
+                            'button',
+                            { className: 'profile-host-info' },
+                            'email ',
+                            _this3.props.users[kt.host_id].username
                           )
                         )
                       )
@@ -2371,6 +2518,7 @@ var msp = function msp(state) {
     attending_enrollments: Object.values(state.entities.knitting_time_enrollments).filter(function (kt) {
       return kt.user_id === parseInt(state.session.id);
     }),
+    all_enrollments: Object.values(state.entities.knitting_time_enrollments),
     knitting_times: state.entities.knitting_times,
     users: state.entities.users
   };
@@ -2386,6 +2534,9 @@ var mdp = function mdp(dispatch) {
     },
     deleteEnrollment: function deleteEnrollment(id) {
       return dispatch((0, _enrollment_actions.deleteEnrollment)(id));
+    },
+    updateEnrollment: function updateEnrollment(data) {
+      return dispatch((0, _enrollment_actions.updateEnrollment)(data));
     }
   };
 };

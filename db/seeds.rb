@@ -72,6 +72,8 @@ knittingtime7 = KnittingTime.create(date: '2018-09-27', start_time: '5 PM', end_
 
 knittingtime8 = KnittingTime.create(date: '2018-09-18', start_time: '10 PM', end_time: '12 PM', address_1: '5000 Toronto Way' , city: 'Sacramento' , state: 'CA', zip: '95820', area_id: area4.id , host_id: user6.id, description: "Values. Not like 'I value honesty / integrity / justice.' More like stories that are a reflection of our values, who we truly are and who we aspire to be. Values aside, we could probably get into any of the following as well: Buddy the Elf / salsa dancing / best places to surf & climb / thought-provoking books & documentaries / animosity towards Microsoft Office / travel adventures / when things go wrong (i.e. that time I was very alone in a dark alley in a coastal Kenyan town) / when things go right (that time in that dark alley when a gang of teen-aged strangers helped me find my way home) / matzo ball soup.")
 
+knittingtime9 = KnittingTime.create(date: '2018-09-10', start_time: '5 PM', end_time: '7 PM', address_1: '825 Battery Street' , city: 'San Francisco', state: 'CA', zip:'94111', area_id: area1.id, host_id: user1.id, description: "Coincidences, future, connections, lost & found, dreams interpretation, challenges, secrets, tips on how to behave-survive in a big city, events, theatre, inspiring people, family mania, friends craziness and more…")
+
 enrollment1 = KnittingTimeEnrollment.create(user_id: user9.id, knittingtime_id: knittingtime1.id, going: true)
 enrollment2 = KnittingTimeEnrollment.create(user_id: user10.id, knittingtime_id: knittingtime1.id, going: true)
 enrollment3 = KnittingTimeEnrollment.create(user_id: user11.id, knittingtime_id: knittingtime1.id, going: true)
@@ -104,3 +106,9 @@ enrollment23 = KnittingTimeEnrollment.create(user_id: user31.id, knittingtime_id
 enrollment24 = KnittingTimeEnrollment.create(user_id: user32.id, knittingtime_id: knittingtime7.id, going: true)
 
 enrollment25 = KnittingTimeEnrollment.create(user_id: user33.id, knittingtime_id: knittingtime8.id, going: true)
+
+enrollment26 = KnittingTimeEnrollment.create(user_id: user9.id, knittingtime_id: knittingtime9.id, going: true)
+enrollment27 = KnittingTimeEnrollment.create(user_id: user10.id, knittingtime_id: knittingtime9.id, going: true)
+enrollment28 = KnittingTimeEnrollment.create(user_id: user11.id, knittingtime_id: knittingtime9.id, going: true)
+enrollment29 = KnittingTimeEnrollment.create(user_id: user12.id, knittingtime_id: knittingtime9.id, going: true)
+enrollment30 = KnittingTimeEnrollment.create(user_id: user13.id, knittingtime_id: knittingtime9.id, going: true)
