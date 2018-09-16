@@ -11,7 +11,7 @@ const msp = (state, ownprops) => ({
   errors: state.errors.knitting_time_errors,
   msg: "We've made a mistake.",
   action: "create",
-  knittingtime: {date: '', start_time: '', end_time: '', address_1: '' , address_2: '', city: '', state: '', zip:'', area_id: ownprops.match.params.areaId, host_id: state.session.id, description: ''},
+  knittingtime: {date: '', start_time: '8:00 AM', end_time: '8:30 AM', address_1: '' , address_2: '', city: '', state: '', zip:'', area_id: ownprops.match.params.areaId, host_id: state.session.id, description: ''},
   sessionId: state.session.id,
   host: state.entities.users[state.session.id],
   area: state.entities.areas[ownprops.match.params.areaId],

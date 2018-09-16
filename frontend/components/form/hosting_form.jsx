@@ -73,15 +73,16 @@ class HostingForm extends React.Component {
                 <select onChange={this.handleEvent("start_time")} value={this.state.start_time} style={{width: '150px', fontSize: '15px', height: '30px'}}>
                   <option disabled>Set a start time</option>
                   <option defaultValue>{hours[0]}</option>
-                  {hours.map((hr, idx) => <option key={idx} value={hr}>{hr}</option>)}
+                  {hours.slice(1, hours.length - 1).map((hr, idx) => <option key={idx} value={hr}>{hr}</option>)}
                 </select>
               </label>
 
               <label>End Time<span>*</span>
                 <select onChange={this.handleEvent("end_time")} value={this.state.end_time} style={{width: '150px', fontSize: '15px', height: '30px'}}>
                   <option disabled>Set an end time</option>
+                  <option disabled>Set an end time</option>
                   <option defaultValue>{hours[hours.indexOf(this.state.start_time)+1]}</option>
-                  {hours.slice(hours.indexOf(this.state.start_time)+1).map((hr, idx) => <option key={idx} value={hr}>{hr}</option>)}
+                  {hours.slice(2, hours.length).map((hr, idx) => <option key={idx} value={hr}>{hr}</option>)}
                 </select>
               </label>
             </div>
