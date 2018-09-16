@@ -26,7 +26,7 @@ class HostingForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.formType( this.props.area.id ,this.state, () => {
-    this.props.history.push('/knitting_times')
+    this.props.history.push('/me')
     } )
   }
 

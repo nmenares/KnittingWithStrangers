@@ -597,7 +597,7 @@ var HostingForm = function (_React$Component) {
 
       e.preventDefault();
       this.props.formType(this.props.area.id, this.state, function () {
-        _this3.props.history.push('/knitting_times');
+        _this3.props.history.push('/me');
       });
     }
   }, {
@@ -1731,9 +1731,13 @@ var KnittingTimes = function (_React$Component) {
   }
 
   _createClass(KnittingTimes, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.fetchAreas();
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchAreas();
       window.scrollTo(0, 0);
     }
   }, {
@@ -2093,6 +2097,7 @@ var Profile = function (_React$Component) {
         return enr.knittingtime_id === parseInt(kt_id) && !enr.going;
       }));
     };
+
     return _this;
   }
 
@@ -2119,7 +2124,14 @@ var Profile = function (_React$Component) {
       return function (e) {
         e.preventDefault;
         _this3.props.deleteKnittingTime(kt_id);
-        location.reload();
+      };
+    }
+  }, {
+    key: 'sendEmail',
+    value: function sendEmail(email) {
+      return function (e) {
+        e.preventDefault;
+        window.open('mailto:' + email);
       };
     }
   }, {
@@ -2322,7 +2334,7 @@ var Profile = function (_React$Component) {
                           ),
                           _react2.default.createElement(
                             'button',
-                            { className: 'profile-host-info' },
+                            { className: 'profile-host-info', onClick: _this4.sendEmail(_this4.props.users[kt.host_id].email) },
                             'email ',
                             _this4.props.users[kt.host_id].username
                           )
@@ -3245,9 +3257,9 @@ var _enrollment_actions = __webpack_require__(/*! ../actions/enrollment_actions 
 
 var _knitting_time_actions = __webpack_require__(/*! ../actions/knitting_time_actions */ "./frontend/actions/knitting_time_actions.js");
 
-var _merge2 = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
+var _merge3 = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
 
-var _merge3 = _interopRequireDefault(_merge2);
+var _merge4 = _interopRequireDefault(_merge3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3265,9 +3277,22 @@ exports.default = function () {
       var area_id = action.knitting_time.area_id;
       var area = state[area_id];
       var a_kt = area.knitting_times;
-      (0, _merge3.default)(a_kt, action.knitting_time.id);
+      (0, _merge4.default)(a_kt, action.knitting_time.id);
       area.knitting_times = a_kt;
-      return (0, _merge3.default)({}, state, _defineProperty({}, area_id, area));
+      return (0, _merge4.default)({}, state, _defineProperty({}, area_id, area));
+    case _knitting_time_actions.DELETE_KNITTING_TIME:
+      var newState = (0, _merge4.default)({}, state);
+      var old_area = Object.values(newState).filter(function (area) {
+        return area.knitting_times.includes(action.knittingtimeId);
+      })[0];
+      delete newState[old_area.id];
+      var id = old_area.id;
+      var name = old_area.name;
+      var knitting_times = old_area.knitting_times.filter(function (kt) {
+        return kt !== action.knittingtimeId;
+      });
+      var area_updated = { id: id, name: name, knitting_times: knitting_times };
+      return (0, _merge4.default)(newState, _defineProperty({}, id, area_updated));
     default:
       return state;
   }
@@ -3293,6 +3318,8 @@ var _area_actions = __webpack_require__(/*! ../actions/area_actions */ "./fronte
 
 var _enrollment_actions = __webpack_require__(/*! ../actions/enrollment_actions */ "./frontend/actions/enrollment_actions.js");
 
+var _knitting_time_actions = __webpack_require__(/*! ../actions/knitting_time_actions */ "./frontend/actions/knitting_time_actions.js");
+
 var _merge2 = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
 
 var _merge3 = _interopRequireDefault(_merge2);
@@ -3315,6 +3342,15 @@ var enrollmentsReducer = function enrollmentsReducer() {
       return newState;
     case _enrollment_actions.RECEIVE_ENROLLMENT:
       return (0, _merge3.default)({}, state, _defineProperty({}, action.knitting_time_enrollment.id, action.knitting_time_enrollment));
+    case _knitting_time_actions.DELETE_KNITTING_TIME:
+      var newState2 = (0, _merge3.default)({}, state);
+      var enr = Array.prototype.slice.call(newState2).filter(function (enr) {
+        return enr.knittingtime_id === action.knittingtimeId;
+      });
+      enr.forEach(function (el) {
+        return delete newState2[enr.id];
+      });
+      return newState2;
     default:
       return state;
   }
@@ -3477,8 +3513,8 @@ exports.default = function () {
       return action.areas.knitting_times;
     case _knitting_time_actions.RECEIVE_KNITTING_TIME:
       return (0, _merge3.default)({}, state, _defineProperty({}, action.knitting_time.id, action.knitting_time));
-    case _knitting_time_actions.REMOVE_KNITTING_TIME:
-      var newState = (0, _merge3.default)({}, oldState);
+    case _knitting_time_actions.DELETE_KNITTING_TIME:
+      var newState = (0, _merge3.default)({}, state);
       delete newState[action.knittingtimeId];
       return newState;
     default:

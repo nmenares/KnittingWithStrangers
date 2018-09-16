@@ -10,8 +10,11 @@ class KnittingTimes extends React.Component {
     // this.state = Object.assign({}, this.props.areas);
   }
 
-  componentDidMount(){
+  componentWillMount(){
     this.props.fetchAreas();
+  }
+
+  componentDidMount(){
     window.scrollTo(0, 0);
   }
 

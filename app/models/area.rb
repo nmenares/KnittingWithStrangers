@@ -15,11 +15,14 @@ class Area < ApplicationRecord
 
   has_many :knitting_times,
   foreign_key: :area_id,
-  class_name: :KnittingTime
+  class_name: :KnittingTime,
+  dependent: :destroy
+
 
   has_many :enrollments,
   through: :knitting_times,
-  source: :ktenrollments
+  source: :ktenrollments,
+  dependent: :destroy
 
   has_many :users,
   through: :enrollments,

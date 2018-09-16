@@ -1,5 +1,5 @@
 import { RECEIVE_ALL_AREAS } from '../actions/area_actions';
-import { RECEIVE_KNITTING_TIME, REMOVE_KNITTING_TIME } from '../actions/knitting_time_actions';
+import { RECEIVE_KNITTING_TIME, DELETE_KNITTING_TIME } from '../actions/knitting_time_actions';
 import { toObject } from '../util/functions'
 import merge from 'lodash/merge';
 
@@ -10,8 +10,8 @@ export default (state = {}, action) => {
       return action.areas.knitting_times;
     case RECEIVE_KNITTING_TIME:
       return merge({}, state, { [action.knitting_time.id]: action.knitting_time })
-    case REMOVE_KNITTING_TIME:
-      let newState = merge({}, oldState);
+    case DELETE_KNITTING_TIME:
+      let newState = merge({}, state);
       delete newState[action.knittingtimeId]
       return newState;
     default:

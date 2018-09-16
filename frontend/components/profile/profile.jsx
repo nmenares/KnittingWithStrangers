@@ -11,6 +11,7 @@ class Profile extends React.Component {
     this.enr = (kt_id) => merge([], this.props.attending_enrollments.filter(enr => enr.knittingtime_id === parseInt(kt_id)));
 
     this.false_enr = (kt_id) => merge([], this.props.all_enrollments.filter(enr => enr.knittingtime_id === parseInt(kt_id) && !enr.going));
+
   }
 
   handleClick(kt){
@@ -23,15 +24,21 @@ class Profile extends React.Component {
         this.props.updateEnrollment({id: falses[0].id, user_id: falses[0].user_id, knittingtime_id: falses[0].knittingtime_id, going: true })
       }
     }
-  }
+  };
 
   handleDelete(kt_id){
     return e => {
       e.preventDefault;
       this.props.deleteKnittingTime(kt_id);
-      location.reload();
     }
-  }
+  };
+
+  sendEmail(email){
+    return e => {
+      e.preventDefault;
+      window.open(`mailto:${email}`)
+    }
+  };
 
   componentDidMount(){
     this.props.fetchMe();
@@ -99,7 +106,7 @@ class Profile extends React.Component {
                         </div>
                         <div>
                           <button className="profile-host-info">{`${this.props.users[kt.host_id].username}'s`} profile</button>
-                          <button className="profile-host-info">email {this.props.users[kt.host_id].username}</button>
+                          <button className="profile-host-info" onClick={this.sendEmail(this.props.users[kt.host_id].email)}>email {this.props.users[kt.host_id].username}</button>
                         </div>
                       </div>
                     </li>

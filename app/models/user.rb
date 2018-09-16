@@ -26,15 +26,18 @@ class User < ApplicationRecord
 
   has_many :hosted_knitting_times,
   foreign_key: :host_id,
-  class_name: :KnittingTime
+  class_name: :KnittingTime,
+  dependent: :destroy
 
   has_many :enrollments,
   foreign_key: :user_id,
-  class_name: :KnittingTimeEnrollment
+  class_name: :KnittingTimeEnrollment,
+  dependent: :destroy
 
   has_many :knitting_times,
   through: :enrollments,
-  source: :knittingtime
+  source: :knittingtime,
+  dependent: :destroy
 
   # has_one_attached :photo
 

@@ -25,6 +25,10 @@
    color: #333;
  }
 
+ /* buttons */
+
+ button:focus {outline:0;}
+
  /* navbar */
 
 .navbar {
