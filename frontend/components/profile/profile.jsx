@@ -15,11 +15,9 @@ class Profile extends React.Component {
 
   handleClick(kt){
     return e => {
-      e.preventDefault
+      e.preventDefault;
       const enr = this.enr(kt.id)[0];
       const falses = this.false_enr(kt.id);
-      console.log("falses")
-      console.log(falses)
       this.props.deleteEnrollment(enr.id);
       if (falses.length > 0) {
         this.props.updateEnrollment({id: falses[0].id, user_id: falses[0].user_id, knittingtime_id: falses[0].knittingtime_id, going: true })
@@ -27,10 +25,18 @@ class Profile extends React.Component {
     }
   }
 
+  handleDelete(kt_id){
+    return e => {
+      e.preventDefault;
+      this.props.deleteKnittingTime(kt_id);
+      location.reload();
+    }
+  }
+
   componentDidMount(){
     this.props.fetchMe();
     window.scrollTo(0, 0);
-  }
+  };
 
   componentWillMount(){
     this.props.fetchAreas();
@@ -132,7 +138,7 @@ class Profile extends React.Component {
               </div>
               <div className="list-profile">
                 {hosted_knitting_times_f.length > 0 ? <h2>Knitting times you're hosting</h2> : null }
-                <ul> {hosted_knitting_times_f.map(hkt => (
+                <ul id="to_reload"> {hosted_knitting_times_f.map(hkt => (
                     <li key={hkt.id} className="hosted-li">
 
                       <div className="profile-kt-box2">
@@ -143,7 +149,7 @@ class Profile extends React.Component {
                       </div>
                       <div className="modify-hosted">
                         <button className="profile-host-info">update</button>
-                        <button className="profile-host-info2">delete</button>
+                        <button className="profile-host-info2" onClick={this.handleDelete(hkt.id)}>delete</button>
                       </div>
                     </li>
                   ))

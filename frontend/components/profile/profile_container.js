@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import Profile from './profile';
 import { fetchMe } from '../../actions/session_actions';
 import { fetchAreas } from '../../actions/area_actions';
-import {deleteEnrollment, updateEnrollment} from '../../actions/enrollment_actions';
+import { deleteEnrollment, updateEnrollment } from '../../actions/enrollment_actions';
+import { deleteKnittingTime, updateKnittingTime } from '../../actions/knitting_time_actions';
 
 
 const msp = (state) => ({
@@ -18,6 +19,8 @@ const msp = (state) => ({
 const mdp = (dispatch) => ({
   fetchMe: () => dispatch(fetchMe()),
   fetchAreas: () => dispatch(fetchAreas()),
+  deleteKnittingTime: (id) => dispatch(deleteKnittingTime(id)),
+  updateKnittingTime: (data, cb) => dispatch(updateKnittingTime(data, cb)),
   deleteEnrollment: (id) => dispatch(deleteEnrollment(id)),
   updateEnrollment: (data) => dispatch(updateEnrollment(data))
 });

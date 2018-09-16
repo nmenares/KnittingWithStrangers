@@ -205,7 +205,7 @@ var deleteEnrollment = exports.deleteEnrollment = function deleteEnrollment(id) 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createKnittingTime = exports.deleteErrors = exports.fetchKnittingTime = exports.DELETE_KNITTING_TIME_ERRORS = exports.RECEIVE_KNITTING_TIME_ERRORS = exports.RECEIVE_KNITTING_TIME = undefined;
+exports.deleteKnittingTime = exports.updateKnittingTime = exports.createKnittingTime = exports.deleteErrors = exports.fetchKnittingTime = exports.DELETE_KNITTING_TIME_ERRORS = exports.RECEIVE_KNITTING_TIME_ERRORS = exports.DELETE_KNITTING_TIME = exports.RECEIVE_KNITTING_TIME = undefined;
 
 var _knitting_time_api_util = __webpack_require__(/*! ../util/knitting_time_api_util */ "./frontend/util/knitting_time_api_util.js");
 
@@ -214,6 +214,7 @@ var ApiKnittingTimeUtil = _interopRequireWildcard(_knitting_time_api_util);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var RECEIVE_KNITTING_TIME = exports.RECEIVE_KNITTING_TIME = 'RECEIVE_KNITTING_TIME';
+var DELETE_KNITTING_TIME = exports.DELETE_KNITTING_TIME = 'DELETE_KNITTING_TIME';
 var RECEIVE_KNITTING_TIME_ERRORS = exports.RECEIVE_KNITTING_TIME_ERRORS = 'RECEIVE_KNITTING_TIME_ERRORS';
 var DELETE_KNITTING_TIME_ERRORS = exports.DELETE_KNITTING_TIME_ERRORS = 'DELETE_KNITTING_TIME_ERRORS';
 
@@ -222,6 +223,9 @@ var receiveKnittingTime = function receiveKnittingTime(knitting_time) {
 };
 var receiveErrors = function receiveErrors(errors) {
   return { type: RECEIVE_KNITTING_TIME_ERRORS, errors: errors };
+};
+var removeKnittingTime = function removeKnittingTime(id) {
+  return { type: DELETE_KNITTING_TIME, knittingtimeId: id };
 };
 
 var fetchKnittingTime = exports.fetchKnittingTime = function fetchKnittingTime(id) {
@@ -245,6 +249,25 @@ var createKnittingTime = exports.createKnittingTime = function createKnittingTim
       callback();
     }, function (err) {
       return dispatch(receiveErrors(err.responseJSON));
+    });
+  };
+};
+
+var updateKnittingTime = exports.updateKnittingTime = function updateKnittingTime(data, callback) {
+  return function (dispatch) {
+    return ApiKnittingTimeUtil.updateKnittingTime(data).then(function (kt) {
+      dispatch(receiveKnittingTime(kt));
+      callback();
+    }, function (err) {
+      return dispatch(receiveErrors(err.responseJSON));
+    });
+  };
+};
+
+var deleteKnittingTime = exports.deleteKnittingTime = function deleteKnittingTime(id) {
+  return function (dispatch) {
+    return ApiKnittingTimeUtil.deleteKnittingTime(id).then(function () {
+      dispatch(removeKnittingTime(id));
     });
   };
 };
@@ -2077,12 +2100,21 @@ var Profile = function (_React$Component) {
         e.preventDefault;
         var enr = _this2.enr(kt.id)[0];
         var falses = _this2.false_enr(kt.id);
-        console.log("falses");
-        console.log(falses);
         _this2.props.deleteEnrollment(enr.id);
         if (falses.length > 0) {
           _this2.props.updateEnrollment({ id: falses[0].id, user_id: falses[0].user_id, knittingtime_id: falses[0].knittingtime_id, going: true });
         }
+      };
+    }
+  }, {
+    key: 'handleDelete',
+    value: function handleDelete(kt_id) {
+      var _this3 = this;
+
+      return function (e) {
+        e.preventDefault;
+        _this3.props.deleteKnittingTime(kt_id);
+        location.reload();
       };
     }
   }, {
@@ -2099,7 +2131,7 @@ var Profile = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       if (!this.props.me || !this.props.attending_enrollments || !this.props.knitting_times) {
         return null;
@@ -2115,7 +2147,7 @@ var Profile = function (_React$Component) {
         return ae.knittingtime_id;
       });
       var my_kts = my_kt_ids.map(function (id) {
-        return _this3.props.knitting_times[id];
+        return _this4.props.knitting_times[id];
       });
       var my_kts_f = my_kts.filter(function (kt) {
         return kt.date >= today.format();
@@ -2128,7 +2160,7 @@ var Profile = function (_React$Component) {
         return ae.knittingtime_id;
       });
       var my_kts_wl = my_kt_ids_wl.map(function (id) {
-        return _this3.props.knitting_times[id];
+        return _this4.props.knitting_times[id];
       });
       var my_kts_wl_f = my_kts_wl.filter(function (kt) {
         return kt.date >= today.format();
@@ -2246,7 +2278,7 @@ var Profile = function (_React$Component) {
                         ),
                         _react2.default.createElement(
                           'div',
-                          { className: 'cancel-kt', onClick: _this3.handleClick(kt) },
+                          { className: 'cancel-kt', onClick: _this4.handleClick(kt) },
                           'CANCEL MY SPOT'
                         )
                       ),
@@ -2270,7 +2302,7 @@ var Profile = function (_React$Component) {
                             'p',
                             null,
                             'Keep an eye open for ',
-                            _this3.props.users[kt.host_id].username,
+                            _this4.props.users[kt.host_id].username,
                             '! So it\'s easier, here\'s what they look like :).'
                           )
                         ),
@@ -2280,14 +2312,14 @@ var Profile = function (_React$Component) {
                           _react2.default.createElement(
                             'button',
                             { className: 'profile-host-info' },
-                            _this3.props.users[kt.host_id].username + '\'s',
+                            _this4.props.users[kt.host_id].username + '\'s',
                             ' profile'
                           ),
                           _react2.default.createElement(
                             'button',
                             { className: 'profile-host-info' },
                             'email ',
-                            _this3.props.users[kt.host_id].username
+                            _this4.props.users[kt.host_id].username
                           )
                         )
                       )
@@ -2347,7 +2379,7 @@ var Profile = function (_React$Component) {
                         ),
                         _react2.default.createElement(
                           'div',
-                          { className: 'cancel-kt', onClick: _this3.handleClick(kt) },
+                          { className: 'cancel-kt', onClick: _this4.handleClick(kt) },
                           'CANCEL MY SPOT'
                         )
                       ),
@@ -2371,7 +2403,7 @@ var Profile = function (_React$Component) {
                             'p',
                             null,
                             'Keep an eye open for ',
-                            _this3.props.users[kt.host_id].username,
+                            _this4.props.users[kt.host_id].username,
                             '! So it\'s easier, here\'s what they look like :).'
                           )
                         ),
@@ -2381,14 +2413,14 @@ var Profile = function (_React$Component) {
                           _react2.default.createElement(
                             'button',
                             { className: 'profile-host-info' },
-                            _this3.props.users[kt.host_id].username + '\'s',
+                            _this4.props.users[kt.host_id].username + '\'s',
                             ' profile'
                           ),
                           _react2.default.createElement(
                             'button',
                             { className: 'profile-host-info' },
                             'email ',
-                            _this3.props.users[kt.host_id].username
+                            _this4.props.users[kt.host_id].username
                           )
                         )
                       )
@@ -2406,7 +2438,7 @@ var Profile = function (_React$Component) {
                 ) : null,
                 _react2.default.createElement(
                   'ul',
-                  null,
+                  { id: 'to_reload' },
                   ' ',
                   hosted_knitting_times_f.map(function (hkt) {
                     return _react2.default.createElement(
@@ -2457,7 +2489,7 @@ var Profile = function (_React$Component) {
                         ),
                         _react2.default.createElement(
                           'button',
-                          { className: 'profile-host-info2' },
+                          { className: 'profile-host-info2', onClick: _this4.handleDelete(hkt.id) },
                           'delete'
                         )
                       )
@@ -2511,6 +2543,8 @@ var _area_actions = __webpack_require__(/*! ../../actions/area_actions */ "./fro
 
 var _enrollment_actions = __webpack_require__(/*! ../../actions/enrollment_actions */ "./frontend/actions/enrollment_actions.js");
 
+var _knitting_time_actions = __webpack_require__(/*! ../../actions/knitting_time_actions */ "./frontend/actions/knitting_time_actions.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state) {
@@ -2535,6 +2569,12 @@ var mdp = function mdp(dispatch) {
     },
     fetchAreas: function fetchAreas() {
       return dispatch((0, _area_actions.fetchAreas)());
+    },
+    deleteKnittingTime: function deleteKnittingTime(id) {
+      return dispatch((0, _knitting_time_actions.deleteKnittingTime)(id));
+    },
+    updateKnittingTime: function updateKnittingTime(data, cb) {
+      return dispatch((0, _knitting_time_actions.updateKnittingTime)(data, cb));
     },
     deleteEnrollment: function deleteEnrollment(id) {
       return dispatch((0, _enrollment_actions.deleteEnrollment)(id));
@@ -3432,6 +3472,10 @@ exports.default = function () {
       return action.areas.knitting_times;
     case _knitting_time_actions.RECEIVE_KNITTING_TIME:
       return (0, _merge3.default)({}, state, _defineProperty({}, action.knitting_time.id, action.knitting_time));
+    case _knitting_time_actions.REMOVE_KNITTING_TIME:
+      var newState = (0, _merge3.default)({}, oldState);
+      delete newState[action.knittingtimeId];
+      return newState;
     default:
       return state;
   }

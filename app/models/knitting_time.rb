@@ -33,7 +33,8 @@ class KnittingTime < ApplicationRecord
 
   has_many :ktenrollments,
   foreign_key: :knittingtime_id,
-  class_name: :KnittingTimeEnrollment
+  class_name: :KnittingTimeEnrollment,
+  dependent: :destroy
 
   has_many :users,
   through: :ktenrollments,

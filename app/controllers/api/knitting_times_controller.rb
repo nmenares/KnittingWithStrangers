@@ -25,7 +25,6 @@ class Api::KnittingTimesController < ApplicationController
   def destroy
     knitting_time = KnittingTime.find_by(id: params[:id])
     knitting_time.destroy
-    render "api/areas/index"
   end
 
   private
