@@ -2098,6 +2098,8 @@ var Profile = function (_React$Component) {
       }));
     };
 
+    _this.state = { clickUpdate: false, text: "" };
+
     return _this;
   }
 
@@ -2127,6 +2129,28 @@ var Profile = function (_React$Component) {
       };
     }
   }, {
+    key: 'handleUpdate',
+    value: function handleUpdate(description) {
+      var _this4 = this;
+
+      return function (e) {
+        e.preventDefault();
+        _this4.setState({ clickUpdate: true, text: description });
+      };
+    }
+  }, {
+    key: 'handleSpan',
+    value: function handleSpan(e) {
+      e.preventDefault();
+      this.setState({ clickUpdate: false });
+    }
+  }, {
+    key: 'modifyUpdate',
+    value: function modifyUpdate(e) {
+      e.preventDefault();
+      this.setState({ text: e.currentTarget.value });
+    }
+  }, {
     key: 'sendEmail',
     value: function sendEmail(email) {
       return function (e) {
@@ -2139,6 +2163,32 @@ var Profile = function (_React$Component) {
     value: function componentDidMount() {
       this.props.fetchMe();
       window.scrollTo(0, 0);
+
+      var modal = document.getElementById("updateModal");
+      var btn = document.getElementById("update-kt");
+      var span = document.getElementsByClassName("close")[0];
+      var update = document.getElementById("update-kt2");
+
+      // modal.addEventListener("click", handleModule);
+      //
+      // function handleModule(e){
+      //   e.preventDefault();
+      //   modal.style.display = "block";
+      // }
+
+      // btn.onClick = function() {
+      //     modal.style.display = "block";
+      // }
+      //
+      // span.onclick = function() {
+      //     modal.style.display = "none";
+      // }
+      //
+      // window.onclick = function(event) {
+      //     if (event.target == modal) {
+      //         modal.style.display = "none";
+      //     }
+      // }
     }
   }, {
     key: 'componentWillMount',
@@ -2148,7 +2198,7 @@ var Profile = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       if (!this.props.me || !this.props.attending_enrollments || !this.props.knitting_times) {
         return null;
@@ -2164,7 +2214,7 @@ var Profile = function (_React$Component) {
         return ae.knittingtime_id;
       });
       var my_kts = my_kt_ids.map(function (id) {
-        return _this4.props.knitting_times[id];
+        return _this5.props.knitting_times[id];
       });
       var my_kts_f = my_kts.filter(function (kt) {
         return kt.date >= today.format();
@@ -2177,7 +2227,7 @@ var Profile = function (_React$Component) {
         return ae.knittingtime_id;
       });
       var my_kts_wl = my_kt_ids_wl.map(function (id) {
-        return _this4.props.knitting_times[id];
+        return _this5.props.knitting_times[id];
       });
       var my_kts_wl_f = my_kts_wl.filter(function (kt) {
         return kt.date >= today.format();
@@ -2295,7 +2345,7 @@ var Profile = function (_React$Component) {
                         ),
                         _react2.default.createElement(
                           'div',
-                          { className: 'cancel-kt', onClick: _this4.handleClick(kt) },
+                          { className: 'cancel-kt', onClick: _this5.handleClick(kt) },
                           'CANCEL MY SPOT'
                         )
                       ),
@@ -2319,7 +2369,7 @@ var Profile = function (_React$Component) {
                             'p',
                             null,
                             'Keep an eye open for ',
-                            _this4.props.users[kt.host_id].username,
+                            _this5.props.users[kt.host_id].username,
                             '! So it\'s easier, here\'s what they look like :).'
                           )
                         ),
@@ -2329,14 +2379,14 @@ var Profile = function (_React$Component) {
                           _react2.default.createElement(
                             'button',
                             { className: 'profile-host-info' },
-                            _this4.props.users[kt.host_id].username + '\'s',
+                            _this5.props.users[kt.host_id].username + '\'s',
                             ' profile'
                           ),
                           _react2.default.createElement(
                             'button',
-                            { className: 'profile-host-info', onClick: _this4.sendEmail(_this4.props.users[kt.host_id].email) },
+                            { className: 'profile-host-info', onClick: _this5.sendEmail(_this5.props.users[kt.host_id].email) },
                             'email ',
-                            _this4.props.users[kt.host_id].username
+                            _this5.props.users[kt.host_id].username
                           )
                         )
                       )
@@ -2396,7 +2446,7 @@ var Profile = function (_React$Component) {
                         ),
                         _react2.default.createElement(
                           'div',
-                          { className: 'cancel-kt', onClick: _this4.handleClick(kt) },
+                          { className: 'cancel-kt', onClick: _this5.handleClick(kt) },
                           'CANCEL MY SPOT'
                         )
                       ),
@@ -2420,7 +2470,7 @@ var Profile = function (_React$Component) {
                             'p',
                             null,
                             'Keep an eye open for ',
-                            _this4.props.users[kt.host_id].username,
+                            _this5.props.users[kt.host_id].username,
                             '! So it\'s easier, here\'s what they look like :).'
                           )
                         ),
@@ -2430,14 +2480,14 @@ var Profile = function (_React$Component) {
                           _react2.default.createElement(
                             'button',
                             { className: 'profile-host-info' },
-                            _this4.props.users[kt.host_id].username + '\'s',
+                            _this5.props.users[kt.host_id].username + '\'s',
                             ' profile'
                           ),
                           _react2.default.createElement(
                             'button',
                             { className: 'profile-host-info' },
                             'email ',
-                            _this4.props.users[kt.host_id].username
+                            _this5.props.users[kt.host_id].username
                           )
                         )
                       )
@@ -2501,12 +2551,27 @@ var Profile = function (_React$Component) {
                         { className: 'modify-hosted' },
                         _react2.default.createElement(
                           'button',
-                          { className: 'profile-host-info' },
+                          { className: 'profile-host-info', id: 'update-kt', onClick: _this5.handleUpdate(hkt.description) },
                           'update'
                         ),
+                        _this5.state.clickUpdate ? _react2.default.createElement(
+                          'div',
+                          { id: 'updateModal', className: 'modal' },
+                          _react2.default.createElement(
+                            'form',
+                            { className: 'modal-content' },
+                            _react2.default.createElement(
+                              'span',
+                              { className: 'close', onClick: _this5.handleSpan.bind(_this5) },
+                              '\xD7'
+                            ),
+                            _react2.default.createElement('input', { type: 'text', value: _this5.state.text, onChange: _this5.modifyUpdate.bind(_this5) }),
+                            _react2.default.createElement('input', { type: 'submit' })
+                          )
+                        ) : null,
                         _react2.default.createElement(
                           'button',
-                          { className: 'profile-host-info2', onClick: _this4.handleDelete(hkt.id) },
+                          { className: 'profile-host-info2', onClick: _this5.handleDelete(hkt.id) },
                           'delete'
                         )
                       )

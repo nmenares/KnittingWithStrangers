@@ -12,6 +12,8 @@ class Profile extends React.Component {
 
     this.false_enr = (kt_id) => merge([], this.props.all_enrollments.filter(enr => enr.knittingtime_id === parseInt(kt_id) && !enr.going));
 
+    this.state = {clickUpdate: false, text: ""};
+
   }
 
   handleClick(kt){
@@ -33,6 +35,23 @@ class Profile extends React.Component {
     }
   };
 
+  handleUpdate(description){
+  return e => {
+    e.preventDefault();
+    this.setState({clickUpdate: true, text: description })
+    }
+  };
+
+  handleSpan(e){
+  e.preventDefault();
+  this.setState({clickUpdate: false})
+  };
+
+  modifyUpdate(e){
+    e.preventDefault();
+    this.setState({text: e.currentTarget.value})
+  }
+
   sendEmail(email){
     return e => {
       e.preventDefault;
@@ -43,6 +62,32 @@ class Profile extends React.Component {
   componentDidMount(){
     this.props.fetchMe();
     window.scrollTo(0, 0);
+
+    const modal = document.getElementById("updateModal");
+    const btn = document.getElementById("update-kt");
+    const span = document.getElementsByClassName("close")[0];
+    const update = document.getElementById("update-kt2");
+
+    // modal.addEventListener("click", handleModule);
+    //
+    // function handleModule(e){
+    //   e.preventDefault();
+    //   modal.style.display = "block";
+    // }
+
+    // btn.onClick = function() {
+    //     modal.style.display = "block";
+    // }
+    //
+    // span.onclick = function() {
+    //     modal.style.display = "none";
+    // }
+    //
+    // window.onclick = function(event) {
+    //     if (event.target == modal) {
+    //         modal.style.display = "none";
+    //     }
+    // }
   };
 
   componentWillMount(){
@@ -155,7 +200,19 @@ class Profile extends React.Component {
                         <p>{hkt.address_1}{hkt.address_2 ? `, ${hkt.address_2}` : null}, {hkt.city}, {hkt.state}, {hkt.zip}</p>
                       </div>
                       <div className="modify-hosted">
-                        <button className="profile-host-info">update</button>
+                        <button className="profile-host-info" id="update-kt" onClick={this.handleUpdate(hkt.description)} >update</button>
+                        {this.state.clickUpdate ?
+                          <div id="updateModal" className="modal">
+                            <form className="modal-content">
+                              <span className="close" onClick={this.handleSpan.bind(this)}>&times;</span>
+                              <input type="text" value={this.state.text} onChange={this.modifyUpdate.bind(this)}></input>
+                              <input type="submit"></input>
+                            </form>
+                          </div>
+                          :
+                          null
+                        }
+
                         <button className="profile-host-info2" onClick={this.handleDelete(hkt.id)}>delete</button>
                       </div>
                     </li>
