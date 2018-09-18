@@ -50,7 +50,28 @@ class Profile extends React.Component {
   modifyUpdate(e){
     e.preventDefault();
     this.setState({text: e.currentTarget.value})
-  }
+  };
+
+  updateKnittingTime(kt){
+    return e => {
+      e.preventDefault();
+      this.props.updateKnittingTime({
+        id: kt.id,
+        date: kt.date,
+        start_time: kt.start_time,
+        end_time: kt.end_time,
+        address_1: kt.address_1,
+        address_2: kt.address_2,
+        city: kt.city,
+        state: kt.state,
+        zip: kt.zip,
+        area_id: kt.area_id,
+        host_id: kt.host_id,
+        description: this.state.text
+      });
+      this.setState({clickUpdate: false});
+    }
+  };
 
   sendEmail(email){
     return e => {
@@ -62,32 +83,6 @@ class Profile extends React.Component {
   componentDidMount(){
     this.props.fetchMe();
     window.scrollTo(0, 0);
-
-    const modal = document.getElementById("updateModal");
-    const btn = document.getElementById("update-kt");
-    const span = document.getElementsByClassName("close")[0];
-    const update = document.getElementById("update-kt2");
-
-    // modal.addEventListener("click", handleModule);
-    //
-    // function handleModule(e){
-    //   e.preventDefault();
-    //   modal.style.display = "block";
-    // }
-
-    // btn.onClick = function() {
-    //     modal.style.display = "block";
-    // }
-    //
-    // span.onclick = function() {
-    //     modal.style.display = "none";
-    // }
-    //
-    // window.onclick = function(event) {
-    //     if (event.target == modal) {
-    //         modal.style.display = "none";
-    //     }
-    // }
   };
 
   componentWillMount(){
@@ -205,8 +200,8 @@ class Profile extends React.Component {
                           <div id="updateModal" className="modal">
                             <form className="modal-content">
                               <span className="close" onClick={this.handleSpan.bind(this)}>&times;</span>
-                              <input type="text" value={this.state.text} onChange={this.modifyUpdate.bind(this)}></input>
-                              <input type="submit"></input>
+                              <textarea value={this.state.text} onChange={this.modifyUpdate.bind(this)}></textarea>
+                              <input type="submit" onClick={this.updateKnittingTime(hkt)}></input>
                             </form>
                           </div>
                           :

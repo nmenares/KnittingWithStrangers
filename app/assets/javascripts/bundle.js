@@ -253,11 +253,10 @@ var createKnittingTime = exports.createKnittingTime = function createKnittingTim
   };
 };
 
-var updateKnittingTime = exports.updateKnittingTime = function updateKnittingTime(data, callback) {
+var updateKnittingTime = exports.updateKnittingTime = function updateKnittingTime(data) {
   return function (dispatch) {
     return ApiKnittingTimeUtil.updateKnittingTime(data).then(function (kt) {
       dispatch(receiveKnittingTime(kt));
-      callback();
     }, function (err) {
       return dispatch(receiveErrors(err.responseJSON));
     });
@@ -2151,6 +2150,30 @@ var Profile = function (_React$Component) {
       this.setState({ text: e.currentTarget.value });
     }
   }, {
+    key: 'updateKnittingTime',
+    value: function updateKnittingTime(kt) {
+      var _this5 = this;
+
+      return function (e) {
+        e.preventDefault();
+        _this5.props.updateKnittingTime({
+          id: kt.id,
+          date: kt.date,
+          start_time: kt.start_time,
+          end_time: kt.end_time,
+          address_1: kt.address_1,
+          address_2: kt.address_2,
+          city: kt.city,
+          state: kt.state,
+          zip: kt.zip,
+          area_id: kt.area_id,
+          host_id: kt.host_id,
+          description: _this5.state.text
+        });
+        _this5.setState({ clickUpdate: false });
+      };
+    }
+  }, {
     key: 'sendEmail',
     value: function sendEmail(email) {
       return function (e) {
@@ -2163,32 +2186,6 @@ var Profile = function (_React$Component) {
     value: function componentDidMount() {
       this.props.fetchMe();
       window.scrollTo(0, 0);
-
-      var modal = document.getElementById("updateModal");
-      var btn = document.getElementById("update-kt");
-      var span = document.getElementsByClassName("close")[0];
-      var update = document.getElementById("update-kt2");
-
-      // modal.addEventListener("click", handleModule);
-      //
-      // function handleModule(e){
-      //   e.preventDefault();
-      //   modal.style.display = "block";
-      // }
-
-      // btn.onClick = function() {
-      //     modal.style.display = "block";
-      // }
-      //
-      // span.onclick = function() {
-      //     modal.style.display = "none";
-      // }
-      //
-      // window.onclick = function(event) {
-      //     if (event.target == modal) {
-      //         modal.style.display = "none";
-      //     }
-      // }
     }
   }, {
     key: 'componentWillMount',
@@ -2198,7 +2195,7 @@ var Profile = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this5 = this;
+      var _this6 = this;
 
       if (!this.props.me || !this.props.attending_enrollments || !this.props.knitting_times) {
         return null;
@@ -2214,7 +2211,7 @@ var Profile = function (_React$Component) {
         return ae.knittingtime_id;
       });
       var my_kts = my_kt_ids.map(function (id) {
-        return _this5.props.knitting_times[id];
+        return _this6.props.knitting_times[id];
       });
       var my_kts_f = my_kts.filter(function (kt) {
         return kt.date >= today.format();
@@ -2227,7 +2224,7 @@ var Profile = function (_React$Component) {
         return ae.knittingtime_id;
       });
       var my_kts_wl = my_kt_ids_wl.map(function (id) {
-        return _this5.props.knitting_times[id];
+        return _this6.props.knitting_times[id];
       });
       var my_kts_wl_f = my_kts_wl.filter(function (kt) {
         return kt.date >= today.format();
@@ -2345,7 +2342,7 @@ var Profile = function (_React$Component) {
                         ),
                         _react2.default.createElement(
                           'div',
-                          { className: 'cancel-kt', onClick: _this5.handleClick(kt) },
+                          { className: 'cancel-kt', onClick: _this6.handleClick(kt) },
                           'CANCEL MY SPOT'
                         )
                       ),
@@ -2369,7 +2366,7 @@ var Profile = function (_React$Component) {
                             'p',
                             null,
                             'Keep an eye open for ',
-                            _this5.props.users[kt.host_id].username,
+                            _this6.props.users[kt.host_id].username,
                             '! So it\'s easier, here\'s what they look like :).'
                           )
                         ),
@@ -2379,14 +2376,14 @@ var Profile = function (_React$Component) {
                           _react2.default.createElement(
                             'button',
                             { className: 'profile-host-info' },
-                            _this5.props.users[kt.host_id].username + '\'s',
+                            _this6.props.users[kt.host_id].username + '\'s',
                             ' profile'
                           ),
                           _react2.default.createElement(
                             'button',
-                            { className: 'profile-host-info', onClick: _this5.sendEmail(_this5.props.users[kt.host_id].email) },
+                            { className: 'profile-host-info', onClick: _this6.sendEmail(_this6.props.users[kt.host_id].email) },
                             'email ',
-                            _this5.props.users[kt.host_id].username
+                            _this6.props.users[kt.host_id].username
                           )
                         )
                       )
@@ -2446,7 +2443,7 @@ var Profile = function (_React$Component) {
                         ),
                         _react2.default.createElement(
                           'div',
-                          { className: 'cancel-kt', onClick: _this5.handleClick(kt) },
+                          { className: 'cancel-kt', onClick: _this6.handleClick(kt) },
                           'CANCEL MY SPOT'
                         )
                       ),
@@ -2470,7 +2467,7 @@ var Profile = function (_React$Component) {
                             'p',
                             null,
                             'Keep an eye open for ',
-                            _this5.props.users[kt.host_id].username,
+                            _this6.props.users[kt.host_id].username,
                             '! So it\'s easier, here\'s what they look like :).'
                           )
                         ),
@@ -2480,14 +2477,14 @@ var Profile = function (_React$Component) {
                           _react2.default.createElement(
                             'button',
                             { className: 'profile-host-info' },
-                            _this5.props.users[kt.host_id].username + '\'s',
+                            _this6.props.users[kt.host_id].username + '\'s',
                             ' profile'
                           ),
                           _react2.default.createElement(
                             'button',
                             { className: 'profile-host-info' },
                             'email ',
-                            _this5.props.users[kt.host_id].username
+                            _this6.props.users[kt.host_id].username
                           )
                         )
                       )
@@ -2551,10 +2548,10 @@ var Profile = function (_React$Component) {
                         { className: 'modify-hosted' },
                         _react2.default.createElement(
                           'button',
-                          { className: 'profile-host-info', id: 'update-kt', onClick: _this5.handleUpdate(hkt.description) },
+                          { className: 'profile-host-info', id: 'update-kt', onClick: _this6.handleUpdate(hkt.description) },
                           'update'
                         ),
-                        _this5.state.clickUpdate ? _react2.default.createElement(
+                        _this6.state.clickUpdate ? _react2.default.createElement(
                           'div',
                           { id: 'updateModal', className: 'modal' },
                           _react2.default.createElement(
@@ -2562,16 +2559,16 @@ var Profile = function (_React$Component) {
                             { className: 'modal-content' },
                             _react2.default.createElement(
                               'span',
-                              { className: 'close', onClick: _this5.handleSpan.bind(_this5) },
+                              { className: 'close', onClick: _this6.handleSpan.bind(_this6) },
                               '\xD7'
                             ),
-                            _react2.default.createElement('input', { type: 'text', value: _this5.state.text, onChange: _this5.modifyUpdate.bind(_this5) }),
-                            _react2.default.createElement('input', { type: 'submit' })
+                            _react2.default.createElement('textarea', { value: _this6.state.text, onChange: _this6.modifyUpdate.bind(_this6) }),
+                            _react2.default.createElement('input', { type: 'submit', onClick: _this6.updateKnittingTime(hkt) })
                           )
                         ) : null,
                         _react2.default.createElement(
                           'button',
-                          { className: 'profile-host-info2', onClick: _this5.handleDelete(hkt.id) },
+                          { className: 'profile-host-info2', onClick: _this6.handleDelete(hkt.id) },
                           'delete'
                         )
                       )
@@ -2655,8 +2652,8 @@ var mdp = function mdp(dispatch) {
     deleteKnittingTime: function deleteKnittingTime(id) {
       return dispatch((0, _knitting_time_actions.deleteKnittingTime)(id));
     },
-    updateKnittingTime: function updateKnittingTime(data, cb) {
-      return dispatch((0, _knitting_time_actions.updateKnittingTime)(data, cb));
+    updateKnittingTime: function updateKnittingTime(data) {
+      return dispatch((0, _knitting_time_actions.updateKnittingTime)(data));
     },
     deleteEnrollment: function deleteEnrollment(id) {
       return dispatch((0, _enrollment_actions.deleteEnrollment)(id));

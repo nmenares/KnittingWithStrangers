@@ -20,7 +20,7 @@ const mdp = (dispatch) => ({
   fetchMe: () => dispatch(fetchMe()),
   fetchAreas: () => dispatch(fetchAreas()),
   deleteKnittingTime: (id) => dispatch(deleteKnittingTime(id)),
-  updateKnittingTime: (data, cb) => dispatch(updateKnittingTime(data, cb)),
+  updateKnittingTime: (data) => dispatch(updateKnittingTime(data)),
   deleteEnrollment: (id) => dispatch(deleteEnrollment(id)),
   updateEnrollment: (data) => dispatch(updateEnrollment(data))
 });
