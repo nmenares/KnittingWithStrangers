@@ -2097,7 +2097,7 @@ var Profile = function (_React$Component) {
       }));
     };
 
-    _this.state = { clickUpdate: false, text: "" };
+    _this.state = { clickUpdate: false, text: "", quicklook: true, history: false, accountdetails: false };
 
     return _this;
   }
@@ -2174,6 +2174,16 @@ var Profile = function (_React$Component) {
       };
     }
   }, {
+    key: 'handleSubMenu',
+    value: function handleSubMenu(field) {
+      var _this6 = this;
+
+      return function (e) {
+        e.preventDefault();
+        _this6.setState({ quicklook: field === "quicklook", history: field === "history", accountdetails: field === "accountdetails" });
+      };
+    }
+  }, {
     key: 'sendEmail',
     value: function sendEmail(email) {
       return function (e) {
@@ -2195,7 +2205,7 @@ var Profile = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this6 = this;
+      var _this7 = this;
 
       if (!this.props.me || !this.props.attending_enrollments || !this.props.knitting_times) {
         return null;
@@ -2211,10 +2221,13 @@ var Profile = function (_React$Component) {
         return ae.knittingtime_id;
       });
       var my_kts = my_kt_ids.map(function (id) {
-        return _this6.props.knitting_times[id];
+        return _this7.props.knitting_times[id];
       });
       var my_kts_f = my_kts.filter(function (kt) {
         return kt.date >= today.format();
+      });
+      var my_kts_p = my_kts.filter(function (kt) {
+        return kt.date < today.format();
       });
 
       var my_kts_maybe = this.props.attending_enrollments.filter(function (kte) {
@@ -2224,7 +2237,7 @@ var Profile = function (_React$Component) {
         return ae.knittingtime_id;
       });
       var my_kts_wl = my_kt_ids_wl.map(function (id) {
-        return _this6.props.knitting_times[id];
+        return _this7.props.knitting_times[id];
       });
       var my_kts_wl_f = my_kts_wl.filter(function (kt) {
         return kt.date >= today.format();
@@ -2233,6 +2246,487 @@ var Profile = function (_React$Component) {
       var hosted_knitting_times_f = this.props.hosted_knitting_times.filter(function (kt) {
         return kt.date >= today.format();
       });
+      var hosted_knitting_times_p = this.props.hosted_knitting_times.filter(function (kt) {
+        return kt.date < today.format();
+      });
+
+      var quickLook = this.state.quicklook ? _react2.default.createElement(
+        'div',
+        { className: 'profile-content' },
+        _react2.default.createElement(
+          'div',
+          { className: 'profile-sidebar' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            'Welcome home, ',
+            this.props.me.username,
+            '!'
+          ),
+          _react2.default.createElement(
+            'h3',
+            null,
+            'What are you grateful today?'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'link3' },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/knitting_times' },
+              'find another knitting time!'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'profile-body' },
+          _react2.default.createElement(
+            'div',
+            { className: 'list-profile' },
+            my_kts_f.length > 0 ? _react2.default.createElement(
+              'h2',
+              null,
+              'Knitting times you\'re attending'
+            ) : null,
+            _react2.default.createElement(
+              'ul',
+              null,
+              ' ',
+              my_kts_f.map(function (kt) {
+                return _react2.default.createElement(
+                  'li',
+                  { className: 'li-attending', key: kt.id },
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'profile-kt-box' },
+                    _react2.default.createElement(
+                      'p',
+                      null,
+                      (0, _moment2.default)(kt.date).format('dddd')
+                    ),
+                    _react2.default.createElement(
+                      'h3',
+                      null,
+                      (0, _moment2.default)(kt.date).format('MMMM'),
+                      ' ',
+                      (0, _moment2.default)(kt.date).date()
+                    ),
+                    _react2.default.createElement(
+                      'h4',
+                      null,
+                      kt.start_time,
+                      ' - ',
+                      kt.end_time
+                    ),
+                    _react2.default.createElement(
+                      'p',
+                      null,
+                      kt.address_1,
+                      kt.address_2 ? ', ' + kt.address_2 : null,
+                      ', ',
+                      kt.city,
+                      ', ',
+                      kt.state,
+                      ', ',
+                      kt.zip
+                    ),
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'cancel-kt', onClick: _this7.handleClick(kt) },
+                      'CANCEL MY SPOT'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'profile-host-box' },
+                    _react2.default.createElement(
+                      'h3',
+                      null,
+                      'Get to know your host'
+                    ),
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'photo-p' },
+                      _react2.default.createElement(
+                        'div',
+                        { className: 'hostphoto' },
+                        _react2.default.createElement('img', { src: window.profile })
+                      ),
+                      _react2.default.createElement(
+                        'p',
+                        null,
+                        'Keep an eye open for ',
+                        _this7.props.users[kt.host_id].username,
+                        '! So it\'s easier, here\'s what they look like :).'
+                      )
+                    ),
+                    _react2.default.createElement(
+                      'div',
+                      null,
+                      _react2.default.createElement(
+                        'button',
+                        { className: 'profile-host-info' },
+                        _this7.props.users[kt.host_id].username + '\'s',
+                        ' profile'
+                      ),
+                      _react2.default.createElement(
+                        'button',
+                        { className: 'profile-host-info', onClick: _this7.sendEmail(_this7.props.users[kt.host_id].email) },
+                        'email ',
+                        _this7.props.users[kt.host_id].username
+                      )
+                    )
+                  )
+                );
+              })
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'list-profile' },
+            my_kts_wl_f.length > 0 ? _react2.default.createElement(
+              'h2',
+              null,
+              'Knitting times you\'re in Waitlists'
+            ) : null,
+            _react2.default.createElement(
+              'ul',
+              null,
+              ' ',
+              my_kts_wl_f.map(function (kt) {
+                return _react2.default.createElement(
+                  'li',
+                  { className: 'li-attending', key: kt.id },
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'profile-kt-box' },
+                    _react2.default.createElement(
+                      'p',
+                      null,
+                      (0, _moment2.default)(kt.date).format('dddd')
+                    ),
+                    _react2.default.createElement(
+                      'h3',
+                      null,
+                      (0, _moment2.default)(kt.date).format('MMMM'),
+                      ' ',
+                      (0, _moment2.default)(kt.date).date()
+                    ),
+                    _react2.default.createElement(
+                      'h4',
+                      null,
+                      kt.start_time,
+                      ' - ',
+                      kt.end_time
+                    ),
+                    _react2.default.createElement(
+                      'p',
+                      null,
+                      kt.address_1,
+                      kt.address_2 ? ', ' + kt.address_2 : null,
+                      ', ',
+                      kt.city,
+                      ', ',
+                      kt.state,
+                      ', ',
+                      kt.zip
+                    ),
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'cancel-kt', onClick: _this7.handleClick(kt) },
+                      'CANCEL MY SPOT'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'profile-host-box' },
+                    _react2.default.createElement(
+                      'h3',
+                      null,
+                      'Get to know your host'
+                    ),
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'photo-p' },
+                      _react2.default.createElement(
+                        'div',
+                        { className: 'hostphoto' },
+                        _react2.default.createElement('img', { src: window.profile })
+                      ),
+                      _react2.default.createElement(
+                        'p',
+                        null,
+                        'Keep an eye open for ',
+                        _this7.props.users[kt.host_id].username,
+                        '! So it\'s easier, here\'s what they look like :).'
+                      )
+                    ),
+                    _react2.default.createElement(
+                      'div',
+                      null,
+                      _react2.default.createElement(
+                        'button',
+                        { className: 'profile-host-info' },
+                        _this7.props.users[kt.host_id].username + '\'s',
+                        ' profile'
+                      ),
+                      _react2.default.createElement(
+                        'button',
+                        { className: 'profile-host-info' },
+                        'email ',
+                        _this7.props.users[kt.host_id].username
+                      )
+                    )
+                  )
+                );
+              })
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'list-profile' },
+            hosted_knitting_times_f.length > 0 ? _react2.default.createElement(
+              'h2',
+              null,
+              'Knitting times you\'re hosting'
+            ) : null,
+            _react2.default.createElement(
+              'ul',
+              { id: 'to_reload' },
+              ' ',
+              hosted_knitting_times_f.map(function (hkt) {
+                return _react2.default.createElement(
+                  'li',
+                  { key: hkt.id, className: 'hosted-li' },
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'profile-kt-box2' },
+                    _react2.default.createElement(
+                      'p',
+                      null,
+                      (0, _moment2.default)(hkt.date).format('dddd')
+                    ),
+                    _react2.default.createElement(
+                      'h3',
+                      null,
+                      (0, _moment2.default)(hkt.date).format('MMMM'),
+                      ' ',
+                      (0, _moment2.default)(hkt.date).date()
+                    ),
+                    _react2.default.createElement(
+                      'h4',
+                      null,
+                      hkt.start_time,
+                      ' - ',
+                      hkt.end_time
+                    ),
+                    _react2.default.createElement(
+                      'p',
+                      null,
+                      hkt.address_1,
+                      hkt.address_2 ? ', ' + hkt.address_2 : null,
+                      ', ',
+                      hkt.city,
+                      ', ',
+                      hkt.state,
+                      ', ',
+                      hkt.zip
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'modify-hosted' },
+                    _react2.default.createElement(
+                      'button',
+                      { className: 'profile-host-info', id: 'update-kt', onClick: _this7.handleUpdate(hkt.description) },
+                      'update'
+                    ),
+                    _this7.state.clickUpdate ? _react2.default.createElement(
+                      'div',
+                      { id: 'updateModal', className: 'modal' },
+                      _react2.default.createElement(
+                        'form',
+                        { className: 'modal-content' },
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'UpdateBox' },
+                          _react2.default.createElement(
+                            'h2',
+                            null,
+                            'What might you talk about?'
+                          ),
+                          _react2.default.createElement(
+                            'span',
+                            { className: 'close', onClick: _this7.handleSpan.bind(_this7) },
+                            '\xD7'
+                          )
+                        ),
+                        _react2.default.createElement('textarea', { value: _this7.state.text, onChange: _this7.modifyUpdate.bind(_this7) }),
+                        _react2.default.createElement('input', { type: 'submit', onClick: _this7.updateKnittingTime(hkt) })
+                      )
+                    ) : null,
+                    _react2.default.createElement(
+                      'button',
+                      { className: 'profile-host-info2', onClick: _this7.handleDelete(hkt.id) },
+                      'delete'
+                    )
+                  )
+                );
+              })
+            )
+          )
+        )
+      ) : null;
+
+      var history = this.state.history ? _react2.default.createElement(
+        'div',
+        { className: 'profile-content' },
+        _react2.default.createElement(
+          'div',
+          { className: 'profile-sidebar' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            'Welcome home, ',
+            this.props.me.username,
+            '!'
+          ),
+          _react2.default.createElement(
+            'h3',
+            null,
+            'What are you grateful today?'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'link3' },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/knitting_times' },
+              'find another knitting time!'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'profile-body' },
+          _react2.default.createElement(
+            'div',
+            { className: 'list-profile' },
+            my_kts_p.length > 0 ? _react2.default.createElement(
+              'h2',
+              null,
+              'Knitting times you attended'
+            ) : null,
+            _react2.default.createElement(
+              'ul',
+              null,
+              ' ',
+              my_kts_p.map(function (kt) {
+                return _react2.default.createElement(
+                  'li',
+                  { className: 'li-attending', key: kt.id },
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'profile-kt-box' },
+                    _react2.default.createElement(
+                      'p',
+                      null,
+                      (0, _moment2.default)(kt.date).format('dddd')
+                    ),
+                    _react2.default.createElement(
+                      'h3',
+                      null,
+                      (0, _moment2.default)(kt.date).format('MMMM'),
+                      ' ',
+                      (0, _moment2.default)(kt.date).date()
+                    ),
+                    _react2.default.createElement(
+                      'h4',
+                      null,
+                      kt.start_time,
+                      ' - ',
+                      kt.end_time
+                    ),
+                    _react2.default.createElement(
+                      'p',
+                      null,
+                      kt.address_1,
+                      kt.address_2 ? ', ' + kt.address_2 : null,
+                      ', ',
+                      kt.city,
+                      ', ',
+                      kt.state,
+                      ', ',
+                      kt.zip
+                    ),
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'cancel-kt', onClick: _this7.handleClick(kt) },
+                      'CANCEL MY SPOT'
+                    )
+                  )
+                );
+              })
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'list-profile' },
+            hosted_knitting_times_p.length > 0 ? _react2.default.createElement(
+              'h2',
+              null,
+              'Knitting times you hosted'
+            ) : null,
+            _react2.default.createElement(
+              'ul',
+              { id: 'to_reload' },
+              ' ',
+              hosted_knitting_times_p.map(function (hkt) {
+                return _react2.default.createElement(
+                  'li',
+                  { key: hkt.id, className: 'hosted-li' },
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'profile-kt-box2' },
+                    _react2.default.createElement(
+                      'p',
+                      null,
+                      (0, _moment2.default)(hkt.date).format('dddd')
+                    ),
+                    _react2.default.createElement(
+                      'h3',
+                      null,
+                      (0, _moment2.default)(hkt.date).format('MMMM'),
+                      ' ',
+                      (0, _moment2.default)(hkt.date).date()
+                    ),
+                    _react2.default.createElement(
+                      'h4',
+                      null,
+                      hkt.start_time,
+                      ' - ',
+                      hkt.end_time
+                    ),
+                    _react2.default.createElement(
+                      'p',
+                      null,
+                      hkt.address_1,
+                      hkt.address_2 ? ', ' + hkt.address_2 : null,
+                      ', ',
+                      hkt.city,
+                      ', ',
+                      hkt.state,
+                      ', ',
+                      hkt.zip
+                    )
+                  )
+                );
+              })
+            )
+          )
+        )
+      ) : null;
 
       return _react2.default.createElement(
         'div',
@@ -2245,339 +2739,22 @@ var Profile = function (_React$Component) {
             { className: 'profile-menu' },
             _react2.default.createElement(
               'p',
-              null,
+              { style: { textDecoration: '' + (this.state.quicklook ? "underline" : "none") }, onClick: this.handleSubMenu("quicklook") },
               'QUICK LOOK'
             ),
             _react2.default.createElement(
               'p',
-              null,
+              { style: { textDecoration: '' + (this.state.history ? "underline" : "none") }, onClick: this.handleSubMenu("history") },
               'HISTORY'
             ),
             _react2.default.createElement(
               'p',
-              null,
+              { style: { textDecoration: '' + (this.state.accountdetails ? "underline" : "none") }, onClick: this.handleSubMenu("accountdetails") },
               'ACCOUNT DETAILS'
             )
           ),
-          _react2.default.createElement(
-            'div',
-            { className: 'profile-content' },
-            _react2.default.createElement(
-              'div',
-              { className: 'profile-sidebar' },
-              _react2.default.createElement(
-                'h2',
-                null,
-                'Welcome home, ',
-                this.props.me.username,
-                '!'
-              ),
-              _react2.default.createElement(
-                'h3',
-                null,
-                'What are you grateful today?'
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'link3' },
-                _react2.default.createElement(
-                  _reactRouterDom.Link,
-                  { to: '/knitting_times' },
-                  'find another knitting time!'
-                )
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'profile-body' },
-              _react2.default.createElement(
-                'div',
-                { className: 'list-profile' },
-                my_kts_f.length > 0 ? _react2.default.createElement(
-                  'h2',
-                  null,
-                  'Knitting times you\'re attending'
-                ) : null,
-                _react2.default.createElement(
-                  'ul',
-                  null,
-                  ' ',
-                  my_kts_f.map(function (kt) {
-                    return _react2.default.createElement(
-                      'li',
-                      { className: 'li-attending', key: kt.id },
-                      _react2.default.createElement(
-                        'div',
-                        { className: 'profile-kt-box' },
-                        _react2.default.createElement(
-                          'p',
-                          null,
-                          (0, _moment2.default)(kt.date).format('dddd')
-                        ),
-                        _react2.default.createElement(
-                          'h3',
-                          null,
-                          (0, _moment2.default)(kt.date).format('MMMM'),
-                          ' ',
-                          (0, _moment2.default)(kt.date).date()
-                        ),
-                        _react2.default.createElement(
-                          'h4',
-                          null,
-                          kt.start_time,
-                          ' - ',
-                          kt.end_time
-                        ),
-                        _react2.default.createElement(
-                          'p',
-                          null,
-                          kt.address_1,
-                          kt.address_2 ? ', ' + kt.address_2 : null,
-                          ', ',
-                          kt.city,
-                          ', ',
-                          kt.state,
-                          ', ',
-                          kt.zip
-                        ),
-                        _react2.default.createElement(
-                          'div',
-                          { className: 'cancel-kt', onClick: _this6.handleClick(kt) },
-                          'CANCEL MY SPOT'
-                        )
-                      ),
-                      _react2.default.createElement(
-                        'div',
-                        { className: 'profile-host-box' },
-                        _react2.default.createElement(
-                          'h3',
-                          null,
-                          'Get to know your host'
-                        ),
-                        _react2.default.createElement(
-                          'div',
-                          { className: 'photo-p' },
-                          _react2.default.createElement(
-                            'div',
-                            { className: 'hostphoto' },
-                            _react2.default.createElement('img', { src: window.profile })
-                          ),
-                          _react2.default.createElement(
-                            'p',
-                            null,
-                            'Keep an eye open for ',
-                            _this6.props.users[kt.host_id].username,
-                            '! So it\'s easier, here\'s what they look like :).'
-                          )
-                        ),
-                        _react2.default.createElement(
-                          'div',
-                          null,
-                          _react2.default.createElement(
-                            'button',
-                            { className: 'profile-host-info' },
-                            _this6.props.users[kt.host_id].username + '\'s',
-                            ' profile'
-                          ),
-                          _react2.default.createElement(
-                            'button',
-                            { className: 'profile-host-info', onClick: _this6.sendEmail(_this6.props.users[kt.host_id].email) },
-                            'email ',
-                            _this6.props.users[kt.host_id].username
-                          )
-                        )
-                      )
-                    );
-                  })
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'list-profile' },
-                my_kts_wl_f.length > 0 ? _react2.default.createElement(
-                  'h2',
-                  null,
-                  'Knitting times you\'re in Waitlists'
-                ) : null,
-                _react2.default.createElement(
-                  'ul',
-                  null,
-                  ' ',
-                  my_kts_wl_f.map(function (kt) {
-                    return _react2.default.createElement(
-                      'li',
-                      { className: 'li-attending', key: kt.id },
-                      _react2.default.createElement(
-                        'div',
-                        { className: 'profile-kt-box' },
-                        _react2.default.createElement(
-                          'p',
-                          null,
-                          (0, _moment2.default)(kt.date).format('dddd')
-                        ),
-                        _react2.default.createElement(
-                          'h3',
-                          null,
-                          (0, _moment2.default)(kt.date).format('MMMM'),
-                          ' ',
-                          (0, _moment2.default)(kt.date).date()
-                        ),
-                        _react2.default.createElement(
-                          'h4',
-                          null,
-                          kt.start_time,
-                          ' - ',
-                          kt.end_time
-                        ),
-                        _react2.default.createElement(
-                          'p',
-                          null,
-                          kt.address_1,
-                          kt.address_2 ? ', ' + kt.address_2 : null,
-                          ', ',
-                          kt.city,
-                          ', ',
-                          kt.state,
-                          ', ',
-                          kt.zip
-                        ),
-                        _react2.default.createElement(
-                          'div',
-                          { className: 'cancel-kt', onClick: _this6.handleClick(kt) },
-                          'CANCEL MY SPOT'
-                        )
-                      ),
-                      _react2.default.createElement(
-                        'div',
-                        { className: 'profile-host-box' },
-                        _react2.default.createElement(
-                          'h3',
-                          null,
-                          'Get to know your host'
-                        ),
-                        _react2.default.createElement(
-                          'div',
-                          { className: 'photo-p' },
-                          _react2.default.createElement(
-                            'div',
-                            { className: 'hostphoto' },
-                            _react2.default.createElement('img', { src: window.profile })
-                          ),
-                          _react2.default.createElement(
-                            'p',
-                            null,
-                            'Keep an eye open for ',
-                            _this6.props.users[kt.host_id].username,
-                            '! So it\'s easier, here\'s what they look like :).'
-                          )
-                        ),
-                        _react2.default.createElement(
-                          'div',
-                          null,
-                          _react2.default.createElement(
-                            'button',
-                            { className: 'profile-host-info' },
-                            _this6.props.users[kt.host_id].username + '\'s',
-                            ' profile'
-                          ),
-                          _react2.default.createElement(
-                            'button',
-                            { className: 'profile-host-info' },
-                            'email ',
-                            _this6.props.users[kt.host_id].username
-                          )
-                        )
-                      )
-                    );
-                  })
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'list-profile' },
-                hosted_knitting_times_f.length > 0 ? _react2.default.createElement(
-                  'h2',
-                  null,
-                  'Knitting times you\'re hosting'
-                ) : null,
-                _react2.default.createElement(
-                  'ul',
-                  { id: 'to_reload' },
-                  ' ',
-                  hosted_knitting_times_f.map(function (hkt) {
-                    return _react2.default.createElement(
-                      'li',
-                      { key: hkt.id, className: 'hosted-li' },
-                      _react2.default.createElement(
-                        'div',
-                        { className: 'profile-kt-box2' },
-                        _react2.default.createElement(
-                          'p',
-                          null,
-                          (0, _moment2.default)(hkt.date).format('dddd')
-                        ),
-                        _react2.default.createElement(
-                          'h3',
-                          null,
-                          (0, _moment2.default)(hkt.date).format('MMMM'),
-                          ' ',
-                          (0, _moment2.default)(hkt.date).date()
-                        ),
-                        _react2.default.createElement(
-                          'h4',
-                          null,
-                          hkt.start_time,
-                          ' - ',
-                          hkt.end_time
-                        ),
-                        _react2.default.createElement(
-                          'p',
-                          null,
-                          hkt.address_1,
-                          hkt.address_2 ? ', ' + hkt.address_2 : null,
-                          ', ',
-                          hkt.city,
-                          ', ',
-                          hkt.state,
-                          ', ',
-                          hkt.zip
-                        )
-                      ),
-                      _react2.default.createElement(
-                        'div',
-                        { className: 'modify-hosted' },
-                        _react2.default.createElement(
-                          'button',
-                          { className: 'profile-host-info', id: 'update-kt', onClick: _this6.handleUpdate(hkt.description) },
-                          'update'
-                        ),
-                        _this6.state.clickUpdate ? _react2.default.createElement(
-                          'div',
-                          { id: 'updateModal', className: 'modal' },
-                          _react2.default.createElement(
-                            'form',
-                            { className: 'modal-content' },
-                            _react2.default.createElement(
-                              'span',
-                              { className: 'close', onClick: _this6.handleSpan.bind(_this6) },
-                              '\xD7'
-                            ),
-                            _react2.default.createElement('textarea', { value: _this6.state.text, onChange: _this6.modifyUpdate.bind(_this6) }),
-                            _react2.default.createElement('input', { type: 'submit', onClick: _this6.updateKnittingTime(hkt) })
-                          )
-                        ) : null,
-                        _react2.default.createElement(
-                          'button',
-                          { className: 'profile-host-info2', onClick: _this6.handleDelete(hkt.id) },
-                          'delete'
-                        )
-                      )
-                    );
-                  })
-                )
-              )
-            )
-          )
+          quickLook,
+          history
         ) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/login' })
       );
     }
