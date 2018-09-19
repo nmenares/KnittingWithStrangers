@@ -12,7 +12,7 @@ class Profile extends React.Component {
 
     this.false_enr = (kt_id) => merge([], this.props.all_enrollments.filter(enr => enr.knittingtime_id === parseInt(kt_id) && !enr.going));
 
-    this.state = {clickUpdate: false, text: "", quicklook: true, history: false, accountdetails: false};
+    this.state = {clickUpdate: false, text: "", quicklook: true, history: false, accountdetails: false, showHost: false};
 
   }
 
@@ -30,7 +30,7 @@ class Profile extends React.Component {
 
   handleDelete(kt_id){
     return e => {
-      e.preventDefault;
+      e.preventDefault();
       this.props.deleteKnittingTime(kt_id);
     }
   };
@@ -42,9 +42,16 @@ class Profile extends React.Component {
     }
   };
 
+  showHostProfile(host){
+    return e => {
+      e.preventDefault();
+      this.setState({showHost: true})
+    }
+  };
+
   handleSpan(e){
   e.preventDefault();
-  this.setState({clickUpdate: false})
+  this.setState({clickUpdate: false, showHost: false})
   };
 
   modifyUpdate(e){
@@ -146,7 +153,21 @@ class Profile extends React.Component {
                       <p>Keep an eye open for {this.props.users[kt.host_id].username}! So it's easier, here's what they look like :).</p>
                     </div>
                     <div>
-                      <button className="profile-host-info">{`${this.props.users[kt.host_id].username}'s`} profile</button>
+                      <button className="profile-host-info" onClick={this.showHostProfile(this.props.users[kt.host_id])}>{`${this.props.users[kt.host_id].username}'s`} profile</button>
+                        {this.state.showHost ?
+                          <div id="updateModal" className="modal">
+                            <div className="modal-content">
+                              <span className="close" onClick={this.handleSpan.bind(this)}>&times;</span>
+                              <h2>{this.props.users[kt.host_id].username}</h2>
+                              <h4>{this.props.users[kt.host_id].email}</h4>
+                              <h3>{this.props.users[kt.host_id].quote}</h3>
+                              <h4>{this.props.users[kt.host_id].description}</h4>
+                              <h4>{this.props.users[kt.host_id].story}</h4>
+                            </div>
+                          </div>
+                          :
+                          null
+                        }
                       <button className="profile-host-info" onClick={this.sendEmail(this.props.users[kt.host_id].email)}>email {this.props.users[kt.host_id].username}</button>
                     </div>
                   </div>
@@ -157,7 +178,7 @@ class Profile extends React.Component {
           </div>
           <div className="list-profile">
 
-            {my_kts_wl_f.length > 0 ? <h2>Knitting times you're in Waitlists</h2> : null }
+            {my_kts_wl_f.length > 0 ? <h2>Knitting Times you're in waiting list.</h2> : null }
             <ul> {my_kts_wl_f.map(kt => (
                 <li className="li-attending" key={kt.id}>
                   <div className="profile-kt-box">
@@ -172,11 +193,25 @@ class Profile extends React.Component {
                     <h3>Get to know your host</h3>
                     <div className="photo-p">
                       <div className="hostphoto"><img src={window.profile} /></div>
-                      <p>Keep an eye open for {this.props.users[kt.host_id].username}! So it's easier, here's what they look like :).</p>
+                      <p>Keep an eye open for {this.props.users[kt.host_id].username}! So it's easier, here's what they look like. :).</p>
                     </div>
                     <div>
-                      <button className="profile-host-info">{`${this.props.users[kt.host_id].username}'s`} profile</button>
-                      <button className="profile-host-info">email {this.props.users[kt.host_id].username}</button>
+                      <button className="profile-host-info" onClick={this.showHostProfile(this.props.users[kt.host_id])}>{`${this.props.users[kt.host_id].username}'s`} profile</button>
+                        {this.state.showHost ?
+                          <div id="updateModal" className="modal">
+                            <div className="modal-content">
+                              <span className="close" onClick={this.handleSpan.bind(this)}>&times;</span>
+                              <h2>{this.props.users[kt.host_id].username}</h2>
+                              <h4>{this.props.users[kt.host_id].email}</h4>
+                              <h3>{this.props.users[kt.host_id].quote}</h3>
+                              <h4>{this.props.users[kt.host_id].description}</h4>
+                              <h4>{this.props.users[kt.host_id].story}</h4>
+                            </div>
+                          </div>
+                          :
+                          null
+                        }
+                      <button className="profile-host-info" onClick={this.sendEmail(this.props.users[kt.host_id].email)}>email {this.props.users[kt.host_id].username}</button>
                     </div>
                   </div>
                 </li>
@@ -185,7 +220,7 @@ class Profile extends React.Component {
             </ul>
           </div>
           <div className="list-profile">
-            {hosted_knitting_times_f.length > 0 ? <h2>Knitting times you're hosting</h2> : null }
+            {hosted_knitting_times_f.length > 0 ? <h2>Knitting times you're hosting.</h2> : null }
             <ul id="to_reload"> {hosted_knitting_times_f.map(hkt => (
                 <li key={hkt.id} className="hosted-li">
 
@@ -225,16 +260,11 @@ class Profile extends React.Component {
       null
 
       const history = this.state.history ?
-        <div className="profile-content">
-          <div className="profile-sidebar">
-            <h2>Welcome home, {this.props.me.username}!</h2>
-            <h3>What are you grateful today?</h3>
-            <div className="link3"><Link to="/knitting_times">find another knitting time!</Link></div>
-          </div>
-          <div className="profile-body">
+        <div className="profile-content-history-box">
+          <div className="profile-content-history">
             <div className="list-profile">
 
-              {my_kts_p.length > 0 ? <h2>Knitting times you attended</h2> : null }
+              {my_kts_p.length > 0 ? <h2>Knitting times you attended.</h2> : null }
               <ul> {my_kts_p.map(kt => (
                   <li className="li-attending" key={kt.id}>
                     <div className="profile-kt-box">
@@ -242,8 +272,6 @@ class Profile extends React.Component {
                       <h3>{moment(kt.date).format('MMMM')} {moment(kt.date).date()}</h3>
                       <h4>{kt.start_time} - {kt.end_time}</h4>
                       <p>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
-
-                      <div className="cancel-kt" onClick={this.handleClick(kt)}>CANCEL MY SPOT</div>
                     </div>
                   </li>
                 ))
@@ -251,7 +279,7 @@ class Profile extends React.Component {
               </ul>
             </div>
             <div className="list-profile">
-              {hosted_knitting_times_p.length > 0 ? <h2>Knitting times you hosted</h2> : null }
+              {hosted_knitting_times_p.length > 0 ? <h2>Knitting times you hosted.</h2> : null }
               <ul id="to_reload"> {hosted_knitting_times_p.map(hkt => (
                   <li key={hkt.id} className="hosted-li">
 
@@ -267,6 +295,7 @@ class Profile extends React.Component {
               </ul>
             </div>
           </div>
+          <div className="link3"><Link to="/knitting_times">find another knitting time!</Link></div>
         </div>
         :
         null

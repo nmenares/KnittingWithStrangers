@@ -1240,6 +1240,21 @@ blockquote span {
   min-height: 400px;
 }
 
+.profile-content-history-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+    min-height: 400px;
+}
+
+.profile-content-history{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
 .profile-sidebar {
   min-width: 229px;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
@@ -1272,6 +1287,9 @@ blockquote span {
   display: inline-flex;
   flex-direction: column;
   justify-content: space-around;
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  margin-bottom: 36px;
 }
 
 .link3:hover {

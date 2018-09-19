@@ -2097,7 +2097,7 @@ var Profile = function (_React$Component) {
       }));
     };
 
-    _this.state = { clickUpdate: false, text: "", quicklook: true, history: false, accountdetails: false };
+    _this.state = { clickUpdate: false, text: "", quicklook: true, history: false, accountdetails: false, showHost: false };
 
     return _this;
   }
@@ -2123,7 +2123,7 @@ var Profile = function (_React$Component) {
       var _this3 = this;
 
       return function (e) {
-        e.preventDefault;
+        e.preventDefault();
         _this3.props.deleteKnittingTime(kt_id);
       };
     }
@@ -2138,10 +2138,20 @@ var Profile = function (_React$Component) {
       };
     }
   }, {
+    key: 'showHostProfile',
+    value: function showHostProfile(host) {
+      var _this5 = this;
+
+      return function (e) {
+        e.preventDefault();
+        _this5.setState({ showHost: true });
+      };
+    }
+  }, {
     key: 'handleSpan',
     value: function handleSpan(e) {
       e.preventDefault();
-      this.setState({ clickUpdate: false });
+      this.setState({ clickUpdate: false, showHost: false });
     }
   }, {
     key: 'modifyUpdate',
@@ -2152,11 +2162,11 @@ var Profile = function (_React$Component) {
   }, {
     key: 'updateKnittingTime',
     value: function updateKnittingTime(kt) {
-      var _this5 = this;
+      var _this6 = this;
 
       return function (e) {
         e.preventDefault();
-        _this5.props.updateKnittingTime({
+        _this6.props.updateKnittingTime({
           id: kt.id,
           date: kt.date,
           start_time: kt.start_time,
@@ -2168,19 +2178,19 @@ var Profile = function (_React$Component) {
           zip: kt.zip,
           area_id: kt.area_id,
           host_id: kt.host_id,
-          description: _this5.state.text
+          description: _this6.state.text
         });
-        _this5.setState({ clickUpdate: false });
+        _this6.setState({ clickUpdate: false });
       };
     }
   }, {
     key: 'handleSubMenu',
     value: function handleSubMenu(field) {
-      var _this6 = this;
+      var _this7 = this;
 
       return function (e) {
         e.preventDefault();
-        _this6.setState({ quicklook: field === "quicklook", history: field === "history", accountdetails: field === "accountdetails" });
+        _this7.setState({ quicklook: field === "quicklook", history: field === "history", accountdetails: field === "accountdetails" });
       };
     }
   }, {
@@ -2205,7 +2215,7 @@ var Profile = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this7 = this;
+      var _this8 = this;
 
       if (!this.props.me || !this.props.attending_enrollments || !this.props.knitting_times) {
         return null;
@@ -2221,7 +2231,7 @@ var Profile = function (_React$Component) {
         return ae.knittingtime_id;
       });
       var my_kts = my_kt_ids.map(function (id) {
-        return _this7.props.knitting_times[id];
+        return _this8.props.knitting_times[id];
       });
       var my_kts_f = my_kts.filter(function (kt) {
         return kt.date >= today.format();
@@ -2237,7 +2247,7 @@ var Profile = function (_React$Component) {
         return ae.knittingtime_id;
       });
       var my_kts_wl = my_kt_ids_wl.map(function (id) {
-        return _this7.props.knitting_times[id];
+        return _this8.props.knitting_times[id];
       });
       var my_kts_wl_f = my_kts_wl.filter(function (kt) {
         return kt.date >= today.format();
@@ -2333,7 +2343,7 @@ var Profile = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                       'div',
-                      { className: 'cancel-kt', onClick: _this7.handleClick(kt) },
+                      { className: 'cancel-kt', onClick: _this8.handleClick(kt) },
                       'CANCEL MY SPOT'
                     )
                   ),
@@ -2357,7 +2367,7 @@ var Profile = function (_React$Component) {
                         'p',
                         null,
                         'Keep an eye open for ',
-                        _this7.props.users[kt.host_id].username,
+                        _this8.props.users[kt.host_id].username,
                         '! So it\'s easier, here\'s what they look like :).'
                       )
                     ),
@@ -2366,15 +2376,53 @@ var Profile = function (_React$Component) {
                       null,
                       _react2.default.createElement(
                         'button',
-                        { className: 'profile-host-info' },
-                        _this7.props.users[kt.host_id].username + '\'s',
+                        { className: 'profile-host-info', onClick: _this8.showHostProfile(_this8.props.users[kt.host_id]) },
+                        _this8.props.users[kt.host_id].username + '\'s',
                         ' profile'
                       ),
+                      _this8.state.showHost ? _react2.default.createElement(
+                        'div',
+                        { id: 'updateModal', className: 'modal' },
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'modal-content' },
+                          _react2.default.createElement(
+                            'span',
+                            { className: 'close', onClick: _this8.handleSpan.bind(_this8) },
+                            '\xD7'
+                          ),
+                          _react2.default.createElement(
+                            'h2',
+                            null,
+                            _this8.props.users[kt.host_id].username
+                          ),
+                          _react2.default.createElement(
+                            'h4',
+                            null,
+                            _this8.props.users[kt.host_id].email
+                          ),
+                          _react2.default.createElement(
+                            'h3',
+                            null,
+                            _this8.props.users[kt.host_id].quote
+                          ),
+                          _react2.default.createElement(
+                            'h4',
+                            null,
+                            _this8.props.users[kt.host_id].description
+                          ),
+                          _react2.default.createElement(
+                            'h4',
+                            null,
+                            _this8.props.users[kt.host_id].story
+                          )
+                        )
+                      ) : null,
                       _react2.default.createElement(
                         'button',
-                        { className: 'profile-host-info', onClick: _this7.sendEmail(_this7.props.users[kt.host_id].email) },
+                        { className: 'profile-host-info', onClick: _this8.sendEmail(_this8.props.users[kt.host_id].email) },
                         'email ',
-                        _this7.props.users[kt.host_id].username
+                        _this8.props.users[kt.host_id].username
                       )
                     )
                   )
@@ -2388,7 +2436,7 @@ var Profile = function (_React$Component) {
             my_kts_wl_f.length > 0 ? _react2.default.createElement(
               'h2',
               null,
-              'Knitting times you\'re in Waitlists'
+              'Knitting Times you\'re in waiting list.'
             ) : null,
             _react2.default.createElement(
               'ul',
@@ -2434,7 +2482,7 @@ var Profile = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                       'div',
-                      { className: 'cancel-kt', onClick: _this7.handleClick(kt) },
+                      { className: 'cancel-kt', onClick: _this8.handleClick(kt) },
                       'CANCEL MY SPOT'
                     )
                   ),
@@ -2458,8 +2506,8 @@ var Profile = function (_React$Component) {
                         'p',
                         null,
                         'Keep an eye open for ',
-                        _this7.props.users[kt.host_id].username,
-                        '! So it\'s easier, here\'s what they look like :).'
+                        _this8.props.users[kt.host_id].username,
+                        '! So it\'s easier, here\'s what they look like. :).'
                       )
                     ),
                     _react2.default.createElement(
@@ -2467,15 +2515,53 @@ var Profile = function (_React$Component) {
                       null,
                       _react2.default.createElement(
                         'button',
-                        { className: 'profile-host-info' },
-                        _this7.props.users[kt.host_id].username + '\'s',
+                        { className: 'profile-host-info', onClick: _this8.showHostProfile(_this8.props.users[kt.host_id]) },
+                        _this8.props.users[kt.host_id].username + '\'s',
                         ' profile'
                       ),
+                      _this8.state.showHost ? _react2.default.createElement(
+                        'div',
+                        { id: 'updateModal', className: 'modal' },
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'modal-content' },
+                          _react2.default.createElement(
+                            'span',
+                            { className: 'close', onClick: _this8.handleSpan.bind(_this8) },
+                            '\xD7'
+                          ),
+                          _react2.default.createElement(
+                            'h2',
+                            null,
+                            _this8.props.users[kt.host_id].username
+                          ),
+                          _react2.default.createElement(
+                            'h4',
+                            null,
+                            _this8.props.users[kt.host_id].email
+                          ),
+                          _react2.default.createElement(
+                            'h3',
+                            null,
+                            _this8.props.users[kt.host_id].quote
+                          ),
+                          _react2.default.createElement(
+                            'h4',
+                            null,
+                            _this8.props.users[kt.host_id].description
+                          ),
+                          _react2.default.createElement(
+                            'h4',
+                            null,
+                            _this8.props.users[kt.host_id].story
+                          )
+                        )
+                      ) : null,
                       _react2.default.createElement(
                         'button',
-                        { className: 'profile-host-info' },
+                        { className: 'profile-host-info', onClick: _this8.sendEmail(_this8.props.users[kt.host_id].email) },
                         'email ',
-                        _this7.props.users[kt.host_id].username
+                        _this8.props.users[kt.host_id].username
                       )
                     )
                   )
@@ -2489,7 +2575,7 @@ var Profile = function (_React$Component) {
             hosted_knitting_times_f.length > 0 ? _react2.default.createElement(
               'h2',
               null,
-              'Knitting times you\'re hosting'
+              'Knitting times you\'re hosting.'
             ) : null,
             _react2.default.createElement(
               'ul',
@@ -2539,10 +2625,10 @@ var Profile = function (_React$Component) {
                     { className: 'modify-hosted' },
                     _react2.default.createElement(
                       'button',
-                      { className: 'profile-host-info', id: 'update-kt', onClick: _this7.handleUpdate(hkt.description) },
+                      { className: 'profile-host-info', id: 'update-kt', onClick: _this8.handleUpdate(hkt.description) },
                       'update'
                     ),
-                    _this7.state.clickUpdate ? _react2.default.createElement(
+                    _this8.state.clickUpdate ? _react2.default.createElement(
                       'div',
                       { id: 'updateModal', className: 'modal' },
                       _react2.default.createElement(
@@ -2558,17 +2644,17 @@ var Profile = function (_React$Component) {
                           ),
                           _react2.default.createElement(
                             'span',
-                            { className: 'close', onClick: _this7.handleSpan.bind(_this7) },
+                            { className: 'close', onClick: _this8.handleSpan.bind(_this8) },
                             '\xD7'
                           )
                         ),
-                        _react2.default.createElement('textarea', { value: _this7.state.text, onChange: _this7.modifyUpdate.bind(_this7) }),
-                        _react2.default.createElement('input', { type: 'submit', onClick: _this7.updateKnittingTime(hkt) })
+                        _react2.default.createElement('textarea', { value: _this8.state.text, onChange: _this8.modifyUpdate.bind(_this8) }),
+                        _react2.default.createElement('input', { type: 'submit', onClick: _this8.updateKnittingTime(hkt) })
                       )
                     ) : null,
                     _react2.default.createElement(
                       'button',
-                      { className: 'profile-host-info2', onClick: _this7.handleDelete(hkt.id) },
+                      { className: 'profile-host-info2', onClick: _this8.handleDelete(hkt.id) },
                       'delete'
                     )
                   )
@@ -2581,42 +2667,17 @@ var Profile = function (_React$Component) {
 
       var history = this.state.history ? _react2.default.createElement(
         'div',
-        { className: 'profile-content' },
+        { className: 'profile-content-history-box' },
         _react2.default.createElement(
           'div',
-          { className: 'profile-sidebar' },
-          _react2.default.createElement(
-            'h2',
-            null,
-            'Welcome home, ',
-            this.props.me.username,
-            '!'
-          ),
-          _react2.default.createElement(
-            'h3',
-            null,
-            'What are you grateful today?'
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'link3' },
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/knitting_times' },
-              'find another knitting time!'
-            )
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'profile-body' },
+          { className: 'profile-content-history' },
           _react2.default.createElement(
             'div',
             { className: 'list-profile' },
             my_kts_p.length > 0 ? _react2.default.createElement(
               'h2',
               null,
-              'Knitting times you attended'
+              'Knitting times you attended.'
             ) : null,
             _react2.default.createElement(
               'ul',
@@ -2659,11 +2720,6 @@ var Profile = function (_React$Component) {
                       kt.state,
                       ', ',
                       kt.zip
-                    ),
-                    _react2.default.createElement(
-                      'div',
-                      { className: 'cancel-kt', onClick: _this7.handleClick(kt) },
-                      'CANCEL MY SPOT'
                     )
                   )
                 );
@@ -2676,7 +2732,7 @@ var Profile = function (_React$Component) {
             hosted_knitting_times_p.length > 0 ? _react2.default.createElement(
               'h2',
               null,
-              'Knitting times you hosted'
+              'Knitting times you hosted.'
             ) : null,
             _react2.default.createElement(
               'ul',
@@ -2724,6 +2780,15 @@ var Profile = function (_React$Component) {
                 );
               })
             )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'link3' },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/knitting_times' },
+            'find another knitting time!'
           )
         )
       ) : null;
