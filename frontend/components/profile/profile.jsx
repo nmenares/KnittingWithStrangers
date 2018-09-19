@@ -2,7 +2,6 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import { toObject } from '../../util/functions';
 import merge from 'lodash/merge';
 
 class Profile extends React.Component {

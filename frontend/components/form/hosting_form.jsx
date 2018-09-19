@@ -5,7 +5,20 @@ import moment from 'moment';
 class HostingForm extends React.Component {
   constructor(props){
     super(props);
-    this.state = this.props.knittingtime;
+    this.state = {date: this.props.knittingtime.date,
+                  start_time: this.props.knittingtime.start_time,
+                  end_time: this.props.knittingtime.end_time,
+                  address_1: this.props.knittingtime.address_1,
+                  address_2: this.props.knittingtime.address_2,
+                  city: this.props.knittingtime.city,
+                  state: this.props.knittingtime.state,
+                  zip: this.props.knittingtime.zip,
+                  area_id: this.props.knittingtime.area_id,
+                  host_id: this.props.knittingtime.host_id,
+                  description: this.props.knittingtime.description,
+                  brief: this.props.host.description,
+                  story: this.props.host.story,
+                  quote: this.props.host.quote}
   };
 
   componentDidMount(){
@@ -25,7 +38,19 @@ class HostingForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.formType( this.props.area.id ,this.state, () => {
+    console.log("user", {id: this.props.host.id, description: this.state.brief, story: this.state.story, quote: this.state.quote})
+    this.props.updateUser({id: this.props.host.id, description: this.state.brief, story: this.state.story, quote: this.state.quote})
+    this.props.createKnittingTime( this.props.area.id , {date: this.state.date,
+                  start_time: this.state.start_time,
+                  end_time: this.state.end_time,
+                  address_1: this.state.address_1,
+                  address_2: this.state.address_2,
+                  city: this.state.city,
+                  state: this.state.state,
+                  zip: this.state.zip,
+                  area_id: this.state.area_id,
+                  host_id: this.state.host_id,
+                  description: this.state.description}, () => {
     this.props.history.push('/me')
     } )
   }
@@ -93,10 +118,8 @@ class HostingForm extends React.Component {
             <label>Address 2</label>
             <input type="text" onChange={this.handleEvent("address_2")} value={this.state.address_2}></input>
 
-
             <label>City<span>*</span></label>
             <input type="text" onChange={this.handleEvent("city")} value={this.state.city}></input>
-
 
             <label>State</label>
             <input type="text" onChange={this.handleEvent("state")} value={this.state.state}></input>
@@ -110,13 +133,13 @@ class HostingForm extends React.Component {
             <h2>Personal Information</h2>
 
             <label>A Brief about You<span>*</span></label>
-            <textarea onChange={this.handleEvent("description")} value={this.props.description}></textarea>
+            <textarea onChange={this.handleEvent("brief")} value={this.state.brief}></textarea>
 
             <label>Your Story<span>*</span></label>
-            <textarea onChange={this.handleEvent("story")} value={this.props.story}></textarea>
+            <textarea onChange={this.handleEvent("story")} value={this.state.story}></textarea>
 
             <label>Favorite Quote<span>*</span></label>
-            <input className="PreSubmit" onChange={this.handleEvent("quote")} value={this.props.quote}></input>
+            <input className="PreSubmit" onChange={this.handleEvent("quote")} value={this.state.quote}></input>
 
             <input className="create" type="submit" value={this.props.action}></input>
             <p><span>*</span> These fields must be filled</p>

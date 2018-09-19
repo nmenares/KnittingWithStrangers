@@ -365,6 +365,58 @@ var fetchMe = exports.fetchMe = function fetchMe() {
 
 /***/ }),
 
+/***/ "./frontend/actions/user_actions.js":
+/*!******************************************!*\
+  !*** ./frontend/actions/user_actions.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.updateUser = exports.fetchUser = exports.RECEIVE_USER_ERRORS = exports.RECEIVE_USER = undefined;
+
+var _user_api_util = __webpack_require__(/*! ../util/user_api_util */ "./frontend/util/user_api_util.js");
+
+var ApiUserUtil = _interopRequireWildcard(_user_api_util);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var RECEIVE_USER = exports.RECEIVE_USER = 'RECEIVE_USER';
+var RECEIVE_USER_ERRORS = exports.RECEIVE_USER_ERRORS = 'RECEIVE_USER_ERRORS';
+
+var receiveUser = function receiveUser(user) {
+  return { type: RECEIVE_USER, user: user };
+};
+var receiveErrors = function receiveErrors(errors) {
+  return { type: RECEIVE_USER_ERRORS, errors: errors };
+};
+
+var fetchUser = exports.fetchUser = function fetchUser(id) {
+  return function (dispatch) {
+    return ApiUserUtil.fetchUser(id).then(function (user) {
+      return dispatch(receiveUser(user));
+    });
+  };
+};
+
+var updateUser = exports.updateUser = function updateUser(user) {
+  console.log("user", user);
+  return function (dispatch) {
+    return ApiUserUtil.updateUser(user).then(function (user) {
+      dispatch(receiveUser(user));
+    }, function (err) {
+      return dispatch(receiveErrors(err.responseJSON));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/components/app.jsx":
 /*!*************************************!*\
   !*** ./frontend/components/app.jsx ***!
@@ -565,7 +617,20 @@ var HostingForm = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (HostingForm.__proto__ || Object.getPrototypeOf(HostingForm)).call(this, props));
 
-    _this.state = _this.props.knittingtime;
+    _this.state = { date: _this.props.knittingtime.date,
+      start_time: _this.props.knittingtime.start_time,
+      end_time: _this.props.knittingtime.end_time,
+      address_1: _this.props.knittingtime.address_1,
+      address_2: _this.props.knittingtime.address_2,
+      city: _this.props.knittingtime.city,
+      state: _this.props.knittingtime.state,
+      zip: _this.props.knittingtime.zip,
+      area_id: _this.props.knittingtime.area_id,
+      host_id: _this.props.knittingtime.host_id,
+      description: _this.props.knittingtime.description,
+      brief: _this.props.host.description,
+      story: _this.props.host.story,
+      quote: _this.props.host.quote };
     return _this;
   }
 
@@ -595,7 +660,19 @@ var HostingForm = function (_React$Component) {
       var _this3 = this;
 
       e.preventDefault();
-      this.props.formType(this.props.area.id, this.state, function () {
+      console.log("user", { id: this.props.host.id, description: this.state.brief, story: this.state.story, quote: this.state.quote });
+      this.props.updateUser({ id: this.props.host.id, description: this.state.brief, story: this.state.story, quote: this.state.quote });
+      this.props.createKnittingTime(this.props.area.id, { date: this.state.date,
+        start_time: this.state.start_time,
+        end_time: this.state.end_time,
+        address_1: this.state.address_1,
+        address_2: this.state.address_2,
+        city: this.state.city,
+        state: this.state.state,
+        zip: this.state.zip,
+        area_id: this.state.area_id,
+        host_id: this.state.host_id,
+        description: this.state.description }, function () {
         _this3.props.history.push('/me');
       });
     }
@@ -782,7 +859,7 @@ var HostingForm = function (_React$Component) {
                 '*'
               )
             ),
-            _react2.default.createElement('textarea', { onChange: this.handleEvent("description"), value: this.props.description }),
+            _react2.default.createElement('textarea', { onChange: this.handleEvent("brief"), value: this.state.brief }),
             _react2.default.createElement(
               'label',
               null,
@@ -793,7 +870,7 @@ var HostingForm = function (_React$Component) {
                 '*'
               )
             ),
-            _react2.default.createElement('textarea', { onChange: this.handleEvent("story"), value: this.props.story }),
+            _react2.default.createElement('textarea', { onChange: this.handleEvent("story"), value: this.state.story }),
             _react2.default.createElement(
               'label',
               null,
@@ -804,7 +881,7 @@ var HostingForm = function (_React$Component) {
                 '*'
               )
             ),
-            _react2.default.createElement('input', { className: 'PreSubmit', onChange: this.handleEvent("quote"), value: this.props.quote }),
+            _react2.default.createElement('input', { className: 'PreSubmit', onChange: this.handleEvent("quote"), value: this.state.quote }),
             _react2.default.createElement('input', { className: 'create', type: 'submit', value: this.props.action }),
             _react2.default.createElement(
               'p',
@@ -861,6 +938,8 @@ var _session_actions = __webpack_require__(/*! ../../actions/session_actions */ 
 
 var _area_actions = __webpack_require__(/*! ../../actions/area_actions */ "./frontend/actions/area_actions.js");
 
+var _user_actions = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state, ownprops) {
@@ -880,7 +959,7 @@ var msp = function msp(state, ownprops) {
 
 var mdp = function mdp(dispatch) {
   return {
-    formType: function formType(areaid, kt, callback) {
+    createKnittingTime: function createKnittingTime(areaid, kt, callback) {
       return dispatch((0, _knitting_time_actions.createKnittingTime)(areaid, kt, callback));
     },
     deleteErrors: function deleteErrors() {
@@ -888,6 +967,9 @@ var mdp = function mdp(dispatch) {
     },
     fetchAreas: function fetchAreas() {
       return dispatch((0, _area_actions.fetchAreas)());
+    },
+    updateUser: function updateUser(user) {
+      return dispatch((0, _user_actions.updateUser)(user));
     }
   };
 };
@@ -2062,8 +2144,6 @@ var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_module
 var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 var _moment2 = _interopRequireDefault(_moment);
-
-var _functions = __webpack_require__(/*! ../../util/functions */ "./frontend/util/functions.js");
 
 var _merge = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
 
@@ -3797,8 +3877,6 @@ var _area_actions = __webpack_require__(/*! ../actions/area_actions */ "./fronte
 
 var _knitting_time_actions = __webpack_require__(/*! ../actions/knitting_time_actions */ "./frontend/actions/knitting_time_actions.js");
 
-var _functions = __webpack_require__(/*! ../util/functions */ "./frontend/util/functions.js");
-
 var _merge2 = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
 
 var _merge3 = _interopRequireDefault(_merge2);
@@ -3954,13 +4032,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _merge2 = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
+var _merge3 = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
 
-var _merge3 = _interopRequireDefault(_merge2);
+var _merge4 = _interopRequireDefault(_merge3);
 
 var _session_actions = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
 
 var _area_actions = __webpack_require__(/*! ../actions/area_actions */ "./frontend/actions/area_actions.js");
+
+var _user_actions = __webpack_require__(/*! ../actions/user_actions */ "./frontend/actions/user_actions.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3975,16 +4055,15 @@ var usersReducer = function usersReducer() {
     case _area_actions.RECEIVE_ALL_AREAS:
       return action.areas.users;
     case _session_actions.RECEIVE_CURRENT_USER:
-      return (0, _merge3.default)({}, state, _defineProperty({}, action.currentUser.id, action.currentUser));
+      return (0, _merge4.default)({}, state, _defineProperty({}, action.currentUser.id, action.currentUser));
+    case _user_actions.RECEIVE_USER:
+      return (0, _merge4.default)({}, state, _defineProperty({}, action.user.id, action.user));
     default:
       return state;
   }
 };
 
 exports.default = usersReducer;
-
-// case UPDATE_USER_INFO:
-//   return merge({}, state, { [action.currentUser.id]: action.currentUser });
 
 /***/ }),
 
@@ -4093,30 +4172,6 @@ var updateEnrollment = exports.updateEnrollment = function updateEnrollment(enro
 
 /***/ }),
 
-/***/ "./frontend/util/functions.js":
-/*!************************************!*\
-  !*** ./frontend/util/functions.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var toObject = exports.toObject = function toObject(arr) {
-  var rv = {};
-  for (var i = 0; i < arr.length; ++i) {
-    for (var j = 0; j < arr[i].length; j++) {
-      rv[arr[i][j].id] = arr[i][j];
-    }
-  }return rv;
-};
-
-/***/ }),
-
 /***/ "./frontend/util/knitting_time_api_util.js":
 /*!*************************************************!*\
   !*** ./frontend/util/knitting_time_api_util.js ***!
@@ -4202,6 +4257,36 @@ var fetchMe = exports.fetchMe = function fetchMe() {
   return $.ajax({
     method: 'GET',
     url: 'api/me'
+  });
+};
+
+/***/ }),
+
+/***/ "./frontend/util/user_api_util.js":
+/*!****************************************!*\
+  !*** ./frontend/util/user_api_util.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var updateUser = exports.updateUser = function updateUser(user) {
+  return $.ajax({
+    method: 'PATCH',
+    url: 'api/users/' + user.id,
+    data: { user: user }
+  });
+};
+
+var fetchUser = exports.fetchUser = function fetchUser(id) {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/users/' + id
   });
 };
 
