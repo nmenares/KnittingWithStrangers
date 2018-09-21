@@ -11,9 +11,65 @@ class Profile extends React.Component {
 
     this.false_enr = (kt_id) => merge([], this.props.all_enrollments.filter(enr => enr.knittingtime_id === parseInt(kt_id) && !enr.going));
 
-    this.state = {clickUpdate: false, text: "", quicklook: true, history: false, accountdetails: false, showHost: false};
+    this.state = {clickUpdate: false, text: "", quicklook: true, history: false, accountdetails: false, showHost: false, photo: "" , photoUrl: this.props.me.photoUrl, username: this.props.me.username, editUsername: false, editPhoto: false};
 
-  }
+  };
+
+  fileChangedHandler(e){
+    e.preventDefault();
+    const file = e.currentTarget.files[0];
+    const fileReader = new FileReader();
+    fileReader.onloadend = () => {
+    this.setState({ photo: file, photoUrl: fileReader.result });
+    };
+    if (file) {
+      fileReader.readAsDataURL(file);
+    }
+  };
+
+  handleUpdatePhoto(e){
+    e.preventDefault();
+    const formData = new FormData();
+    if (this.state.photo) {
+      formData.append('user[photo]', this.state.photo);
+      this.props.updatePhoto(formData, this.props.me.id)
+    }
+    this.setState({ editPhoto: false });
+  };
+
+  notUpdatePhoto(e){
+    e.preventDefault();
+    this.setState({ editPhoto: false, photo: "" , photoUrl: this.props.me.photoUrl });
+  };
+
+  toEditAccount(field){
+    return e => {
+      e.preventDefault();
+      this.setState({[field]: true})
+    }
+  };
+
+  updateAccountDetails(field1, field2, field3){
+    return e => {
+      e.preventDefault();
+      this.setState({[field2]: false})
+      this.props.updateUser({id: this.props.me.id, [field1]: field3})
+    }
+  };
+
+  notUpdateAccountDetails(field1, field2, field3){
+    return e => {
+      e.preventDefault();
+      this.setState({[field2]: false, [field1]: field3})
+    }
+  };
+
+  editAccountDetails(field){
+    return e => {
+      e.preventDefault();
+      this.setState({[field]: e.currentTarget.value})
+    }
+  };
 
   handleClick(kt){
     return e => {
@@ -35,9 +91,9 @@ class Profile extends React.Component {
   };
 
   handleUpdate(description){
-  return e => {
-    e.preventDefault();
-    this.setState({clickUpdate: true, text: description })
+    return e => {
+      e.preventDefault();
+      this.setState({clickUpdate: true, text: description })
     }
   };
 
@@ -49,8 +105,8 @@ class Profile extends React.Component {
   };
 
   handleSpan(e){
-  e.preventDefault();
-  this.setState({clickUpdate: false, showHost: false})
+    e.preventDefault();
+    this.setState({clickUpdate: false, showHost: false})
   };
 
   modifyUpdate(e){
@@ -93,13 +149,13 @@ class Profile extends React.Component {
     }
   };
 
-  componentDidMount(){
-    this.props.fetchMe();
-    window.scrollTo(0, 0);
-  };
-
   componentWillMount(){
     this.props.fetchAreas();
+    this.props.fetchMe();
+  };
+
+  componentDidMount(){
+    window.scrollTo(0, 0);
   };
 
   render(){
@@ -107,6 +163,7 @@ class Profile extends React.Component {
       return null;
     }
 
+    const preview = this.state.photoUrl ? <img src={this.state.photoUrl} /> : <img src={window.profile} />;
     const today = moment();
 
     const next_kt_gap = (21 - today.date());
@@ -258,46 +315,79 @@ class Profile extends React.Component {
       :
       null
 
-      const history = this.state.history ?
-        <div className="profile-content-history-box">
-          <div className="profile-content-history">
-            <div className="list-profile">
+    const history = this.state.history ?
+      <div className="profile-content-history-box">
+        <div className="profile-content-history">
+          <div className="list-profile">
 
-              {my_kts_p.length > 0 ? <h2>Knitting times you attended.</h2> : null }
-              <ul> {my_kts_p.map(kt => (
-                  <li className="li-attending" key={kt.id}>
-                    <div className="profile-kt-box">
-                      <p>{moment(kt.date).format('dddd')}</p>
-                      <h3>{moment(kt.date).format('MMMM')} {moment(kt.date).date()}</h3>
-                      <h4>{kt.start_time} - {kt.end_time}</h4>
-                      <p>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
-                    </div>
-                  </li>
-                ))
-                }
-              </ul>
-            </div>
-            <div className="list-profile">
-              {hosted_knitting_times_p.length > 0 ? <h2>Knitting times you hosted.</h2> : null }
-              <ul id="to_reload"> {hosted_knitting_times_p.map(hkt => (
-                  <li key={hkt.id} className="hosted-li">
-
-                    <div className="profile-kt-box2">
-                      <p>{moment(hkt.date).format('dddd')}</p>
-                      <h3>{moment(hkt.date).format('MMMM')} {moment(hkt.date).date()}</h3>
-                      <h4>{hkt.start_time} - {hkt.end_time}</h4>
-                      <p>{hkt.address_1}{hkt.address_2 ? `, ${hkt.address_2}` : null}, {hkt.city}, {hkt.state}, {hkt.zip}</p>
-                    </div>
-                  </li>
-                ))
-                }
-              </ul>
-            </div>
+            {my_kts_p.length > 0 ? <h2>Knitting times you attended.</h2> : null }
+            <ul> {my_kts_p.map(kt => (
+                <li className="li-attending" key={kt.id}>
+                  <div className="profile-kt-box">
+                    <p>{moment(kt.date).format('dddd')}</p>
+                    <h3>{moment(kt.date).format('MMMM')} {moment(kt.date).date()}</h3>
+                    <h4>{kt.start_time} - {kt.end_time}</h4>
+                    <p>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
+                  </div>
+                </li>
+              ))
+              }
+            </ul>
           </div>
-          <div className="link3"><Link to="/knitting_times">find another knitting time!</Link></div>
+          <div className="list-profile">
+            {hosted_knitting_times_p.length > 0 ? <h2>Knitting times you hosted.</h2> : null }
+            <ul id="to_reload"> {hosted_knitting_times_p.map(hkt => (
+                <li key={hkt.id} className="hosted-li">
+
+                  <div className="profile-kt-box2">
+                    <p>{moment(hkt.date).format('dddd')}</p>
+                    <h3>{moment(hkt.date).format('MMMM')} {moment(hkt.date).date()}</h3>
+                    <h4>{hkt.start_time} - {hkt.end_time}</h4>
+                    <p>{hkt.address_1}{hkt.address_2 ? `, ${hkt.address_2}` : null}, {hkt.city}, {hkt.state}, {hkt.zip}</p>
+                  </div>
+                </li>
+              ))
+              }
+            </ul>
+          </div>
         </div>
-        :
-        null
+        <div className="link3"><Link to="/knitting_times">find another knitting time!</Link></div>
+      </div>
+      :
+      null
+
+
+
+    const accountdetails = this.state.accountdetails ?
+      <div>
+        {this.state.editUsername ?
+          <div className="profileUsername">
+            <input type="text" onChange={this.editAccountDetails("username")}/>
+            <img src={window.ok} onClick={this.updateAccountDetails("username", "editUsername", this.state.username)}/>
+            <img src={window.cancel} onClick={this.notUpdateAccountDetails("username", "editUsername", this.props.me.username)}/>
+          </div>
+          :
+          <div>
+            <h2>{this.props.me.username}</h2>
+            <img src={window.edit} onClick={this.toEditAccount("editUsername")}/>
+          </div>
+        }
+        {this.state.editPhoto ?
+          <div className="profilePhoto">
+            {preview}
+            <input type="file" onChange={this.fileChangedHandler.bind(this)}/>
+            <img src={window.ok} onClick={this.handleUpdatePhoto.bind(this)}/>
+            <img src={window.cancel} onClick={this.notUpdatePhoto.bind(this)}/>
+          </div>
+          :
+          <div>
+            {preview}
+            <img src={window.edit} onClick={this.toEditAccount("editPhoto")}/>
+          </div>
+        }
+      </div>
+      :
+      null
 
     return (
       <div>
@@ -310,6 +400,7 @@ class Profile extends React.Component {
           </div>
           {quickLook}
           {history}
+          {accountdetails}
         </div>
       : <Redirect to="/login" />}
       </div>

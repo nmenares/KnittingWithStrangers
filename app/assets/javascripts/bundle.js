@@ -378,7 +378,7 @@ var fetchMe = exports.fetchMe = function fetchMe() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateUser = exports.fetchUser = exports.RECEIVE_USER_ERRORS = exports.RECEIVE_USER = undefined;
+exports.updatePhoto = exports.updateUser = exports.fetchUser = exports.RECEIVE_USER_ERRORS = exports.RECEIVE_USER = undefined;
 
 var _user_api_util = __webpack_require__(/*! ../util/user_api_util */ "./frontend/util/user_api_util.js");
 
@@ -405,9 +405,18 @@ var fetchUser = exports.fetchUser = function fetchUser(id) {
 };
 
 var updateUser = exports.updateUser = function updateUser(user) {
-  console.log("user", user);
   return function (dispatch) {
     return ApiUserUtil.updateUser(user).then(function (user) {
+      dispatch(receiveUser(user));
+    }, function (err) {
+      return dispatch(receiveErrors(err.responseJSON));
+    });
+  };
+};
+
+var updatePhoto = exports.updatePhoto = function updatePhoto(data, id) {
+  return function (dispatch) {
+    return ApiUserUtil.updatePhoto(data, id).then(function (user) {
       dispatch(receiveUser(user));
     }, function (err) {
       return dispatch(receiveErrors(err.responseJSON));
@@ -660,7 +669,6 @@ var HostingForm = function (_React$Component) {
       var _this3 = this;
 
       e.preventDefault();
-      console.log("user", { id: this.props.host.id, description: this.state.brief, story: this.state.story, quote: this.state.quote });
       this.props.updateUser({ id: this.props.host.id, description: this.state.brief, story: this.state.story, quote: this.state.quote });
       this.props.createKnittingTime(this.props.area.id, { date: this.state.date,
         start_time: this.state.start_time,
@@ -1495,7 +1503,11 @@ var KnittingTimeShow = function (_React$Component) {
               '(It\'ll be helpful to know what they look like when you\'re looking for a group of confused strangers.)'
             )
           ),
-          _react2.default.createElement('img', { src: window.profile }),
+          _react2.default.createElement(
+            'div',
+            { className: 'kt-info-img' },
+            host.photoUrl ? _react2.default.createElement('img', { src: host.photoUrl }) : _react2.default.createElement('img', { src: window.profile })
+          ),
           _react2.default.createElement(
             'div',
             { className: 'kt-description' },
@@ -1712,7 +1724,7 @@ var KnittingTimeBox = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 { className: 'host-icon' },
-                _react2.default.createElement('img', { src: window.profile }),
+                this.props.host.photoUrl ? _react2.default.createElement('img', { src: this.props.host.photoUrl }) : _react2.default.createElement('img', { src: window.profile }),
                 _react2.default.createElement(
                   'h4',
                   null,
@@ -2151,6 +2163,8 @@ var _merge2 = _interopRequireDefault(_merge);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -2177,54 +2191,129 @@ var Profile = function (_React$Component) {
       }));
     };
 
-    _this.state = { clickUpdate: false, text: "", quicklook: true, history: false, accountdetails: false, showHost: false };
+    _this.state = { clickUpdate: false, text: "", quicklook: true, history: false, accountdetails: false, showHost: false, photo: "", photoUrl: _this.props.me.photoUrl, username: _this.props.me.username, editUsername: false, editPhoto: false };
 
     return _this;
   }
 
   _createClass(Profile, [{
+    key: 'fileChangedHandler',
+    value: function fileChangedHandler(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      var file = e.currentTarget.files[0];
+      var fileReader = new FileReader();
+      fileReader.onloadend = function () {
+        _this2.setState({ photo: file, photoUrl: fileReader.result });
+      };
+      if (file) {
+        fileReader.readAsDataURL(file);
+      }
+    }
+  }, {
+    key: 'handleUpdatePhoto',
+    value: function handleUpdatePhoto(e) {
+      e.preventDefault();
+      var formData = new FormData();
+      if (this.state.photo) {
+        formData.append('user[photo]', this.state.photo);
+        this.props.updatePhoto(formData, this.props.me.id);
+      }
+      this.setState({ editPhoto: false });
+    }
+  }, {
+    key: 'notUpdatePhoto',
+    value: function notUpdatePhoto(e) {
+      e.preventDefault();
+      this.setState({ editPhoto: false, photo: "", photoUrl: this.props.me.photoUrl });
+    }
+  }, {
+    key: 'toEditAccount',
+    value: function toEditAccount(field) {
+      var _this3 = this;
+
+      return function (e) {
+        e.preventDefault();
+        _this3.setState(_defineProperty({}, field, true));
+      };
+    }
+  }, {
+    key: 'updateAccountDetails',
+    value: function updateAccountDetails(field1, field2, field3) {
+      var _this4 = this;
+
+      return function (e) {
+        e.preventDefault();
+        _this4.setState(_defineProperty({}, field2, false));
+        _this4.props.updateUser(_defineProperty({ id: _this4.props.me.id }, field1, field3));
+      };
+    }
+  }, {
+    key: 'notUpdateAccountDetails',
+    value: function notUpdateAccountDetails(field1, field2, field3) {
+      var _this5 = this;
+
+      return function (e) {
+        var _this5$setState;
+
+        e.preventDefault();
+        _this5.setState((_this5$setState = {}, _defineProperty(_this5$setState, field2, false), _defineProperty(_this5$setState, field1, field3), _this5$setState));
+      };
+    }
+  }, {
+    key: 'editAccountDetails',
+    value: function editAccountDetails(field) {
+      var _this6 = this;
+
+      return function (e) {
+        e.preventDefault();
+        _this6.setState(_defineProperty({}, field, e.currentTarget.value));
+      };
+    }
+  }, {
     key: 'handleClick',
     value: function handleClick(kt) {
-      var _this2 = this;
+      var _this7 = this;
 
       return function (e) {
         e.preventDefault;
-        var enr = _this2.enr(kt.id)[0];
-        var falses = _this2.false_enr(kt.id);
-        _this2.props.deleteEnrollment(enr.id);
+        var enr = _this7.enr(kt.id)[0];
+        var falses = _this7.false_enr(kt.id);
+        _this7.props.deleteEnrollment(enr.id);
         if (falses.length > 0) {
-          _this2.props.updateEnrollment({ id: falses[0].id, user_id: falses[0].user_id, knittingtime_id: falses[0].knittingtime_id, going: true });
+          _this7.props.updateEnrollment({ id: falses[0].id, user_id: falses[0].user_id, knittingtime_id: falses[0].knittingtime_id, going: true });
         }
       };
     }
   }, {
     key: 'handleDelete',
     value: function handleDelete(kt_id) {
-      var _this3 = this;
+      var _this8 = this;
 
       return function (e) {
         e.preventDefault();
-        _this3.props.deleteKnittingTime(kt_id);
+        _this8.props.deleteKnittingTime(kt_id);
       };
     }
   }, {
     key: 'handleUpdate',
     value: function handleUpdate(description) {
-      var _this4 = this;
+      var _this9 = this;
 
       return function (e) {
         e.preventDefault();
-        _this4.setState({ clickUpdate: true, text: description });
+        _this9.setState({ clickUpdate: true, text: description });
       };
     }
   }, {
     key: 'showHostProfile',
     value: function showHostProfile(host) {
-      var _this5 = this;
+      var _this10 = this;
 
       return function (e) {
         e.preventDefault();
-        _this5.setState({ showHost: true });
+        _this10.setState({ showHost: true });
       };
     }
   }, {
@@ -2242,11 +2331,11 @@ var Profile = function (_React$Component) {
   }, {
     key: 'updateKnittingTime',
     value: function updateKnittingTime(kt) {
-      var _this6 = this;
+      var _this11 = this;
 
       return function (e) {
         e.preventDefault();
-        _this6.props.updateKnittingTime({
+        _this11.props.updateKnittingTime({
           id: kt.id,
           date: kt.date,
           start_time: kt.start_time,
@@ -2258,19 +2347,19 @@ var Profile = function (_React$Component) {
           zip: kt.zip,
           area_id: kt.area_id,
           host_id: kt.host_id,
-          description: _this6.state.text
+          description: _this11.state.text
         });
-        _this6.setState({ clickUpdate: false });
+        _this11.setState({ clickUpdate: false });
       };
     }
   }, {
     key: 'handleSubMenu',
     value: function handleSubMenu(field) {
-      var _this7 = this;
+      var _this12 = this;
 
       return function (e) {
         e.preventDefault();
-        _this7.setState({ quicklook: field === "quicklook", history: field === "history", accountdetails: field === "accountdetails" });
+        _this12.setState({ quicklook: field === "quicklook", history: field === "history", accountdetails: field === "accountdetails" });
       };
     }
   }, {
@@ -2282,25 +2371,26 @@ var Profile = function (_React$Component) {
       };
     }
   }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.props.fetchMe();
-      window.scrollTo(0, 0);
-    }
-  }, {
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.props.fetchAreas();
+      this.props.fetchMe();
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      window.scrollTo(0, 0);
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this8 = this;
+      var _this13 = this;
 
       if (!this.props.me || !this.props.attending_enrollments || !this.props.knitting_times) {
         return null;
       }
 
+      var preview = this.state.photoUrl ? _react2.default.createElement('img', { src: this.state.photoUrl }) : _react2.default.createElement('img', { src: window.profile });
       var today = (0, _moment2.default)();
 
       var next_kt_gap = 21 - today.date();
@@ -2311,7 +2401,7 @@ var Profile = function (_React$Component) {
         return ae.knittingtime_id;
       });
       var my_kts = my_kt_ids.map(function (id) {
-        return _this8.props.knitting_times[id];
+        return _this13.props.knitting_times[id];
       });
       var my_kts_f = my_kts.filter(function (kt) {
         return kt.date >= today.format();
@@ -2327,7 +2417,7 @@ var Profile = function (_React$Component) {
         return ae.knittingtime_id;
       });
       var my_kts_wl = my_kt_ids_wl.map(function (id) {
-        return _this8.props.knitting_times[id];
+        return _this13.props.knitting_times[id];
       });
       var my_kts_wl_f = my_kts_wl.filter(function (kt) {
         return kt.date >= today.format();
@@ -2423,7 +2513,7 @@ var Profile = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                       'div',
-                      { className: 'cancel-kt', onClick: _this8.handleClick(kt) },
+                      { className: 'cancel-kt', onClick: _this13.handleClick(kt) },
                       'CANCEL MY SPOT'
                     )
                   ),
@@ -2447,7 +2537,7 @@ var Profile = function (_React$Component) {
                         'p',
                         null,
                         'Keep an eye open for ',
-                        _this8.props.users[kt.host_id].username,
+                        _this13.props.users[kt.host_id].username,
                         '! So it\'s easier, here\'s what they look like :).'
                       )
                     ),
@@ -2456,11 +2546,11 @@ var Profile = function (_React$Component) {
                       null,
                       _react2.default.createElement(
                         'button',
-                        { className: 'profile-host-info', onClick: _this8.showHostProfile(_this8.props.users[kt.host_id]) },
-                        _this8.props.users[kt.host_id].username + '\'s',
+                        { className: 'profile-host-info', onClick: _this13.showHostProfile(_this13.props.users[kt.host_id]) },
+                        _this13.props.users[kt.host_id].username + '\'s',
                         ' profile'
                       ),
-                      _this8.state.showHost ? _react2.default.createElement(
+                      _this13.state.showHost ? _react2.default.createElement(
                         'div',
                         { id: 'updateModal', className: 'modal' },
                         _react2.default.createElement(
@@ -2468,41 +2558,41 @@ var Profile = function (_React$Component) {
                           { className: 'modal-content' },
                           _react2.default.createElement(
                             'span',
-                            { className: 'close', onClick: _this8.handleSpan.bind(_this8) },
+                            { className: 'close', onClick: _this13.handleSpan.bind(_this13) },
                             '\xD7'
                           ),
                           _react2.default.createElement(
                             'h2',
                             null,
-                            _this8.props.users[kt.host_id].username
+                            _this13.props.users[kt.host_id].username
                           ),
                           _react2.default.createElement(
                             'h4',
                             null,
-                            _this8.props.users[kt.host_id].email
+                            _this13.props.users[kt.host_id].email
                           ),
                           _react2.default.createElement(
                             'h3',
                             null,
-                            _this8.props.users[kt.host_id].quote
+                            _this13.props.users[kt.host_id].quote
                           ),
                           _react2.default.createElement(
                             'h4',
                             null,
-                            _this8.props.users[kt.host_id].description
+                            _this13.props.users[kt.host_id].description
                           ),
                           _react2.default.createElement(
                             'h4',
                             null,
-                            _this8.props.users[kt.host_id].story
+                            _this13.props.users[kt.host_id].story
                           )
                         )
                       ) : null,
                       _react2.default.createElement(
                         'button',
-                        { className: 'profile-host-info', onClick: _this8.sendEmail(_this8.props.users[kt.host_id].email) },
+                        { className: 'profile-host-info', onClick: _this13.sendEmail(_this13.props.users[kt.host_id].email) },
                         'email ',
-                        _this8.props.users[kt.host_id].username
+                        _this13.props.users[kt.host_id].username
                       )
                     )
                   )
@@ -2562,7 +2652,7 @@ var Profile = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                       'div',
-                      { className: 'cancel-kt', onClick: _this8.handleClick(kt) },
+                      { className: 'cancel-kt', onClick: _this13.handleClick(kt) },
                       'CANCEL MY SPOT'
                     )
                   ),
@@ -2586,7 +2676,7 @@ var Profile = function (_React$Component) {
                         'p',
                         null,
                         'Keep an eye open for ',
-                        _this8.props.users[kt.host_id].username,
+                        _this13.props.users[kt.host_id].username,
                         '! So it\'s easier, here\'s what they look like. :).'
                       )
                     ),
@@ -2595,11 +2685,11 @@ var Profile = function (_React$Component) {
                       null,
                       _react2.default.createElement(
                         'button',
-                        { className: 'profile-host-info', onClick: _this8.showHostProfile(_this8.props.users[kt.host_id]) },
-                        _this8.props.users[kt.host_id].username + '\'s',
+                        { className: 'profile-host-info', onClick: _this13.showHostProfile(_this13.props.users[kt.host_id]) },
+                        _this13.props.users[kt.host_id].username + '\'s',
                         ' profile'
                       ),
-                      _this8.state.showHost ? _react2.default.createElement(
+                      _this13.state.showHost ? _react2.default.createElement(
                         'div',
                         { id: 'updateModal', className: 'modal' },
                         _react2.default.createElement(
@@ -2607,41 +2697,41 @@ var Profile = function (_React$Component) {
                           { className: 'modal-content' },
                           _react2.default.createElement(
                             'span',
-                            { className: 'close', onClick: _this8.handleSpan.bind(_this8) },
+                            { className: 'close', onClick: _this13.handleSpan.bind(_this13) },
                             '\xD7'
                           ),
                           _react2.default.createElement(
                             'h2',
                             null,
-                            _this8.props.users[kt.host_id].username
+                            _this13.props.users[kt.host_id].username
                           ),
                           _react2.default.createElement(
                             'h4',
                             null,
-                            _this8.props.users[kt.host_id].email
+                            _this13.props.users[kt.host_id].email
                           ),
                           _react2.default.createElement(
                             'h3',
                             null,
-                            _this8.props.users[kt.host_id].quote
+                            _this13.props.users[kt.host_id].quote
                           ),
                           _react2.default.createElement(
                             'h4',
                             null,
-                            _this8.props.users[kt.host_id].description
+                            _this13.props.users[kt.host_id].description
                           ),
                           _react2.default.createElement(
                             'h4',
                             null,
-                            _this8.props.users[kt.host_id].story
+                            _this13.props.users[kt.host_id].story
                           )
                         )
                       ) : null,
                       _react2.default.createElement(
                         'button',
-                        { className: 'profile-host-info', onClick: _this8.sendEmail(_this8.props.users[kt.host_id].email) },
+                        { className: 'profile-host-info', onClick: _this13.sendEmail(_this13.props.users[kt.host_id].email) },
                         'email ',
-                        _this8.props.users[kt.host_id].username
+                        _this13.props.users[kt.host_id].username
                       )
                     )
                   )
@@ -2705,10 +2795,10 @@ var Profile = function (_React$Component) {
                     { className: 'modify-hosted' },
                     _react2.default.createElement(
                       'button',
-                      { className: 'profile-host-info', id: 'update-kt', onClick: _this8.handleUpdate(hkt.description) },
+                      { className: 'profile-host-info', id: 'update-kt', onClick: _this13.handleUpdate(hkt.description) },
                       'update'
                     ),
-                    _this8.state.clickUpdate ? _react2.default.createElement(
+                    _this13.state.clickUpdate ? _react2.default.createElement(
                       'div',
                       { id: 'updateModal', className: 'modal' },
                       _react2.default.createElement(
@@ -2724,17 +2814,17 @@ var Profile = function (_React$Component) {
                           ),
                           _react2.default.createElement(
                             'span',
-                            { className: 'close', onClick: _this8.handleSpan.bind(_this8) },
+                            { className: 'close', onClick: _this13.handleSpan.bind(_this13) },
                             '\xD7'
                           )
                         ),
-                        _react2.default.createElement('textarea', { value: _this8.state.text, onChange: _this8.modifyUpdate.bind(_this8) }),
-                        _react2.default.createElement('input', { type: 'submit', onClick: _this8.updateKnittingTime(hkt) })
+                        _react2.default.createElement('textarea', { value: _this13.state.text, onChange: _this13.modifyUpdate.bind(_this13) }),
+                        _react2.default.createElement('input', { type: 'submit', onClick: _this13.updateKnittingTime(hkt) })
                       )
                     ) : null,
                     _react2.default.createElement(
                       'button',
-                      { className: 'profile-host-info2', onClick: _this8.handleDelete(hkt.id) },
+                      { className: 'profile-host-info2', onClick: _this13.handleDelete(hkt.id) },
                       'delete'
                     )
                   )
@@ -2873,6 +2963,40 @@ var Profile = function (_React$Component) {
         )
       ) : null;
 
+      var accountdetails = this.state.accountdetails ? _react2.default.createElement(
+        'div',
+        null,
+        this.state.editUsername ? _react2.default.createElement(
+          'div',
+          { className: 'profileUsername' },
+          _react2.default.createElement('input', { type: 'text', onChange: this.editAccountDetails("username") }),
+          _react2.default.createElement('img', { src: window.ok, onClick: this.updateAccountDetails("username", "editUsername", this.state.username) }),
+          _react2.default.createElement('img', { src: window.cancel, onClick: this.notUpdateAccountDetails("username", "editUsername", this.props.me.username) })
+        ) : _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h2',
+            null,
+            this.props.me.username
+          ),
+          _react2.default.createElement('img', { src: window.edit, onClick: this.toEditAccount("editUsername") })
+        ),
+        this.state.editPhoto ? _react2.default.createElement(
+          'div',
+          { className: 'profilePhoto' },
+          preview,
+          _react2.default.createElement('input', { type: 'file', onChange: this.fileChangedHandler.bind(this) }),
+          _react2.default.createElement('img', { src: window.ok, onClick: this.handleUpdatePhoto.bind(this) }),
+          _react2.default.createElement('img', { src: window.cancel, onClick: this.notUpdatePhoto.bind(this) })
+        ) : _react2.default.createElement(
+          'div',
+          null,
+          preview,
+          _react2.default.createElement('img', { src: window.edit, onClick: this.toEditAccount("editPhoto") })
+        )
+      ) : null;
+
       return _react2.default.createElement(
         'div',
         null,
@@ -2899,7 +3023,8 @@ var Profile = function (_React$Component) {
             )
           ),
           quickLook,
-          history
+          history,
+          accountdetails
         ) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/login' })
       );
     }
@@ -2946,6 +3071,8 @@ var _enrollment_actions = __webpack_require__(/*! ../../actions/enrollment_actio
 
 var _knitting_time_actions = __webpack_require__(/*! ../../actions/knitting_time_actions */ "./frontend/actions/knitting_time_actions.js");
 
+var _user_actions = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var msp = function msp(state) {
@@ -2982,6 +3109,12 @@ var mdp = function mdp(dispatch) {
     },
     updateEnrollment: function updateEnrollment(data) {
       return dispatch((0, _enrollment_actions.updateEnrollment)(data));
+    },
+    updateUser: function updateUser(user) {
+      return dispatch((0, _user_actions.updateUser)(user));
+    },
+    updatePhoto: function updatePhoto(data, id) {
+      return dispatch((0, _user_actions.updatePhoto)(data, id));
     }
   };
 };
@@ -4287,6 +4420,16 @@ var fetchUser = exports.fetchUser = function fetchUser(id) {
   return $.ajax({
     method: 'GET',
     url: 'api/users/' + id
+  });
+};
+
+var updatePhoto = exports.updatePhoto = function updatePhoto(data, id) {
+  return $.ajax({
+    method: 'PATCH',
+    url: 'api/users/' + id,
+    data: data,
+    contentType: false,
+    processData: false
   });
 };
 

@@ -95,8 +95,9 @@ class KnittingTimeShow extends React.Component {
             <h2>Meet your Host, {host.username}.</h2>
             <p>(It'll be helpful to know what they look like when you're looking for a group of confused strangers.)</p>
           </div>
-
-          <img src={window.profile} />
+          <div className="kt-info-img">
+            {host.photoUrl ? <img src={host.photoUrl}/> : <img src={window.profile}/>}
+          </div>
           <div className="kt-description">
             <p>{host.description}</p>
             <h3>What's your story?</h3>

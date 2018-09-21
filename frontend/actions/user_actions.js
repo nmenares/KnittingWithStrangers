@@ -13,11 +13,18 @@ export const fetchUser = (id) => {
     )
 };
 
-
 export const updateUser = (user) => {
-  console.log("user", user)
   return dispatch =>
     ApiUserUtil.updateUser(user).then(user => {
+    dispatch(receiveUser(user))
+  }, err => (
+    dispatch(receiveErrors(err.responseJSON))
+  )
+)};
+
+export const updatePhoto = (data, id) => {
+  return dispatch =>
+    ApiUserUtil.updatePhoto(data, id).then(user => {
     dispatch(receiveUser(user))
   }, err => (
     dispatch(receiveErrors(err.responseJSON))

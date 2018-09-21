@@ -5,6 +5,7 @@ import { fetchMe } from '../../actions/session_actions';
 import { fetchAreas } from '../../actions/area_actions';
 import { deleteEnrollment, updateEnrollment } from '../../actions/enrollment_actions';
 import { deleteKnittingTime, updateKnittingTime } from '../../actions/knitting_time_actions';
+import { updateUser, updatePhoto } from '../../actions/user_actions';
 
 
 const msp = (state) => ({
@@ -22,7 +23,9 @@ const mdp = (dispatch) => ({
   deleteKnittingTime: (id) => dispatch(deleteKnittingTime(id)),
   updateKnittingTime: (data) => dispatch(updateKnittingTime(data)),
   deleteEnrollment: (id) => dispatch(deleteEnrollment(id)),
-  updateEnrollment: (data) => dispatch(updateEnrollment(data))
+  updateEnrollment: (data) => dispatch(updateEnrollment(data)),
+  updateUser: (user) => dispatch(updateUser(user)),
+  updatePhoto: (data, id) => dispatch(updatePhoto(data, id))
 });
 
 export default connect(msp, mdp)(Profile);

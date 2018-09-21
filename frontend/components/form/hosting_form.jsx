@@ -38,7 +38,6 @@ class HostingForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log("user", {id: this.props.host.id, description: this.state.brief, story: this.state.story, quote: this.state.quote})
     this.props.updateUser({id: this.props.host.id, description: this.state.brief, story: this.state.story, quote: this.state.quote})
     this.props.createKnittingTime( this.props.area.id , {date: this.state.date,
                   start_time: this.state.start_time,
