@@ -477,6 +477,10 @@ footer {
   background-repeat: no-repeat;
   overflow: hidden;
   border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .host-icon-img img{
@@ -861,7 +865,6 @@ footer {
 
 .kt-info-img {
   margin: 36px;
-  padding: 10px;
   height: 300px;
   width: 300px;
   border: 2px solid #DDD;
@@ -876,12 +879,11 @@ footer {
 }
 
 .kt-info-img img{
-  width: 280px;
+  width: 100%;
   object-fit: cover;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  border-radius: 3px;
 }
 
 .kt-info .kt-description {
