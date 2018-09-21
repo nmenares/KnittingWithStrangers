@@ -463,22 +463,28 @@ footer {
   border-radius: 3px;
   padding: 4.5px;
   background: white;
-  background-size: cover;
-  background-repeat: no-repeat;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
 
-.host-icon img{
+.host-icon-img {
+  height: 80px;
+  width: 100%;
+  background: white;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+.host-icon-img img{
   width: 77px;
   object-fit: cover;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  border-radius: 3px;
 }
 
 .host-icon h4 {

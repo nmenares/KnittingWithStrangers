@@ -1724,7 +1724,11 @@ var KnittingTimeBox = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 { className: 'host-icon' },
-                this.props.host.photoUrl ? _react2.default.createElement('img', { src: this.props.host.photoUrl }) : _react2.default.createElement('img', { src: window.profile }),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'host-icon-img' },
+                  this.props.host.photoUrl ? _react2.default.createElement('img', { src: this.props.host.photoUrl }) : _react2.default.createElement('img', { src: window.profile })
+                ),
                 _react2.default.createElement(
                   'h4',
                   null,

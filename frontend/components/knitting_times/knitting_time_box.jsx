@@ -36,7 +36,9 @@ class KnittingTimeBox extends React.Component{
                 <h2>{this.state.start_time} - {this.state.end_time}</h2>
               </div>
               <div className="host-icon">
-                {this.props.host.photoUrl ? <img src={this.props.host.photoUrl}/> : <img src={window.profile}/>}
+                <div className="host-icon-img">
+                  {this.props.host.photoUrl ? <img src={this.props.host.photoUrl}/> : <img src={window.profile}/>}
+                </div>
                 <h4>{this.props.host.username}</h4>
               </div>
             </div>
