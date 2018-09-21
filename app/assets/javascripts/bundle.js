@@ -2535,7 +2535,7 @@ var Profile = function (_React$Component) {
                       _react2.default.createElement(
                         'div',
                         { className: 'hostphoto' },
-                        _react2.default.createElement('img', { src: window.profile })
+                        _this13.props.users[kt.host_id].photoUrl ? _react2.default.createElement('img', { src: _this13.props.users[kt.host_id].photoUrl }) : _react2.default.createElement('img', { src: window.profile })
                       ),
                       _react2.default.createElement(
                         'p',
@@ -2674,7 +2674,7 @@ var Profile = function (_React$Component) {
                       _react2.default.createElement(
                         'div',
                         { className: 'hostphoto' },
-                        _react2.default.createElement('img', { src: window.profile })
+                        _this13.props.users[kt.host_id].photoUrl ? _react2.default.createElement('img', { src: _this13.props.users[kt.host_id].photoUrl }) : _react2.default.createElement('img', { src: window.profile })
                       ),
                       _react2.default.createElement(
                         'p',

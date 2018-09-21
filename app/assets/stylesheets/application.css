@@ -1396,25 +1396,20 @@ blockquote span {
 }
 
 .hostphoto{
-  max-width: 145px;
-  max-height: 97px;
-  padding: 9px;
-  border: 1px solid #F7BF4D;
-  background-color: #FEFEFE;
-  margin-bottom: 27px;
-  margin-right: 18px;
+  height: 110px;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .hostphoto img {
-  max-width: 137px;
-  max-height: 79px;
+  height: 90px;
   object-fit: cover;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  align-items: center;
-  vertical-align: middle;
-  overflow: hidden;
 }
 
 .profile-host-box, .profile-kt-box{

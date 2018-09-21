@@ -205,7 +205,9 @@ class Profile extends React.Component {
                   <div className="profile-host-box">
                     <h3>Get to know your host</h3>
                     <div className="photo-p">
-                      <div className="hostphoto"><img src={window.profile} /></div>
+                      <div className="hostphoto">
+                        {this.props.users[kt.host_id].photoUrl ? <img src={this.props.users[kt.host_id].photoUrl}/> : <img src={window.profile}/>}
+                      </div>
                       <p>Keep an eye open for {this.props.users[kt.host_id].username}! So it's easier, here's what they look like :).</p>
                     </div>
                     <div>
@@ -248,7 +250,9 @@ class Profile extends React.Component {
                   <div className="profile-host-box">
                     <h3>Get to know your host</h3>
                     <div className="photo-p">
-                      <div className="hostphoto"><img src={window.profile} /></div>
+                      <div className="hostphoto">
+                        {this.props.users[kt.host_id].photoUrl ? <img src={this.props.users[kt.host_id].photoUrl}/> : <img src={window.profile}/>}
+                      </div>
                       <p>Keep an eye open for {this.props.users[kt.host_id].username}! So it's easier, here's what they look like. :).</p>
                     </div>
                     <div>
