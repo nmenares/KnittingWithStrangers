@@ -9,7 +9,7 @@ class Profile extends React.Component {
     super(props);
     this.enr = (kt_id) => merge([], this.props.attending_enrollments.filter(enr => enr.knittingtime_id === parseInt(kt_id)));
 
-    this.false_enr = (kt_id) => merge([], this.props.all_enrollments.filter(enr => enr.knittingtime_id === parseInt(kt_id) && !enr.going));
+    this.false_enr = (kt_id, deleted) => merge([], this.props.all_enrollments.filter(enr => enr.knittingtime_id === parseInt(kt_id) && !enr.going && enr.id !== deleted.id));
 
     this.state = {clickUpdate: false, text: "", quicklook: true, history: false, accountdetails: false, showHost: false, photo: "" , photoUrl: this.props.me.photoUrl, username: this.props.me.username, editUsername: false, editPhoto: false};
 
@@ -75,8 +75,8 @@ class Profile extends React.Component {
     return e => {
       e.preventDefault;
       const enr = this.enr(kt.id)[0];
-      const falses = this.false_enr(kt.id);
       this.props.deleteEnrollment(enr.id);
+      const falses = this.false_enr(kt.id, enr);
       if (falses.length > 0) {
         this.props.updateEnrollment({id: falses[0].id, user_id: falses[0].user_id, knittingtime_id: falses[0].knittingtime_id, going: true })
       }

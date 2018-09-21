@@ -2185,9 +2185,9 @@ var Profile = function (_React$Component) {
       }));
     };
 
-    _this.false_enr = function (kt_id) {
+    _this.false_enr = function (kt_id, deleted) {
       return (0, _merge2.default)([], _this.props.all_enrollments.filter(function (enr) {
-        return enr.knittingtime_id === parseInt(kt_id) && !enr.going;
+        return enr.knittingtime_id === parseInt(kt_id) && !enr.going && enr.id !== deleted.id;
       }));
     };
 
@@ -2279,8 +2279,8 @@ var Profile = function (_React$Component) {
       return function (e) {
         e.preventDefault;
         var enr = _this7.enr(kt.id)[0];
-        var falses = _this7.false_enr(kt.id);
         _this7.props.deleteEnrollment(enr.id);
+        var falses = _this7.false_enr(kt.id, enr);
         if (falses.length > 0) {
           _this7.props.updateEnrollment({ id: falses[0].id, user_id: falses[0].user_id, knittingtime_id: falses[0].knittingtime_id, going: true });
         }
