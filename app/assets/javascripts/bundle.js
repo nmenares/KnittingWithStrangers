@@ -751,7 +751,7 @@ var HostingForm = function (_React$Component) {
                 { className: 'host-form-kt' },
                 _react2.default.createElement(
                   'h2',
-                  { style: { marginTop: '0px' } },
+                  { style: { marginTop: '0px', textAlign: "center" } },
                   'Set Knitting Time Details'
                 ),
                 _react2.default.createElement(
@@ -899,12 +899,12 @@ var HostingForm = function (_React$Component) {
                 { className: 'host-form-info' },
                 _react2.default.createElement(
                   'h2',
-                  { style: { marginTop: '0px' } },
+                  { style: { marginTop: '0px', textAlign: "center" } },
                   'Update Personal Information'
                 ),
                 _react2.default.createElement(
-                  'h3',
-                  null,
+                  'h2',
+                  { style: { fontSize: '20px', textAlign: "center" } },
                   this.props.host.username
                 ),
                 _react2.default.createElement(
@@ -2687,7 +2687,7 @@ var Profile = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                       'p',
-                      null,
+                      { style: { paddingBottom: "10px" } },
                       kt.address_1,
                       kt.address_2 ? ', ' + kt.address_2 : null,
                       ', ',
@@ -2729,7 +2729,7 @@ var Profile = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                       'div',
-                      null,
+                      { className: 'host-buttons' },
                       _react2.default.createElement(
                         'button',
                         { className: 'profile-host-info', onClick: _this12.showHostProfile(_this12.props.users[kt.host_id]) },
@@ -2853,7 +2853,7 @@ var Profile = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                       'p',
-                      null,
+                      { style: { paddingBottom: "10px" } },
                       kt.address_1,
                       kt.address_2 ? ', ' + kt.address_2 : null,
                       ', ',
@@ -2895,7 +2895,7 @@ var Profile = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                       'div',
-                      null,
+                      { className: 'host-buttons' },
                       _react2.default.createElement(
                         'button',
                         { className: 'profile-host-info', onClick: _this12.showHostProfile(_this12.props.users[kt.host_id]) },
@@ -2989,7 +2989,7 @@ var Profile = function (_React$Component) {
             ) : null,
             _react2.default.createElement(
               'ul',
-              { id: 'to_reload' },
+              { id: 'hosting' },
               ' ',
               hosted_knitting_times_f.map(function (hkt) {
                 return _react2.default.createElement(
@@ -3019,7 +3019,7 @@ var Profile = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                       'p',
-                      null,
+                      { style: { paddingBottom: "13.5px" } },
                       hkt.address_1,
                       hkt.address_2 ? ', ' + hkt.address_2 : null,
                       ', ',
@@ -3089,23 +3089,23 @@ var Profile = function (_React$Component) {
           { className: 'profile-content-history' },
           _react2.default.createElement(
             'div',
-            { className: 'list-profile' },
+            { className: 'list-profile2' },
             my_kts_p.length > 0 ? _react2.default.createElement(
               'h2',
-              null,
+              { style: { fontSize: "30px" } },
               'Knitting times you attended.'
             ) : null,
             _react2.default.createElement(
               'ul',
-              null,
+              { style: { width: "100%" } },
               ' ',
               my_kts_p.map(function (kt) {
                 return _react2.default.createElement(
                   'li',
-                  { className: 'li-attending', key: kt.id },
+                  { className: 'li-attending2', key: kt.id },
                   _react2.default.createElement(
                     'div',
-                    { className: 'profile-kt-box' },
+                    { className: 'profile-kt-box3' },
                     _react2.default.createElement(
                       'p',
                       null,
@@ -3127,7 +3127,7 @@ var Profile = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                       'p',
-                      null,
+                      { style: { paddingBottom: "13.5px" } },
                       kt.address_1,
                       kt.address_2 ? ', ' + kt.address_2 : null,
                       ', ',
@@ -3144,23 +3144,23 @@ var Profile = function (_React$Component) {
           ),
           _react2.default.createElement(
             'div',
-            { className: 'list-profile' },
+            { className: 'list-profile2' },
             hosted_knitting_times_p.length > 0 ? _react2.default.createElement(
               'h2',
-              null,
+              { style: { fontSize: "30px" } },
               'Knitting times you hosted.'
             ) : null,
             _react2.default.createElement(
               'ul',
-              { id: 'to_reload' },
+              { style: { width: "100%" } },
               ' ',
               hosted_knitting_times_p.map(function (hkt) {
                 return _react2.default.createElement(
                   'li',
-                  { key: hkt.id, className: 'hosted-li' },
+                  { key: hkt.id, className: 'li-attending2' },
                   _react2.default.createElement(
                     'div',
-                    { className: 'profile-kt-box2' },
+                    { className: 'profile-kt-box3' },
                     _react2.default.createElement(
                       'p',
                       null,
@@ -3182,7 +3182,7 @@ var Profile = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                       'p',
-                      null,
+                      { style: { paddingBottom: "13.5px" } },
                       hkt.address_1,
                       hkt.address_2 ? ', ' + hkt.address_2 : null,
                       ', ',

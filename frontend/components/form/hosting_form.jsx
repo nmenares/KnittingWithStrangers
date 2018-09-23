@@ -124,7 +124,7 @@ class HostingForm extends React.Component {
           <form onSubmit={this.handleSubmit.bind(this)}>
             <div className="subForm">
               <div className="host-form-kt">
-                <h2 style={{marginTop: '0px'}}>Set Knitting Time Details</h2>
+                <h2 style={{marginTop: '0px', textAlign:"center"}}>Set Knitting Time Details</h2>
 
                 <label>Date<span>*</span></label>
                 <input type="date" onChange={this.handleEvent("date", null)} value={this.state.date} min={`${year}-${month}-${day}`} required></input>
@@ -169,8 +169,8 @@ class HostingForm extends React.Component {
               </div>
 
               <div className="host-form-info">
-                <h2 style={{ marginTop: '0px'}}>Update Personal Information</h2>
-                <h3>{this.props.host.username}</h3>
+                <h2 style={{ marginTop: '0px', textAlign:"center"}}>Update Personal Information</h2>
+                <h2 style={{ fontSize: '20px', textAlign:"center"}}>{this.props.host.username}</h2>
 
                 <div className="pre-host-form-photo">
                   <div className="host-form-photo">

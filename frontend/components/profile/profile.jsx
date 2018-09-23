@@ -194,7 +194,8 @@ class Profile extends React.Component {
                     <p>{moment(kt.date).format('dddd')}</p>
                     <h3>{moment(kt.date).format('MMMM')} {moment(kt.date).date()}</h3>
                     <h4>{kt.start_time} - {kt.end_time}</h4>
-                    <p>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
+                    <p style={{ paddingBottom:"10px" }}>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
+
                     <div className="cancel-kt" onClick={this.handleClick(kt)}>CANCEL MY SPOT</div>
                   </div>
                   <div className="profile-host-box">
@@ -205,7 +206,7 @@ class Profile extends React.Component {
                       </div>
                       <p>Keep an eye open for {this.props.users[kt.host_id].username}! So it's easier, here's what they look like :).</p>
                     </div>
-                    <div>
+                    <div className="host-buttons">
                       <button className="profile-host-info" onClick={this.showHostProfile(this.props.users[kt.host_id])}>{`${this.props.users[kt.host_id].username}'s`} profile</button>
                         {this.state.showHost ?
                           <div className="modal">
@@ -246,7 +247,7 @@ class Profile extends React.Component {
                     <p>{moment(kt.date).format('dddd')}</p>
                     <h3>{moment(kt.date).format('MMMM')} {moment(kt.date).date()}</h3>
                     <h4>{kt.start_time} - {kt.end_time}</h4>
-                    <p>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
+                    <p style={{ paddingBottom:"10px" }}>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
 
                     <div className="cancel-kt" onClick={this.handleClick(kt)}>CANCEL MY SPOT</div>
                   </div>
@@ -258,7 +259,7 @@ class Profile extends React.Component {
                       </div>
                       <p>Keep an eye open for {this.props.users[kt.host_id].username}! So it's easier, here's what they look like :).</p>
                     </div>
-                    <div>
+                    <div className="host-buttons">
                       <button className="profile-host-info" onClick={this.showHostProfile(this.props.users[kt.host_id])}>{`${this.props.users[kt.host_id].username}'s`} profile</button>
                         {this.state.showHost ?
                           <div className="modal">
@@ -293,14 +294,14 @@ class Profile extends React.Component {
           <div className="list-profile">
 
             {hosted_knitting_times_f.length > 0 ? <h2>Knitting times you're hosting.</h2> : null }
-            <ul id="to_reload"> {hosted_knitting_times_f.map(hkt => (
+            <ul id="hosting"> {hosted_knitting_times_f.map(hkt => (
                 <li key={hkt.id} className="hosted-li">
 
                   <div className="profile-kt-box2">
                     <p>{moment(hkt.date).format('dddd')}</p>
                     <h3>{moment(hkt.date).format('MMMM')} {moment(hkt.date).date()}</h3>
                     <h4>{hkt.start_time} - {hkt.end_time}</h4>
-                    <p>{hkt.address_1}{hkt.address_2 ? `, ${hkt.address_2}` : null}, {hkt.city}, {hkt.state}, {hkt.zip}</p>
+                    <p style={{ paddingBottom:"13.5px" }}>{hkt.address_1}{hkt.address_2 ? `, ${hkt.address_2}` : null}, {hkt.city}, {hkt.state}, {hkt.zip}</p>
                   </div>
                   <div className="modify-hosted">
                     <button className="profile-host-info" id="update-kt" onClick={this.handleUpdate(hkt)} >update</button>
@@ -334,32 +335,30 @@ class Profile extends React.Component {
     const history = this.state.history ?
       <div className="profile-content-history-box">
         <div className="profile-content-history">
-          <div className="list-profile">
-
-            {my_kts_p.length > 0 ? <h2>Knitting times you attended.</h2> : null }
-            <ul> {my_kts_p.map(kt => (
-                <li className="li-attending" key={kt.id}>
-                  <div className="profile-kt-box">
+          <div className="list-profile2">
+            {my_kts_p.length > 0 ? <h2 style={{ fontSize:"30px" }}>Knitting times you attended.</h2> : null }
+            <ul style={{ width:"100%" }}> {my_kts_p.map(kt => (
+                <li className="li-attending2" key={kt.id}>
+                  <div className="profile-kt-box3">
                     <p>{moment(kt.date).format('dddd')}</p>
                     <h3>{moment(kt.date).format('MMMM')} {moment(kt.date).date()}</h3>
                     <h4>{kt.start_time} - {kt.end_time}</h4>
-                    <p>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
+                    <p style={{ paddingBottom:"13.5px" }}>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
                   </div>
                 </li>
               ))
               }
             </ul>
           </div>
-          <div className="list-profile">
-            {hosted_knitting_times_p.length > 0 ? <h2>Knitting times you hosted.</h2> : null }
-            <ul id="to_reload"> {hosted_knitting_times_p.map(hkt => (
-                <li key={hkt.id} className="hosted-li">
-
-                  <div className="profile-kt-box2">
+          <div className="list-profile2">
+            {hosted_knitting_times_p.length > 0 ? <h2 style={{ fontSize:"30px" }}>Knitting times you hosted.</h2> : null }
+            <ul style={{ width:"100%" }}> {hosted_knitting_times_p.map(hkt => (
+                <li key={hkt.id} className="li-attending2">
+                  <div className="profile-kt-box3">
                     <p>{moment(hkt.date).format('dddd')}</p>
                     <h3>{moment(hkt.date).format('MMMM')} {moment(hkt.date).date()}</h3>
                     <h4>{hkt.start_time} - {hkt.end_time}</h4>
-                    <p>{hkt.address_1}{hkt.address_2 ? `, ${hkt.address_2}` : null}, {hkt.city}, {hkt.state}, {hkt.zip}</p>
+                    <p style={{ paddingBottom:"13.5px" }}>{hkt.address_1}{hkt.address_2 ? `, ${hkt.address_2}` : null}, {hkt.city}, {hkt.state}, {hkt.zip}</p>
                   </div>
                 </li>
               ))

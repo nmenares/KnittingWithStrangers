@@ -189,7 +189,10 @@
   color: #333;
 }
 
-.intro h2, .introknittingtimes h2, .hostingform h2, .profile-sidebar h2, .list-profile h2{
+.intro h2, .introknittingtimes h2, .hostingform h2, .profile-sidebar h2, .list-profile h2, .list-profile2 h2{
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
   color: #EF6236;
   font-size: 1.5em;
   margin: auto;
@@ -252,17 +255,21 @@ footer {
   height: auto;
   letter-spacing: 0.06em;
   line-height: 1.625em;
-  padding: 10px 150px;
+  padding: 10px;
 }
 
+footer .menu {
+  width: 15%;
+}
+
+footer .prg {
+  width: 55%;
+  padding-left: 20px;
+}
 
 .menu p, .menu a{
-  line-height: 1.625em;
   font-size: 18px;
-  padding-left: 100px;
-  padding-right: 20px;
-  width: max-content;
-  line-height: 0.8em;
+  line-height: 1em;
   font-weight: 500;
   color: white;
 }
@@ -1044,7 +1051,7 @@ footer {
 }
 
 .pre-host-form-photo{
-  margin: 36px;
+  margin: 18px;
   margin-bottom: 0;
   display: flex;
   flex-direction: column;
@@ -1351,18 +1358,29 @@ blockquote span {
 }
 
 .profile-content-history-box{
+  width: 100%;
+  margin: auto 10%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-    min-height: 400px;
+  min-height: 400px;
 }
 
 .profile-content-history {
+  width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: flex-start;
+}
+
+.li-attending2 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .profile-sidebar {
@@ -1437,46 +1455,48 @@ blockquote span {
   align-items: flex-start;
 }
 
-.list-profile h2{
+.list-profile h2, .list-profile2 h2 {
   margin-left: 0;
   margin-right: 0;
 }
 
-.list-profile ul{
+.list-profile ul, .list-profile2 ul {
   padding: 0;
 }
 
-.list-profile li {
+.list-profile li, .list-profile2 li {
   list-style: none;
 }
 
-.list-profile .profile-kt-box, .list-profile .profile-kt-box2 {
+.list-profile .profile-kt-box, .list-profile .profile-kt-box2, .list-profile2 .profile-kt-box3 {
   border: 1px solid #DDD;
-  margin-bottom: 25px;
   padding: 13.5px;
+  padding-bottom: 0px;
   background-color: #FEFEFE;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   font-feature-settings: "kern", "liga", "frac", "pnum";
   -webkit-font-smoothing: antialiased;
   line-height: 1.4;
-  height: 102px;
+  height: auto;
+  margin: 28px;
+  margin-left: 0;
 }
 
-.list-profile p{
+.list-profile p, .list-profile2 p{
   color: #929292;
   font-weight: 400;
   font-size: 0.8em;
   margin: 0;
 }
 
-.list-profile h3{
+.list-profile h3, .list-profile2 h3{
   color: #333;
   font-weight: 600;
   font-size: 1em;
   margin: 0;
 }
 
-.list-profile h4{
+.list-profile h4, .list-profile2 h4{
   color: #333;
   font-weight: 600;
   font-size: 0.8em;
@@ -1484,18 +1504,26 @@ blockquote span {
 }
 
 .li-attending, .photo-p{
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.li-attending{
-  margin-bottom: 54px;
+.photo-p {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.photo-p p{
+  width: 60%;
+  margin: 5% auto;
+  padding-left: 5px;
 }
 
 .hostphoto{
   height: 98px;
-  width: 100%;
+  width: 40%;
   background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;
@@ -1510,12 +1538,30 @@ blockquote span {
   object-fit: cover;
 }
 
-.profile-host-box, .profile-kt-box{
-  min-width: 350px;
+.profile-host-box, .profile-kt-box, .profile-kt-box2{
+  width: 45%;
 }
 
-.profile-host-box {
-  padding-left: 30px;
+.list-profile2 {
+  width: 30%;
+  padding: 2%;
+  display: flex;
+  padding-top: 0;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.list-profile2 .profile-kt-box3 {
+  width: 100%;
+  margin: 5% 5%;
+}
+
+.profile-host-box .host-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .profile-host-box h3 {
@@ -1527,10 +1573,9 @@ blockquote span {
 .cancel-kt {
   width: auto;
   border-top: 1px solid #DDD;
-  color: #EF6236;
   margin-left: -14px;
   margin-right: -14px;
-  padding: 7px 13.5px 7px 13.5px;
+  padding: 9.5px 14px;
   color: #EF6236;
   font-size: 10px;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
@@ -1553,9 +1598,7 @@ blockquote span {
   font-feature-settings: "kern", "liga", "frac", "pnum";
   -webkit-font-smoothing: antialiased;
   text-transform: uppercase;
-  margin-right: 23px;
-  margin-bottom: 10.8px;
-  width: 150px;
+  width: 40%;
   text-align: center;
   font-weight: 600;
   padding-top: 5px;
@@ -1568,24 +1611,27 @@ blockquote span {
   cursor: pointer;
 }
 
+#hosting {
+  width: 100%;
+}
+
 .hosted-li {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 }
 
-.profile-kt-box2 {
-  width: 350px;
-}
-
 .modify-hosted {
+  width:30%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: space-around;
+  margin: 28px 0;
 }
 
 .profile-host-info2 {
-  width: 150px;
   background-color: #EF6236;
   border: 2px solid #EF6236;
   color: #FEFEFE;
