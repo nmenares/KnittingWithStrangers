@@ -4,7 +4,7 @@ import HostingForm from './hosting_form';
 import { createKnittingTime } from '../../actions/knitting_time_actions';
 import { deleteErrors } from '../../actions/session_actions';
 import { fetchAreas } from '../../actions/area_actions';
-import { updateUser } from '../../actions/user_actions';
+import { updateUser, updatePhoto } from '../../actions/user_actions';
 
 
 
@@ -25,7 +25,8 @@ const mdp = (dispatch) => ({
   createKnittingTime: (areaid, kt, callback) => dispatch(createKnittingTime(areaid, kt, callback)),
   deleteErrors: () => dispatch(deleteErrors()),
   fetchAreas: () => dispatch(fetchAreas()),
-  updateUser: (user) => dispatch(updateUser(user))
+  updateUser: (user) => dispatch(updateUser(user)),
+  updatePhoto: (data, id) => dispatch(updatePhoto(data, id))
 });
 
 export default connect(msp, mdp)(HostingForm);

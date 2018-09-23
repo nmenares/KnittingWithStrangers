@@ -24,7 +24,6 @@ const App = () => (
         <Link to="/"><p>Knitting With Strangers</p></Link>
       </div>
       <div className="menuHeader">
-        <Link to="/knitting_times">Knitting Times</Link>
         <GreetingContainer />
       </div>
     </header>

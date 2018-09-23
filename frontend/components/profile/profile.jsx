@@ -11,7 +11,7 @@ class Profile extends React.Component {
 
     this.false_enr = (kt_id, deleted) => merge([], this.props.all_enrollments.filter(enr => enr.knittingtime_id === parseInt(kt_id) && !enr.going && enr.id !== deleted.id));
 
-    this.state = {clickUpdate: false, text: "", quicklook: true, history: false, accountdetails: false, showHost: false, photo: "" , photoUrl: this.props.me.photoUrl, username: this.props.me.username, editUsername: false, editPhoto: false};
+    this.state = {clickUpdate: false, text: "", quicklook: true, history: false, accountdetails: false, showHost: false, host: null, photo: "" , photoUrl: this.props.me.photoUrl, username: this.props.me.username, editUsername: false, editPhoto: false, chars_left: 700, kt: null };
 
   };
 
@@ -90,49 +90,44 @@ class Profile extends React.Component {
     }
   };
 
-  handleUpdate(description){
+  handleUpdate(kt){
     return e => {
       e.preventDefault();
-      this.setState({clickUpdate: true, text: description })
+      this.setState({clickUpdate: true, kt: kt, text: kt.description, chars_left: 700 - kt.description.length })
     }
   };
 
   showHostProfile(host){
     return e => {
       e.preventDefault();
-      this.setState({showHost: true})
+      this.props.fetchUser(host.id);
+      const user = this.props.users[host.id]
+      this.setState({showHost: true, host: user})
     }
   };
 
   handleSpan(e){
     e.preventDefault();
-    this.setState({clickUpdate: false, showHost: false})
+    this.setState({clickUpdate: false, showHost: false, host: null})
   };
 
-  modifyUpdate(e){
+  handleEvent(e){
     e.preventDefault();
-    this.setState({text: e.currentTarget.value})
+    const charCount = e.currentTarget.value.length;
+    const charLeft = 700 - charCount;
+    this.setState({
+      chars_left: charLeft,
+      text: e.currentTarget.value,
+    });
   };
 
-  updateKnittingTime(kt){
-    return e => {
-      e.preventDefault();
-      this.props.updateKnittingTime({
-        id: kt.id,
-        date: kt.date,
-        start_time: kt.start_time,
-        end_time: kt.end_time,
-        address_1: kt.address_1,
-        address_2: kt.address_2,
-        city: kt.city,
-        state: kt.state,
-        zip: kt.zip,
-        area_id: kt.area_id,
-        host_id: kt.host_id,
-        description: this.state.text
+  updateKnittingTime(e){
+    e.preventDefault();
+    this.props.updateKnittingTime({
+      id: this.state.kt.id,
+      description: this.state.text
       });
-      this.setState({clickUpdate: false});
-    }
+    this.setState({clickUpdate: false, text: "", chars_left: 700, kt: null });
   };
 
   handleSubMenu(field){
@@ -191,7 +186,8 @@ class Profile extends React.Component {
         <div className="profile-body">
           <div className="list-profile">
 
-            {my_kts_f.length > 0 ? <h2>Knitting times you're attending</h2> : null }
+            {my_kts_f.length > 0 ? <h2>Knitting times you're attending.</h2> : null }
+
             <ul> {my_kts_f.map(kt => (
                 <li className="li-attending" key={kt.id}>
                   <div className="profile-kt-box">
@@ -199,7 +195,6 @@ class Profile extends React.Component {
                     <h3>{moment(kt.date).format('MMMM')} {moment(kt.date).date()}</h3>
                     <h4>{kt.start_time} - {kt.end_time}</h4>
                     <p>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
-
                     <div className="cancel-kt" onClick={this.handleClick(kt)}>CANCEL MY SPOT</div>
                   </div>
                   <div className="profile-host-box">
@@ -213,14 +208,22 @@ class Profile extends React.Component {
                     <div>
                       <button className="profile-host-info" onClick={this.showHostProfile(this.props.users[kt.host_id])}>{`${this.props.users[kt.host_id].username}'s`} profile</button>
                         {this.state.showHost ?
-                          <div id="updateModal" className="modal">
+                          <div className="modal">
+                            <div className="divSpan"><span className="close" onClick={this.handleSpan.bind(this)}>&times;</span></div>
                             <div className="modal-content">
-                              <span className="close" onClick={this.handleSpan.bind(this)}>&times;</span>
-                              <h2>{this.props.users[kt.host_id].username}</h2>
-                              <h4>{this.props.users[kt.host_id].email}</h4>
-                              <h3>{this.props.users[kt.host_id].quote}</h3>
-                              <h4>{this.props.users[kt.host_id].description}</h4>
-                              <h4>{this.props.users[kt.host_id].story}</h4>
+                              <div className="divHost">
+                                <div className="divHost-img">{this.state.host.photoUrl ? <img src={this.state.host.photoUrl}/> : <img src={window.profile}/>}</div>
+                                <div className="divHostMain">
+                                  <h2 style={{ margin: '0' }}>{this.state.host.username}</h2>
+                                  <h4>{this.state.host.email}</h4>
+                                  <h3 style={{ fontSize:"14px", fontStyle:"italic", fontWeight:"normal" , margin:"10px"}}>{this.state.host.quote}</h3>
+                                </div>
+                              </div>
+                              <div className="divHostExtra">
+                                <h4 style={{ margin:"5px", fontSize:"14px", fontWeight:"normal", lineHeight:"1.5em"}}>{this.state.host.description}</h4>
+                                <h3 style={{ marginTop:"10px", marginBottom:"5px", color:"#eda20b"}}>{`${this.state.host.username}'s`} story</h3>
+                                <h4 style={{ margin:"5px", fontSize:"14px", fontWeight:"normal", lineHeight:"1.5em"}}>{this.state.host.story}</h4>
+                              </div>
                             </div>
                           </div>
                           :
@@ -230,9 +233,9 @@ class Profile extends React.Component {
                     </div>
                   </div>
                 </li>
-              ))
-              }
+              ))}
             </ul>
+
           </div>
           <div className="list-profile">
 
@@ -253,19 +256,27 @@ class Profile extends React.Component {
                       <div className="hostphoto">
                         {this.props.users[kt.host_id].photoUrl ? <img src={this.props.users[kt.host_id].photoUrl}/> : <img src={window.profile}/>}
                       </div>
-                      <p>Keep an eye open for {this.props.users[kt.host_id].username}! So it's easier, here's what they look like. :).</p>
+                      <p>Keep an eye open for {this.props.users[kt.host_id].username}! So it's easier, here's what they look like :).</p>
                     </div>
                     <div>
                       <button className="profile-host-info" onClick={this.showHostProfile(this.props.users[kt.host_id])}>{`${this.props.users[kt.host_id].username}'s`} profile</button>
                         {this.state.showHost ?
-                          <div id="updateModal" className="modal">
+                          <div className="modal">
+                            <div className="divSpan"><span className="close" onClick={this.handleSpan.bind(this)}>&times;</span></div>
                             <div className="modal-content">
-                              <span className="close" onClick={this.handleSpan.bind(this)}>&times;</span>
-                              <h2>{this.props.users[kt.host_id].username}</h2>
-                              <h4>{this.props.users[kt.host_id].email}</h4>
-                              <h3>{this.props.users[kt.host_id].quote}</h3>
-                              <h4>{this.props.users[kt.host_id].description}</h4>
-                              <h4>{this.props.users[kt.host_id].story}</h4>
+                              <div className="divHost">
+                                <div className="divHost-img">{this.state.host.photoUrl ? <img src={this.state.host.photoUrl}/> : <img src={window.profile}/>}</div>
+                                <div className="divHostMain">
+                                  <h2 style={{ margin: '0' }}>{this.state.host.username}</h2>
+                                  <h4>{this.state.host.email}</h4>
+                                  <h3 style={{ fontSize:"14px", fontStyle:"italic", fontWeight:"normal" , margin:"10px"}}>{this.state.host.quote}</h3>
+                                </div>
+                              </div>
+                              <div className="divHostExtra">
+                                <h4 style={{ margin:"5px", fontSize:"14px", fontWeight:"normal", lineHeight:"1.5em"}}>{this.state.host.description}</h4>
+                                <h3 style={{ marginTop:"10px", marginBottom:"5px", color:"#eda20b"}}>{`${this.state.host.username}'s`} story</h3>
+                                <h4 style={{ margin:"5px", fontSize:"14px", fontWeight:"normal", lineHeight:"1.5em"}}>{this.state.host.story}</h4>
+                              </div>
                             </div>
                           </div>
                           :
@@ -275,11 +286,12 @@ class Profile extends React.Component {
                     </div>
                   </div>
                 </li>
-              ))
-              }
+              ))}
             </ul>
+
           </div>
           <div className="list-profile">
+
             {hosted_knitting_times_f.length > 0 ? <h2>Knitting times you're hosting.</h2> : null }
             <ul id="to_reload"> {hosted_knitting_times_f.map(hkt => (
                 <li key={hkt.id} className="hosted-li">
@@ -291,16 +303,15 @@ class Profile extends React.Component {
                     <p>{hkt.address_1}{hkt.address_2 ? `, ${hkt.address_2}` : null}, {hkt.city}, {hkt.state}, {hkt.zip}</p>
                   </div>
                   <div className="modify-hosted">
-                    <button className="profile-host-info" id="update-kt" onClick={this.handleUpdate(hkt.description)} >update</button>
+                    <button className="profile-host-info" id="update-kt" onClick={this.handleUpdate(hkt)} >update</button>
                     {this.state.clickUpdate ?
-                      <div id="updateModal" className="modal">
-                        <form className="modal-content">
-                          <div className="UpdateBox">
-                            <h2>What might you talk about?</h2>
-                            <span className="close" onClick={this.handleSpan.bind(this)}>&times;</span>
-                          </div>
-                          <textarea value={this.state.text} onChange={this.modifyUpdate.bind(this)}></textarea>
-                          <input type="submit" onClick={this.updateKnittingTime(hkt)}></input>
+                      <div className="modal">
+                        <div className="divSpan"><span style={{ marginRight:'-20px' }} className="close" onClick={this.handleSpan.bind(this)}>&times;</span></div>
+                        <form  style={{ padding:"20px" }} className="modal-content" onSubmit={this.updateKnittingTime.bind(this)}>
+                          <h2 style={{ margin:'0' }}>What might you talk about?</h2>
+                          <textarea value={this.state.text} onChange={this.handleEvent.bind(this)} maxLength="700" required></textarea>
+                          <p>{700 - this.state.chars_left}/700</p>
+                          <input style={{ width:"100px", borderRadius:"3px", fontSize:"14px", textTransform:"uppercase", fontWeight:"bold" }} type="submit"></input>
                         </form>
                       </div>
                       :
@@ -313,6 +324,7 @@ class Profile extends React.Component {
               ))
               }
             </ul>
+
           </div>
         </div>
       </div>
@@ -360,8 +372,6 @@ class Profile extends React.Component {
       :
       null
 
-
-
     const accountdetails = this.state.accountdetails ?
       <div>
         {this.state.editUsername ?
@@ -396,7 +406,7 @@ class Profile extends React.Component {
     return (
       <div>
         {this.props.me ?
-        <div>
+        <div className="dashboardMain">
           <div className="profile-menu">
             <p style={{textDecoration: `${this.state.quicklook ? "underline" : "none"}`}} onClick={this.handleSubMenu("quicklook")}>QUICK LOOK</p>
             <p style={{textDecoration: `${this.state.history ? "underline" : "none"}`}} onClick={this.handleSubMenu("history")}>HISTORY</p>

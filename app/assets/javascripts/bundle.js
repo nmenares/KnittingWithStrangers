@@ -504,11 +504,6 @@ var App = function App() {
       _react2.default.createElement(
         'div',
         { className: 'menuHeader' },
-        _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/knitting_times' },
-          'Knitting Times'
-        ),
         _react2.default.createElement(_greeting_container2.default, null)
       )
     ),
@@ -637,9 +632,16 @@ var HostingForm = function (_React$Component) {
       area_id: _this.props.knittingtime.area_id,
       host_id: _this.props.knittingtime.host_id,
       description: _this.props.knittingtime.description,
+      photo: "",
+      photoUrl: _this.props.host.photoUrl,
       brief: _this.props.host.description,
       story: _this.props.host.story,
-      quote: _this.props.host.quote };
+      quote: _this.props.host.quote,
+      chars_left: 700 - _this.props.knittingtime.description === null ? _this.props.knittingtime.description.length : 0,
+      chars_left_brief: 700 - _this.props.host.description === null ? _this.props.host.description.length : 0,
+      chars_left_story: 700 - _this.props.host.story === null ? _this.props.host.story.length : 0,
+      chars_left_quote: 200 - _this.props.host.quote === null ? _this.props.host.quote.length : 0
+    };
     return _this;
   }
 
@@ -656,11 +658,16 @@ var HostingForm = function (_React$Component) {
     }
   }, {
     key: 'handleEvent',
-    value: function handleEvent(field) {
+    value: function handleEvent(field, capacity, field2) {
       var _this2 = this;
 
       return function (e) {
-        return _this2.setState(_defineProperty({}, field, e.currentTarget.value));
+        if (capacity) {
+          var charCount = e.target.value.length;
+          var charLeft = capacity - charCount;
+          _this2.setState(_defineProperty({}, field2, charLeft));
+        }
+        _this2.setState(_defineProperty({}, field, e.currentTarget.value));
       };
     }
   }, {
@@ -670,6 +677,11 @@ var HostingForm = function (_React$Component) {
 
       e.preventDefault();
       this.props.updateUser({ id: this.props.host.id, description: this.state.brief, story: this.state.story, quote: this.state.quote });
+      var formData = new FormData();
+      if (this.state.photo) {
+        formData.append('user[photo]', this.state.photo);
+        this.props.updatePhoto(formData, this.props.host.id);
+      }
       this.props.createKnittingTime(this.props.area.id, { date: this.state.date,
         start_time: this.state.start_time,
         end_time: this.state.end_time,
@@ -685,11 +697,28 @@ var HostingForm = function (_React$Component) {
       });
     }
   }, {
+    key: 'fileChangedHandler',
+    value: function fileChangedHandler(e) {
+      var _this4 = this;
+
+      e.preventDefault();
+      var file = e.currentTarget.files[0];
+      var fileReader = new FileReader();
+      fileReader.onloadend = function () {
+        _this4.setState({ photo: file, photoUrl: fileReader.result });
+      };
+      if (file) {
+        fileReader.readAsDataURL(file);
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       if (!this.props.sessionId || !this.props.area) {
         return null;
       }
+
+      var preview = this.state.photoUrl ? _react2.default.createElement('img', { src: this.state.photoUrl }) : _react2.default.createElement('img', { src: window.profile });
 
       var year = (0, _moment2.default)().format("YYYY");
       var month = (0, _moment2.default)().format("M").length < 2 ? "0" + (0, _moment2.default)().format("M") : (0, _moment2.default)().format("M");
@@ -715,181 +744,232 @@ var HostingForm = function (_React$Component) {
             'form',
             { onSubmit: this.handleSubmit.bind(this) },
             _react2.default.createElement(
-              'h2',
-              { style: { marginTop: '0px' } },
-              'Knitting Time Details'
-            ),
-            _react2.default.createElement(
-              'label',
-              null,
-              'Date',
-              _react2.default.createElement(
-                'span',
-                null,
-                '*'
-              )
-            ),
-            _react2.default.createElement('input', { type: 'date', onChange: this.handleEvent("date"), value: this.state.date, min: year + '-' + month + '-' + day }),
-            _react2.default.createElement(
               'div',
-              { className: 'host-form-time' },
+              { className: 'subForm' },
               _react2.default.createElement(
-                'label',
-                null,
-                'Start Time',
+                'div',
+                { className: 'host-form-kt' },
                 _react2.default.createElement(
-                  'span',
-                  null,
-                  '*'
+                  'h2',
+                  { style: { marginTop: '0px' } },
+                  'Set Knitting Time Details'
                 ),
                 _react2.default.createElement(
-                  'select',
-                  { onChange: this.handleEvent("start_time"), value: this.state.start_time, style: { width: '150px', fontSize: '15px', height: '30px' } },
+                  'label',
+                  null,
+                  'Date',
                   _react2.default.createElement(
-                    'option',
-                    { disabled: true },
-                    'Set a start time'
+                    'span',
+                    null,
+                    '*'
+                  )
+                ),
+                _react2.default.createElement('input', { type: 'date', onChange: this.handleEvent("date", null), value: this.state.date, min: year + '-' + month + '-' + day, required: true }),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'host-form-time' },
+                  _react2.default.createElement(
+                    'label',
+                    null,
+                    'Start Time',
+                    _react2.default.createElement(
+                      'span',
+                      null,
+                      '*'
+                    ),
+                    _react2.default.createElement(
+                      'select',
+                      { onChange: this.handleEvent("start_time", null), value: this.state.start_time, style: { width: '150px', fontSize: '15px', height: '30px' }, required: true },
+                      _react2.default.createElement(
+                        'option',
+                        { disabled: true },
+                        'Set a start time'
+                      ),
+                      _react2.default.createElement(
+                        'option',
+                        { defaultValue: true },
+                        hours[0]
+                      ),
+                      hours.slice(1, hours.length - 1).map(function (hr, idx) {
+                        return _react2.default.createElement(
+                          'option',
+                          { key: idx, value: hr },
+                          hr
+                        );
+                      })
+                    )
                   ),
                   _react2.default.createElement(
-                    'option',
-                    { defaultValue: true },
-                    hours[0]
-                  ),
-                  hours.slice(1, hours.length - 1).map(function (hr, idx) {
-                    return _react2.default.createElement(
-                      'option',
-                      { key: idx, value: hr },
-                      hr
-                    );
-                  })
+                    'label',
+                    null,
+                    'End Time',
+                    _react2.default.createElement(
+                      'span',
+                      null,
+                      '*'
+                    ),
+                    _react2.default.createElement(
+                      'select',
+                      { onChange: this.handleEvent("end_time", null), value: this.state.end_time, style: { width: '150px', fontSize: '15px', height: '30px' }, required: true },
+                      _react2.default.createElement(
+                        'option',
+                        { disabled: true },
+                        'Set an end time'
+                      ),
+                      _react2.default.createElement(
+                        'option',
+                        { disabled: true },
+                        'Set an end time'
+                      ),
+                      _react2.default.createElement(
+                        'option',
+                        { defaultValue: true },
+                        hours[hours.indexOf(this.state.start_time) + 1]
+                      ),
+                      hours.slice(2, hours.length).map(function (hr, idx) {
+                        return _react2.default.createElement(
+                          'option',
+                          { key: idx, value: hr },
+                          hr
+                        );
+                      })
+                    )
+                  )
+                ),
+                _react2.default.createElement(
+                  'label',
+                  null,
+                  'Address 1',
+                  _react2.default.createElement(
+                    'span',
+                    null,
+                    '*'
+                  )
+                ),
+                _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("address_1", null), value: this.state.address_1, required: true }),
+                _react2.default.createElement(
+                  'label',
+                  null,
+                  'Address 2'
+                ),
+                _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("address_2", null), value: this.state.address_2 }),
+                _react2.default.createElement(
+                  'label',
+                  null,
+                  'City',
+                  _react2.default.createElement(
+                    'span',
+                    null,
+                    '*'
+                  )
+                ),
+                _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("city", null), value: this.state.city, required: true }),
+                _react2.default.createElement(
+                  'label',
+                  null,
+                  'State'
+                ),
+                _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("state", null), value: this.state.state }),
+                _react2.default.createElement(
+                  'label',
+                  null,
+                  'Zip'
+                ),
+                _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("zip", null), value: this.state.zip }),
+                _react2.default.createElement(
+                  'label',
+                  null,
+                  'What might you talk about?',
+                  _react2.default.createElement(
+                    'span',
+                    null,
+                    '*'
+                  )
+                ),
+                _react2.default.createElement('textarea', { onChange: this.handleEvent("description", 700, "chars_left"), value: this.state.description, maxLength: '700', required: true }),
+                _react2.default.createElement(
+                  'p',
+                  null,
+                  700 - this.state.chars_left,
+                  '/700'
                 )
               ),
               _react2.default.createElement(
-                'label',
-                null,
-                'End Time',
+                'div',
+                { className: 'host-form-info' },
                 _react2.default.createElement(
-                  'span',
-                  null,
-                  '*'
+                  'h2',
+                  { style: { marginTop: '0px' } },
+                  'Update Personal Information'
                 ),
                 _react2.default.createElement(
-                  'select',
-                  { onChange: this.handleEvent("end_time"), value: this.state.end_time, style: { width: '150px', fontSize: '15px', height: '30px' } },
+                  'h3',
+                  null,
+                  this.props.host.username
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'pre-host-form-photo' },
                   _react2.default.createElement(
-                    'option',
-                    { disabled: true },
-                    'Set an end time'
+                    'div',
+                    { className: 'host-form-photo' },
+                    preview
                   ),
+                  _react2.default.createElement('input', { type: 'file', onChange: this.fileChangedHandler.bind(this) })
+                ),
+                _react2.default.createElement(
+                  'label',
+                  null,
+                  'A Brief about You',
                   _react2.default.createElement(
-                    'option',
-                    { disabled: true },
-                    'Set an end time'
-                  ),
+                    'span',
+                    null,
+                    '*'
+                  )
+                ),
+                _react2.default.createElement('textarea', { onChange: this.handleEvent("brief", 700, "chars_left_brief"), value: this.state.brief === null ? "" : this.state.brief, maxLength: '700', required: true }),
+                _react2.default.createElement(
+                  'p',
+                  null,
+                  700 - this.state.chars_left_brief,
+                  '/700'
+                ),
+                _react2.default.createElement(
+                  'label',
+                  null,
+                  'Your Story',
                   _react2.default.createElement(
-                    'option',
-                    { defaultValue: true },
-                    hours[hours.indexOf(this.state.start_time) + 1]
-                  ),
-                  hours.slice(2, hours.length).map(function (hr, idx) {
-                    return _react2.default.createElement(
-                      'option',
-                      { key: idx, value: hr },
-                      hr
-                    );
-                  })
+                    'span',
+                    null,
+                    '*'
+                  )
+                ),
+                _react2.default.createElement('textarea', { onChange: this.handleEvent("story", 700, "chars_left_story"), value: this.state.story === null ? "" : this.state.story, maxLength: '700', required: true }),
+                _react2.default.createElement(
+                  'p',
+                  null,
+                  700 - this.state.chars_left_story,
+                  '/700'
+                ),
+                _react2.default.createElement(
+                  'label',
+                  null,
+                  'Favorite Quote',
+                  _react2.default.createElement(
+                    'span',
+                    null,
+                    '*'
+                  )
+                ),
+                _react2.default.createElement('input', { className: 'PreSubmit', onChange: this.handleEvent("quote", 200, "chars_left_quote"), value: this.state.quote === null ? "" : this.state.quote, maxLength: '200', required: true }),
+                _react2.default.createElement(
+                  'p',
+                  null,
+                  200 - this.state.chars_left_quote,
+                  '/200'
                 )
               )
             ),
-            _react2.default.createElement(
-              'label',
-              null,
-              'Address 1',
-              _react2.default.createElement(
-                'span',
-                null,
-                '*'
-              )
-            ),
-            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("address_1"), value: this.state.address_1 }),
-            _react2.default.createElement(
-              'label',
-              null,
-              'Address 2'
-            ),
-            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("address_2"), value: this.state.address_2 }),
-            _react2.default.createElement(
-              'label',
-              null,
-              'City',
-              _react2.default.createElement(
-                'span',
-                null,
-                '*'
-              )
-            ),
-            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("city"), value: this.state.city }),
-            _react2.default.createElement(
-              'label',
-              null,
-              'State'
-            ),
-            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("state"), value: this.state.state }),
-            _react2.default.createElement(
-              'label',
-              null,
-              'Zip'
-            ),
-            _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("zip"), value: this.state.zip }),
-            _react2.default.createElement(
-              'label',
-              null,
-              'What might you talk about?',
-              _react2.default.createElement(
-                'span',
-                null,
-                '*'
-              )
-            ),
-            _react2.default.createElement('textarea', { onChange: this.handleEvent("description"), value: this.state.description }),
-            _react2.default.createElement(
-              'h2',
-              null,
-              'Personal Information'
-            ),
-            _react2.default.createElement(
-              'label',
-              null,
-              'A Brief about You',
-              _react2.default.createElement(
-                'span',
-                null,
-                '*'
-              )
-            ),
-            _react2.default.createElement('textarea', { onChange: this.handleEvent("brief"), value: this.state.brief }),
-            _react2.default.createElement(
-              'label',
-              null,
-              'Your Story',
-              _react2.default.createElement(
-                'span',
-                null,
-                '*'
-              )
-            ),
-            _react2.default.createElement('textarea', { onChange: this.handleEvent("story"), value: this.state.story }),
-            _react2.default.createElement(
-              'label',
-              null,
-              'Favorite Quote',
-              _react2.default.createElement(
-                'span',
-                null,
-                '*'
-              )
-            ),
-            _react2.default.createElement('input', { className: 'PreSubmit', onChange: this.handleEvent("quote"), value: this.state.quote }),
             _react2.default.createElement('input', { className: 'create', type: 'submit', value: this.props.action }),
             _react2.default.createElement(
               'p',
@@ -978,6 +1058,9 @@ var mdp = function mdp(dispatch) {
     },
     updateUser: function updateUser(user) {
       return dispatch((0, _user_actions.updateUser)(user));
+    },
+    updatePhoto: function updatePhoto(data, id) {
+      return dispatch((0, _user_actions.updatePhoto)(data, id));
     }
   };
 };
@@ -1019,10 +1102,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Greeting = function (_React$Component) {
   _inherits(Greeting, _React$Component);
 
-  function Greeting() {
+  function Greeting(props) {
     _classCallCheck(this, Greeting);
 
-    return _possibleConstructorReturn(this, (Greeting.__proto__ || Object.getPrototypeOf(Greeting)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Greeting.__proto__ || Object.getPrototypeOf(Greeting)).call(this, props));
+
+    _this.state = { clickMenu: false };
+    return _this;
   }
 
   _createClass(Greeting, [{
@@ -1047,45 +1133,104 @@ var Greeting = function (_React$Component) {
       this.props.history.push('/');
     }
   }, {
+    key: 'handleClick',
+    value: function handleClick(e) {
+      var _this3 = this;
+
+      e.preventDefault();
+      this.setState({ clickMenu: true });
+      setTimeout(function () {
+        return _this3.setState({ clickMenu: false });
+      }, 3000);
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       var sessionLinks = function sessionLinks() {
         return _react2.default.createElement(
           'div',
-          { className: 'signin' },
-          _react2.default.createElement(
-            'p',
-            null,
-            'About'
-          ),
+          { className: 'nav-right' },
           _react2.default.createElement(
             'div',
-            null,
+            { className: 'signin' },
             _react2.default.createElement(
               _reactRouterDom.Link,
-              { to: '/login' },
-              'sign in'
+              { to: '/knitting_times' },
+              'Knitting Times'
+            ),
+            _react2.default.createElement(
+              'div',
+              null,
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/login' },
+                'sign in'
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'signup' },
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/signup' },
+                'Sign up'
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'demo' },
+              _react2.default.createElement(
+                'button',
+                { onClick: _this4.handleDemo.bind(_this4) },
+                'demo'
+              )
             )
           ),
           _react2.default.createElement(
             'div',
-            { className: 'signup' },
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/signup' },
-              'Sign up'
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'demo' },
-            _react2.default.createElement(
-              'button',
-              { onClick: _this3.handleDemo.bind(_this3) },
-              'demo'
-            )
+            { className: 'dropdown', onClick: _this4.handleClick.bind(_this4) },
+            _this4.state.clickMenu ? _react2.default.createElement(
+              'ul',
+              { className: 'menuList' },
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { to: '/knitting_times' },
+                  'Knitting Times'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { to: '/login' },
+                  'Sign in'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { to: '/signup' },
+                  'Sign up'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'button',
+                  { onClick: _this4.handleDemo.bind(_this4) },
+                  'demo'
+                )
+              )
+            ) : null
           )
         );
       };
@@ -1093,20 +1238,64 @@ var Greeting = function (_React$Component) {
       var personalGreeting = function personalGreeting() {
         return _react2.default.createElement(
           'div',
-          null,
+          { className: 'nav-right' },
           _react2.default.createElement(
-            'p',
-            { onClick: _this3.handleDashboard.bind(_this3) },
-            'Dashboard'
+            'div',
+            { className: 'signin' },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/knitting_times' },
+              'Knitting Times'
+            ),
+            _react2.default.createElement(
+              'p',
+              { onClick: _this4.handleDashboard.bind(_this4) },
+              'Dashboard'
+            ),
+            _react2.default.createElement(
+              'div',
+              null,
+              _react2.default.createElement(
+                'button',
+                { className: 'signout', onClick: _this4.handleLogout.bind(_this4) },
+                'Log Out'
+              )
+            )
           ),
           _react2.default.createElement(
             'div',
-            null,
-            _react2.default.createElement(
-              'button',
-              { className: 'sigout', onClick: _this3.handleLogout.bind(_this3) },
-              'Log Out'
-            )
+            { className: 'dropdown', onClick: _this4.handleClick.bind(_this4) },
+            _this4.state.clickMenu ? _react2.default.createElement(
+              'ul',
+              { className: 'menuList' },
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { to: '/knitting_times' },
+                  'Knitting Times'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'p',
+                  { onClick: _this4.handleDashboard.bind(_this4) },
+                  'Dashboard'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'button',
+                  { className: 'signout', onClick: _this4.handleLogout.bind(_this4) },
+                  'Log Out'
+                )
+              )
+            ) : null
           )
         );
       };
@@ -1267,7 +1456,7 @@ var KnittingTimeBoxMain = function KnittingTimeBoxMain(props) {
       _react2.default.createElement('img', { src: window.planet }),
       _react2.default.createElement(
         'p',
-        null,
+        { style: { textTransform: 'uppercase' } },
         props.knittingtime.city
       )
     ),
@@ -2195,7 +2384,7 @@ var Profile = function (_React$Component) {
       }));
     };
 
-    _this.state = { clickUpdate: false, text: "", quicklook: true, history: false, accountdetails: false, showHost: false, photo: "", photoUrl: _this.props.me.photoUrl, username: _this.props.me.username, editUsername: false, editPhoto: false };
+    _this.state = { clickUpdate: false, text: "", quicklook: true, history: false, accountdetails: false, showHost: false, host: null, photo: "", photoUrl: _this.props.me.photoUrl, username: _this.props.me.username, editUsername: false, editPhoto: false, chars_left: 700, kt: null };
 
     return _this;
   }
@@ -2302,12 +2491,12 @@ var Profile = function (_React$Component) {
     }
   }, {
     key: 'handleUpdate',
-    value: function handleUpdate(description) {
+    value: function handleUpdate(kt) {
       var _this9 = this;
 
       return function (e) {
         e.preventDefault();
-        _this9.setState({ clickUpdate: true, text: description });
+        _this9.setState({ clickUpdate: true, kt: kt, text: kt.description, chars_left: 700 - kt.description.length });
       };
     }
   }, {
@@ -2317,53 +2506,46 @@ var Profile = function (_React$Component) {
 
       return function (e) {
         e.preventDefault();
-        _this10.setState({ showHost: true });
+        _this10.props.fetchUser(host.id);
+        var user = _this10.props.users[host.id];
+        _this10.setState({ showHost: true, host: user });
       };
     }
   }, {
     key: 'handleSpan',
     value: function handleSpan(e) {
       e.preventDefault();
-      this.setState({ clickUpdate: false, showHost: false });
+      this.setState({ clickUpdate: false, showHost: false, host: null });
     }
   }, {
-    key: 'modifyUpdate',
-    value: function modifyUpdate(e) {
+    key: 'handleEvent',
+    value: function handleEvent(e) {
       e.preventDefault();
-      this.setState({ text: e.currentTarget.value });
+      var charCount = e.currentTarget.value.length;
+      var charLeft = 700 - charCount;
+      this.setState({
+        chars_left: charLeft,
+        text: e.currentTarget.value
+      });
     }
   }, {
     key: 'updateKnittingTime',
-    value: function updateKnittingTime(kt) {
-      var _this11 = this;
-
-      return function (e) {
-        e.preventDefault();
-        _this11.props.updateKnittingTime({
-          id: kt.id,
-          date: kt.date,
-          start_time: kt.start_time,
-          end_time: kt.end_time,
-          address_1: kt.address_1,
-          address_2: kt.address_2,
-          city: kt.city,
-          state: kt.state,
-          zip: kt.zip,
-          area_id: kt.area_id,
-          host_id: kt.host_id,
-          description: _this11.state.text
-        });
-        _this11.setState({ clickUpdate: false });
-      };
+    value: function updateKnittingTime(e) {
+      e.preventDefault();
+      this.props.updateKnittingTime({
+        id: this.state.kt.id,
+        description: this.state.text
+      });
+      this.setState({ clickUpdate: false, text: "", chars_left: 700, kt: null });
     }
   }, {
     key: 'handleSubMenu',
     value: function handleSubMenu(field) {
-      var _this12 = this;
+      var _this11 = this;
 
       return function (e) {
         e.preventDefault();
-        _this12.setState({ quicklook: field === "quicklook", history: field === "history", accountdetails: field === "accountdetails" });
+        _this11.setState({ quicklook: field === "quicklook", history: field === "history", accountdetails: field === "accountdetails" });
       };
     }
   }, {
@@ -2388,7 +2570,7 @@ var Profile = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this13 = this;
+      var _this12 = this;
 
       if (!this.props.me || !this.props.attending_enrollments || !this.props.knitting_times) {
         return null;
@@ -2405,7 +2587,7 @@ var Profile = function (_React$Component) {
         return ae.knittingtime_id;
       });
       var my_kts = my_kt_ids.map(function (id) {
-        return _this13.props.knitting_times[id];
+        return _this12.props.knitting_times[id];
       });
       var my_kts_f = my_kts.filter(function (kt) {
         return kt.date >= today.format();
@@ -2421,7 +2603,7 @@ var Profile = function (_React$Component) {
         return ae.knittingtime_id;
       });
       var my_kts_wl = my_kt_ids_wl.map(function (id) {
-        return _this13.props.knitting_times[id];
+        return _this12.props.knitting_times[id];
       });
       var my_kts_wl_f = my_kts_wl.filter(function (kt) {
         return kt.date >= today.format();
@@ -2471,7 +2653,7 @@ var Profile = function (_React$Component) {
             my_kts_f.length > 0 ? _react2.default.createElement(
               'h2',
               null,
-              'Knitting times you\'re attending'
+              'Knitting times you\'re attending.'
             ) : null,
             _react2.default.createElement(
               'ul',
@@ -2517,7 +2699,7 @@ var Profile = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                       'div',
-                      { className: 'cancel-kt', onClick: _this13.handleClick(kt) },
+                      { className: 'cancel-kt', onClick: _this12.handleClick(kt) },
                       'CANCEL MY SPOT'
                     )
                   ),
@@ -2535,13 +2717,13 @@ var Profile = function (_React$Component) {
                       _react2.default.createElement(
                         'div',
                         { className: 'hostphoto' },
-                        _this13.props.users[kt.host_id].photoUrl ? _react2.default.createElement('img', { src: _this13.props.users[kt.host_id].photoUrl }) : _react2.default.createElement('img', { src: window.profile })
+                        _this12.props.users[kt.host_id].photoUrl ? _react2.default.createElement('img', { src: _this12.props.users[kt.host_id].photoUrl }) : _react2.default.createElement('img', { src: window.profile })
                       ),
                       _react2.default.createElement(
                         'p',
                         null,
                         'Keep an eye open for ',
-                        _this13.props.users[kt.host_id].username,
+                        _this12.props.users[kt.host_id].username,
                         '! So it\'s easier, here\'s what they look like :).'
                       )
                     ),
@@ -2550,53 +2732,80 @@ var Profile = function (_React$Component) {
                       null,
                       _react2.default.createElement(
                         'button',
-                        { className: 'profile-host-info', onClick: _this13.showHostProfile(_this13.props.users[kt.host_id]) },
-                        _this13.props.users[kt.host_id].username + '\'s',
+                        { className: 'profile-host-info', onClick: _this12.showHostProfile(_this12.props.users[kt.host_id]) },
+                        _this12.props.users[kt.host_id].username + '\'s',
                         ' profile'
                       ),
-                      _this13.state.showHost ? _react2.default.createElement(
+                      _this12.state.showHost ? _react2.default.createElement(
                         'div',
-                        { id: 'updateModal', className: 'modal' },
+                        { className: 'modal' },
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'divSpan' },
+                          _react2.default.createElement(
+                            'span',
+                            { className: 'close', onClick: _this12.handleSpan.bind(_this12) },
+                            '\xD7'
+                          )
+                        ),
                         _react2.default.createElement(
                           'div',
                           { className: 'modal-content' },
                           _react2.default.createElement(
-                            'span',
-                            { className: 'close', onClick: _this13.handleSpan.bind(_this13) },
-                            '\xD7'
+                            'div',
+                            { className: 'divHost' },
+                            _react2.default.createElement(
+                              'div',
+                              { className: 'divHost-img' },
+                              _this12.state.host.photoUrl ? _react2.default.createElement('img', { src: _this12.state.host.photoUrl }) : _react2.default.createElement('img', { src: window.profile })
+                            ),
+                            _react2.default.createElement(
+                              'div',
+                              { className: 'divHostMain' },
+                              _react2.default.createElement(
+                                'h2',
+                                { style: { margin: '0' } },
+                                _this12.state.host.username
+                              ),
+                              _react2.default.createElement(
+                                'h4',
+                                null,
+                                _this12.state.host.email
+                              ),
+                              _react2.default.createElement(
+                                'h3',
+                                { style: { fontSize: "14px", fontStyle: "italic", fontWeight: "normal", margin: "10px" } },
+                                _this12.state.host.quote
+                              )
+                            )
                           ),
                           _react2.default.createElement(
-                            'h2',
-                            null,
-                            _this13.props.users[kt.host_id].username
-                          ),
-                          _react2.default.createElement(
-                            'h4',
-                            null,
-                            _this13.props.users[kt.host_id].email
-                          ),
-                          _react2.default.createElement(
-                            'h3',
-                            null,
-                            _this13.props.users[kt.host_id].quote
-                          ),
-                          _react2.default.createElement(
-                            'h4',
-                            null,
-                            _this13.props.users[kt.host_id].description
-                          ),
-                          _react2.default.createElement(
-                            'h4',
-                            null,
-                            _this13.props.users[kt.host_id].story
+                            'div',
+                            { className: 'divHostExtra' },
+                            _react2.default.createElement(
+                              'h4',
+                              { style: { margin: "5px", fontSize: "14px", fontWeight: "normal", lineHeight: "1.5em" } },
+                              _this12.state.host.description
+                            ),
+                            _react2.default.createElement(
+                              'h3',
+                              { style: { marginTop: "10px", marginBottom: "5px", color: "#eda20b" } },
+                              _this12.state.host.username + '\'s',
+                              ' story'
+                            ),
+                            _react2.default.createElement(
+                              'h4',
+                              { style: { margin: "5px", fontSize: "14px", fontWeight: "normal", lineHeight: "1.5em" } },
+                              _this12.state.host.story
+                            )
                           )
                         )
                       ) : null,
                       _react2.default.createElement(
                         'button',
-                        { className: 'profile-host-info', onClick: _this13.sendEmail(_this13.props.users[kt.host_id].email) },
+                        { className: 'profile-host-info', onClick: _this12.sendEmail(_this12.props.users[kt.host_id].email) },
                         'email ',
-                        _this13.props.users[kt.host_id].username
+                        _this12.props.users[kt.host_id].username
                       )
                     )
                   )
@@ -2656,7 +2865,7 @@ var Profile = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                       'div',
-                      { className: 'cancel-kt', onClick: _this13.handleClick(kt) },
+                      { className: 'cancel-kt', onClick: _this12.handleClick(kt) },
                       'CANCEL MY SPOT'
                     )
                   ),
@@ -2674,14 +2883,14 @@ var Profile = function (_React$Component) {
                       _react2.default.createElement(
                         'div',
                         { className: 'hostphoto' },
-                        _this13.props.users[kt.host_id].photoUrl ? _react2.default.createElement('img', { src: _this13.props.users[kt.host_id].photoUrl }) : _react2.default.createElement('img', { src: window.profile })
+                        _this12.props.users[kt.host_id].photoUrl ? _react2.default.createElement('img', { src: _this12.props.users[kt.host_id].photoUrl }) : _react2.default.createElement('img', { src: window.profile })
                       ),
                       _react2.default.createElement(
                         'p',
                         null,
                         'Keep an eye open for ',
-                        _this13.props.users[kt.host_id].username,
-                        '! So it\'s easier, here\'s what they look like. :).'
+                        _this12.props.users[kt.host_id].username,
+                        '! So it\'s easier, here\'s what they look like :).'
                       )
                     ),
                     _react2.default.createElement(
@@ -2689,53 +2898,80 @@ var Profile = function (_React$Component) {
                       null,
                       _react2.default.createElement(
                         'button',
-                        { className: 'profile-host-info', onClick: _this13.showHostProfile(_this13.props.users[kt.host_id]) },
-                        _this13.props.users[kt.host_id].username + '\'s',
+                        { className: 'profile-host-info', onClick: _this12.showHostProfile(_this12.props.users[kt.host_id]) },
+                        _this12.props.users[kt.host_id].username + '\'s',
                         ' profile'
                       ),
-                      _this13.state.showHost ? _react2.default.createElement(
+                      _this12.state.showHost ? _react2.default.createElement(
                         'div',
-                        { id: 'updateModal', className: 'modal' },
+                        { className: 'modal' },
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'divSpan' },
+                          _react2.default.createElement(
+                            'span',
+                            { className: 'close', onClick: _this12.handleSpan.bind(_this12) },
+                            '\xD7'
+                          )
+                        ),
                         _react2.default.createElement(
                           'div',
                           { className: 'modal-content' },
                           _react2.default.createElement(
-                            'span',
-                            { className: 'close', onClick: _this13.handleSpan.bind(_this13) },
-                            '\xD7'
+                            'div',
+                            { className: 'divHost' },
+                            _react2.default.createElement(
+                              'div',
+                              { className: 'divHost-img' },
+                              _this12.state.host.photoUrl ? _react2.default.createElement('img', { src: _this12.state.host.photoUrl }) : _react2.default.createElement('img', { src: window.profile })
+                            ),
+                            _react2.default.createElement(
+                              'div',
+                              { className: 'divHostMain' },
+                              _react2.default.createElement(
+                                'h2',
+                                { style: { margin: '0' } },
+                                _this12.state.host.username
+                              ),
+                              _react2.default.createElement(
+                                'h4',
+                                null,
+                                _this12.state.host.email
+                              ),
+                              _react2.default.createElement(
+                                'h3',
+                                { style: { fontSize: "14px", fontStyle: "italic", fontWeight: "normal", margin: "10px" } },
+                                _this12.state.host.quote
+                              )
+                            )
                           ),
                           _react2.default.createElement(
-                            'h2',
-                            null,
-                            _this13.props.users[kt.host_id].username
-                          ),
-                          _react2.default.createElement(
-                            'h4',
-                            null,
-                            _this13.props.users[kt.host_id].email
-                          ),
-                          _react2.default.createElement(
-                            'h3',
-                            null,
-                            _this13.props.users[kt.host_id].quote
-                          ),
-                          _react2.default.createElement(
-                            'h4',
-                            null,
-                            _this13.props.users[kt.host_id].description
-                          ),
-                          _react2.default.createElement(
-                            'h4',
-                            null,
-                            _this13.props.users[kt.host_id].story
+                            'div',
+                            { className: 'divHostExtra' },
+                            _react2.default.createElement(
+                              'h4',
+                              { style: { margin: "5px", fontSize: "14px", fontWeight: "normal", lineHeight: "1.5em" } },
+                              _this12.state.host.description
+                            ),
+                            _react2.default.createElement(
+                              'h3',
+                              { style: { marginTop: "10px", marginBottom: "5px", color: "#eda20b" } },
+                              _this12.state.host.username + '\'s',
+                              ' story'
+                            ),
+                            _react2.default.createElement(
+                              'h4',
+                              { style: { margin: "5px", fontSize: "14px", fontWeight: "normal", lineHeight: "1.5em" } },
+                              _this12.state.host.story
+                            )
                           )
                         )
                       ) : null,
                       _react2.default.createElement(
                         'button',
-                        { className: 'profile-host-info', onClick: _this13.sendEmail(_this13.props.users[kt.host_id].email) },
+                        { className: 'profile-host-info', onClick: _this12.sendEmail(_this12.props.users[kt.host_id].email) },
                         'email ',
-                        _this13.props.users[kt.host_id].username
+                        _this12.props.users[kt.host_id].username
                       )
                     )
                   )
@@ -2799,36 +3035,42 @@ var Profile = function (_React$Component) {
                     { className: 'modify-hosted' },
                     _react2.default.createElement(
                       'button',
-                      { className: 'profile-host-info', id: 'update-kt', onClick: _this13.handleUpdate(hkt.description) },
+                      { className: 'profile-host-info', id: 'update-kt', onClick: _this12.handleUpdate(hkt) },
                       'update'
                     ),
-                    _this13.state.clickUpdate ? _react2.default.createElement(
+                    _this12.state.clickUpdate ? _react2.default.createElement(
                       'div',
-                      { id: 'updateModal', className: 'modal' },
+                      { className: 'modal' },
+                      _react2.default.createElement(
+                        'div',
+                        { className: 'divSpan' },
+                        _react2.default.createElement(
+                          'span',
+                          { style: { marginRight: '-20px' }, className: 'close', onClick: _this12.handleSpan.bind(_this12) },
+                          '\xD7'
+                        )
+                      ),
                       _react2.default.createElement(
                         'form',
-                        { className: 'modal-content' },
+                        { style: { padding: "20px" }, className: 'modal-content', onSubmit: _this12.updateKnittingTime.bind(_this12) },
                         _react2.default.createElement(
-                          'div',
-                          { className: 'UpdateBox' },
-                          _react2.default.createElement(
-                            'h2',
-                            null,
-                            'What might you talk about?'
-                          ),
-                          _react2.default.createElement(
-                            'span',
-                            { className: 'close', onClick: _this13.handleSpan.bind(_this13) },
-                            '\xD7'
-                          )
+                          'h2',
+                          { style: { margin: '0' } },
+                          'What might you talk about?'
                         ),
-                        _react2.default.createElement('textarea', { value: _this13.state.text, onChange: _this13.modifyUpdate.bind(_this13) }),
-                        _react2.default.createElement('input', { type: 'submit', onClick: _this13.updateKnittingTime(hkt) })
+                        _react2.default.createElement('textarea', { value: _this12.state.text, onChange: _this12.handleEvent.bind(_this12), maxLength: '700', required: true }),
+                        _react2.default.createElement(
+                          'p',
+                          null,
+                          700 - _this12.state.chars_left,
+                          '/700'
+                        ),
+                        _react2.default.createElement('input', { style: { width: "100px", borderRadius: "3px", fontSize: "14px", textTransform: "uppercase", fontWeight: "bold" }, type: 'submit' })
                       )
                     ) : null,
                     _react2.default.createElement(
                       'button',
-                      { className: 'profile-host-info2', onClick: _this13.handleDelete(hkt.id) },
+                      { className: 'profile-host-info2', onClick: _this12.handleDelete(hkt.id) },
                       'delete'
                     )
                   )
@@ -3006,7 +3248,7 @@ var Profile = function (_React$Component) {
         null,
         this.props.me ? _react2.default.createElement(
           'div',
-          null,
+          { className: 'dashboardMain' },
           _react2.default.createElement(
             'div',
             { className: 'profile-menu' },
@@ -3119,6 +3361,9 @@ var mdp = function mdp(dispatch) {
     },
     updatePhoto: function updatePhoto(data, id) {
       return dispatch((0, _user_actions.updatePhoto)(data, id));
+    },
+    fetchUser: function fetchUser(id) {
+      return dispatch((0, _user_actions.fetchUser)(id));
     }
   };
 };

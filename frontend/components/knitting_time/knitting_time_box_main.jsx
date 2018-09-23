@@ -26,7 +26,7 @@ const KnittingTimeBoxMain = (props) => {
 
       <div className="kt-main-divs">
         <img src={window.planet} />
-        <p>{props.knittingtime.city}</p>
+        <p style={{ textTransform: 'uppercase' }}>{props.knittingtime.city}</p>
       </div>
 
       <div className="kt-main-divs">
