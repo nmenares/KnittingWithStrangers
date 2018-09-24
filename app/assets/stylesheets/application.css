@@ -1781,6 +1781,15 @@ blockquote span {
   border-radius: 3px;
 }
 
+.account-content {
+  width: 70%;
+  margin: 5% auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;  
+}
+
 /* smaller screens */
 
 @media all and (max-width: 940px) {

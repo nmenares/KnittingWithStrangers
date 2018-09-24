@@ -2377,7 +2377,24 @@ var Profile = function (_React$Component) {
       }));
     };
 
-    _this.state = { clickUpdate: false, text: "", quicklook: true, history: false, accountdetails: false, showHost: false, host: null, photo: "", photoUrl: _this.props.me.photoUrl, username: _this.props.me.username, editUsername: false, editPhoto: false, chars_left: 700, kt: null };
+    _this.state = { clickUpdate: false,
+      text: "",
+      quicklook: true,
+      history: false,
+      accountdetails: false,
+      showHost: false,
+      host: null,
+      photo: "",
+      photoUrl: _this.props.me.photoUrl,
+      editPhoto: false,
+      username: _this.props.me.username,
+      editUsername: false,
+      quote: _this.props.me.quote,
+      editQuote: false,
+      story: _this.props.me.story,
+      editStory: false,
+      chars_left: 700,
+      kt: null };
 
     return _this;
   }
@@ -3208,23 +3225,7 @@ var Profile = function (_React$Component) {
 
       var accountdetails = this.state.accountdetails ? _react2.default.createElement(
         'div',
-        null,
-        this.state.editUsername ? _react2.default.createElement(
-          'div',
-          { className: 'profileUsername' },
-          _react2.default.createElement('input', { type: 'text', onChange: this.editAccountDetails("username") }),
-          _react2.default.createElement('img', { src: window.ok, onClick: this.updateAccountDetails("username", "editUsername", this.state.username) }),
-          _react2.default.createElement('img', { src: window.cancel, onClick: this.notUpdateAccountDetails("username", "editUsername", this.props.me.username) })
-        ) : _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'h2',
-            null,
-            this.props.me.username
-          ),
-          _react2.default.createElement('img', { src: window.edit, onClick: this.toEditAccount("editUsername") })
-        ),
+        { className: 'account-content' },
         this.state.editPhoto ? _react2.default.createElement(
           'div',
           { className: 'profilePhoto' },
@@ -3237,6 +3238,70 @@ var Profile = function (_React$Component) {
           null,
           preview,
           _react2.default.createElement('img', { src: window.edit, onClick: this.toEditAccount("editPhoto") })
+        ),
+        this.state.editUsername ? _react2.default.createElement(
+          'div',
+          { className: 'profileUsername' },
+          _react2.default.createElement('input', { type: 'text', onChange: this.editAccountDetails("username"), value: this.state.username }),
+          _react2.default.createElement('img', { src: window.ok, onClick: this.updateAccountDetails("username", "editUsername", this.state.username) }),
+          _react2.default.createElement('img', { src: window.cancel, onClick: this.notUpdateAccountDetails("username", "editUsername", this.props.me.username) })
+        ) : _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h2',
+            null,
+            this.props.me.username
+          ),
+          _react2.default.createElement('img', { src: window.edit, onClick: this.toEditAccount("editUsername") })
+        ),
+        this.state.editQuote ? _react2.default.createElement(
+          'div',
+          { className: 'profileQuote' },
+          _react2.default.createElement('input', { type: 'text', onChange: this.editAccountDetails("quote"), value: this.state.quote }),
+          _react2.default.createElement('img', { src: window.ok, onClick: this.updateAccountDetails("quote", "editQuote", this.state.quote) }),
+          _react2.default.createElement('img', { src: window.cancel, onClick: this.notUpdateAccountDetails("quote", "editQuote", this.props.me.quote) })
+        ) : _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h3',
+            null,
+            this.props.me.quote
+          ),
+          _react2.default.createElement('img', { src: window.edit, onClick: this.toEditAccount("editQuote") })
+        ),
+        this.state.editDescription ? _react2.default.createElement(
+          'div',
+          { className: 'profileDescription' },
+          _react2.default.createElement('textarea', { onChange: this.editAccountDetails("description"), value: this.state.description }),
+          _react2.default.createElement('img', { src: window.ok, onClick: this.updateAccountDetails("description", "editDescription", this.state.description) }),
+          _react2.default.createElement('img', { src: window.cancel, onClick: this.notUpdateAccountDetails("description", "editDescription", this.props.me.description) })
+        ) : _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h4',
+            null,
+            this.props.me.description
+          ),
+          _react2.default.createElement('img', { src: window.edit, onClick: this.toEditAccount("editDescription") })
+        ),
+        this.state.editStory ? _react2.default.createElement(
+          'div',
+          { className: 'profileStory' },
+          _react2.default.createElement('textarea', { onChange: this.editAccountDetails("story"), value: this.state.story }),
+          _react2.default.createElement('img', { src: window.ok, onClick: this.updateAccountDetails("story", "editStory", this.state.story) }),
+          _react2.default.createElement('img', { src: window.cancel, onClick: this.notUpdateAccountDetails("story", "editStory", this.props.me.story) })
+        ) : _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h4',
+            null,
+            this.props.me.story
+          ),
+          _react2.default.createElement('img', { src: window.edit, onClick: this.toEditAccount("editStory") })
         )
       ) : null;
 

@@ -11,7 +11,24 @@ class Profile extends React.Component {
 
     this.false_enr = (kt_id, deleted) => merge([], this.props.all_enrollments.filter(enr => enr.knittingtime_id === parseInt(kt_id) && !enr.going && enr.id !== deleted.id));
 
-    this.state = {clickUpdate: false, text: "", quicklook: true, history: false, accountdetails: false, showHost: false, host: null, photo: "" , photoUrl: this.props.me.photoUrl, username: this.props.me.username, editUsername: false, editPhoto: false, chars_left: 700, kt: null };
+    this.state = {clickUpdate: false,
+                  text: "",
+                  quicklook: true,
+                  history: false,
+                  accountdetails: false,
+                  showHost: false,
+                  host: null,
+                  photo: "" ,
+                  photoUrl: this.props.me.photoUrl,
+                  editPhoto: false,
+                  username: this.props.me.username,
+                  editUsername: false,
+                  quote: this.props.me.quote,
+                  editQuote: false,
+                  story: this.props.me.story,
+                  editStory: false,
+                  chars_left: 700,
+                  kt: null };
 
   };
 
@@ -380,19 +397,7 @@ class Profile extends React.Component {
       null
 
     const accountdetails = this.state.accountdetails ?
-      <div>
-        {this.state.editUsername ?
-          <div className="profileUsername">
-            <input type="text" onChange={this.editAccountDetails("username")}/>
-            <img src={window.ok} onClick={this.updateAccountDetails("username", "editUsername", this.state.username)}/>
-            <img src={window.cancel} onClick={this.notUpdateAccountDetails("username", "editUsername", this.props.me.username)}/>
-          </div>
-          :
-          <div>
-            <h2>{this.props.me.username}</h2>
-            <img src={window.edit} onClick={this.toEditAccount("editUsername")}/>
-          </div>
-        }
+      <div className="account-content">
         {this.state.editPhoto ?
           <div className="profilePhoto">
             {preview}
@@ -406,6 +411,59 @@ class Profile extends React.Component {
             <img src={window.edit} onClick={this.toEditAccount("editPhoto")}/>
           </div>
         }
+
+        {this.state.editUsername ?
+          <div className="profileUsername">
+            <input type="text" onChange={this.editAccountDetails("username")} value={this.state.username}/>
+            <img src={window.ok} onClick={this.updateAccountDetails("username", "editUsername", this.state.username)}/>
+            <img src={window.cancel} onClick={this.notUpdateAccountDetails("username", "editUsername", this.props.me.username)}/>
+          </div>
+          :
+          <div>
+            <h2>{this.props.me.username}</h2>
+            <img src={window.edit} onClick={this.toEditAccount("editUsername")}/>
+          </div>
+        }
+
+        {this.state.editQuote ?
+          <div className="profileQuote">
+            <input type="text" onChange={this.editAccountDetails("quote")} value={this.state.quote}/>
+            <img src={window.ok} onClick={this.updateAccountDetails("quote", "editQuote", this.state.quote)}/>
+            <img src={window.cancel} onClick={this.notUpdateAccountDetails("quote", "editQuote", this.props.me.quote)}/>
+          </div>
+          :
+          <div>
+            <h3>{this.props.me.quote}</h3>
+            <img src={window.edit} onClick={this.toEditAccount("editQuote")}/>
+          </div>
+        }
+
+        {this.state.editDescription ?
+          <div className="profileDescription">
+            <textarea onChange={this.editAccountDetails("description")} value={this.state.description}></textarea>
+            <img src={window.ok} onClick={this.updateAccountDetails("description", "editDescription", this.state.description)}/>
+            <img src={window.cancel} onClick={this.notUpdateAccountDetails("description", "editDescription", this.props.me.description)}/>
+          </div>
+          :
+          <div>
+            <h4>{this.props.me.description}</h4>
+            <img src={window.edit} onClick={this.toEditAccount("editDescription")}/>
+          </div>
+        }
+
+        {this.state.editStory ?
+          <div className="profileStory">
+            <textarea onChange={this.editAccountDetails("story")} value={this.state.story}></textarea>
+            <img src={window.ok} onClick={this.updateAccountDetails("story", "editStory", this.state.story)}/>
+            <img src={window.cancel} onClick={this.notUpdateAccountDetails("story", "editStory", this.props.me.story)}/>
+          </div>
+          :
+          <div>
+            <h4>{this.props.me.story}</h4>
+            <img src={window.edit} onClick={this.toEditAccount("editStory")}/>
+          </div>
+        }
+
       </div>
       :
       null
