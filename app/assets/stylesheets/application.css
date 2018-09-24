@@ -199,7 +199,7 @@ button:focus, textarea:focus, input:focus {
   color: #333;
 }
 
-.intro h2, .introknittingtimes h2, .hostingform h2, .profile-sidebar h2, .list-profile h2, .list-profile2 h2, .profile-body h2, .profile-content-history h2{
+.intro h2, .introknittingtimes h2, .hostingform h2, .profile-sidebar h2, .list-profile h2, .list-profile2 h2, .profile-body h2, .profile-content-history h2, .profileUsername h2 {
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   font-feature-settings: "kern", "liga", "frac", "pnum";
   -webkit-font-smoothing: antialiased;
@@ -1781,13 +1781,147 @@ blockquote span {
   border-radius: 3px;
 }
 
+
 .account-content {
-  width: 70%;
-  margin: 5% auto;
+  width: 80%;
+  margin: 3% auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;  
+  justify-content: space-around;
+}
+
+.account-content1 {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
+.profilePhoto {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}
+
+.profilePhoto img{
+  height: 20px;
+  width: 20px;
+}
+
+.profilePhoto-img {
+  height: 300px;
+  width: 300px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: Transparent;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.profilePhoto-img img {
+  height: 300px;
+  width: 300px;
+  object-fit: cover;
+}
+
+.profilePhoto-settings {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.profilePhoto-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.AcountTextDetails {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.profileUsername img {
+  width: 20px;
+  height: 20px;
+}
+
+.profileUsername {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.profileUsername h2, h3, h4 {
+  margin: 20px 20px 20px 0;
+}
+
+.profileUsername input, .profileUsername textarea {
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+  margin: 20px 20px 0 0;
+  font-size: 14px;
+  font-weight: normal;
+  width: 90%;
+  line-height: 1.5em;
+  padding: 5px;
+  color: #333;
+  border: 1px solid #DDD;
+  border-radius: 3px;
+}
+
+.profileUsername textarea {
+  height: 150px;
+}
+
+.account-content button {
+  background-color: #EF6236;
+  color: #FFF;
+  text-align: center;
+  border-radius: 5px;
+  border: 3px solid #EF6236;
+  width: auto;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.account-content button:hover {
+  background-color: #FF5500;
+  border: 3px solid #FF5500;
+  cursor: pointer;
+}
+
+.counter {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+
+.counter p {
+  font-size: 12px;
 }
 
 /* smaller screens */

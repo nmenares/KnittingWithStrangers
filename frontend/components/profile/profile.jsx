@@ -21,12 +21,14 @@ class Profile extends React.Component {
                   photo: "" ,
                   photoUrl: this.props.me.photoUrl,
                   editPhoto: false,
-                  username: this.props.me.username,
+                  username: this.props.me.username || "",
                   editUsername: false,
-                  quote: this.props.me.quote,
+                  quote: this.props.me.quote || "",
                   editQuote: false,
-                  story: this.props.me.story,
+                  story: this.props.me.story || "",
                   editStory: false,
+                  description: this.props.me.description || "",
+                  editDescription: false,
                   chars_left: 700,
                   kt: null };
 
@@ -398,72 +400,89 @@ class Profile extends React.Component {
 
     const accountdetails = this.state.accountdetails ?
       <div className="account-content">
-        {this.state.editPhoto ?
+        <div className="account-content1">
+
           <div className="profilePhoto">
-            {preview}
-            <input type="file" onChange={this.fileChangedHandler.bind(this)}/>
-            <img src={window.ok} onClick={this.handleUpdatePhoto.bind(this)}/>
-            <img src={window.cancel} onClick={this.notUpdatePhoto.bind(this)}/>
+            <div className="profilePhoto-img">{preview}</div>
+            <div className="profilePhoto-settings">
+              <input type="file" onChange={this.fileChangedHandler.bind(this)}/>
+              <div className="profilePhoto-buttons">
+                <button onClick={this.handleUpdatePhoto.bind(this)}>Save</button>
+              </div>
+            </div>
           </div>
-          :
-          <div>
-            {preview}
-            <img src={window.edit} onClick={this.toEditAccount("editPhoto")}/>
-          </div>
-        }
 
-        {this.state.editUsername ?
-          <div className="profileUsername">
-            <input type="text" onChange={this.editAccountDetails("username")} value={this.state.username}/>
-            <img src={window.ok} onClick={this.updateAccountDetails("username", "editUsername", this.state.username)}/>
-            <img src={window.cancel} onClick={this.notUpdateAccountDetails("username", "editUsername", this.props.me.username)}/>
-          </div>
-          :
-          <div>
-            <h2>{this.props.me.username}</h2>
-            <img src={window.edit} onClick={this.toEditAccount("editUsername")}/>
-          </div>
-        }
+          <div className="AcountTextDetails">
+            {this.state.editUsername ?
+              <div className="profileUsername">
+                <div className="counter">
+                  <input type="text" onChange={this.editAccountDetails("username")} value={this.state.username} maxLength="100" required/>
+                  <p>{this.state.username.length}/100</p>
+                </div>
+                <div>
+                  <button onClick={this.updateAccountDetails("username", "editUsername", this.state.username)}>Save</button>
+                </div>
+              </div>
+              :
+              <div className="profileUsername">
+                <h2>{this.props.me.username}</h2>
+                <img src={window.edit} onClick={this.toEditAccount("editUsername")}/>
+              </div>
+            }
 
-        {this.state.editQuote ?
-          <div className="profileQuote">
-            <input type="text" onChange={this.editAccountDetails("quote")} value={this.state.quote}/>
-            <img src={window.ok} onClick={this.updateAccountDetails("quote", "editQuote", this.state.quote)}/>
-            <img src={window.cancel} onClick={this.notUpdateAccountDetails("quote", "editQuote", this.props.me.quote)}/>
-          </div>
-          :
-          <div>
-            <h3>{this.props.me.quote}</h3>
-            <img src={window.edit} onClick={this.toEditAccount("editQuote")}/>
-          </div>
-        }
+            {this.state.editQuote ?
+              <div className="profileUsername">
+                <div className="counter">
+                  <input type="text" onChange={this.editAccountDetails("quote")} value={this.state.quote} maxLength="200" required/>
+                  <p>{this.state.quote.length}/200</p>
+                </div>
+                <div>
+                    <button onClick={this.updateAccountDetails("quote", "editQuote", this.state.quote)}>Save</button>
+                </div>
+              </div>
+              :
+              <div className="profileUsername">
+                <h3>{this.props.me.quote}</h3>
+                <img src={window.edit} onClick={this.toEditAccount("editQuote")}/>
+              </div>
+            }
 
-        {this.state.editDescription ?
-          <div className="profileDescription">
-            <textarea onChange={this.editAccountDetails("description")} value={this.state.description}></textarea>
-            <img src={window.ok} onClick={this.updateAccountDetails("description", "editDescription", this.state.description)}/>
-            <img src={window.cancel} onClick={this.notUpdateAccountDetails("description", "editDescription", this.props.me.description)}/>
+            {this.state.editDescription ?
+              <div className="profileUsername">
+                <div className="counter">
+                  <textarea onChange={this.editAccountDetails("description")} value={this.state.description} maxLength="700" required></textarea>
+                  <p>{this.state.description.length}/700</p>
+                </div>
+                <div>
+                  <button onClick={this.updateAccountDetails("description", "editDescription", this.state.description)}>Save</button>
+                </div>
+              </div>
+              :
+              <div className="profileUsername">
+                <h4>{this.props.me.description}</h4>
+                <img src={window.edit} onClick={this.toEditAccount("editDescription")}/>
+              </div>
+            }
+
           </div>
-          :
-          <div>
-            <h4>{this.props.me.description}</h4>
-            <img src={window.edit} onClick={this.toEditAccount("editDescription")}/>
-          </div>
-        }
+        </div>
 
         {this.state.editStory ?
-          <div className="profileStory">
-            <textarea onChange={this.editAccountDetails("story")} value={this.state.story}></textarea>
-            <img src={window.ok} onClick={this.updateAccountDetails("story", "editStory", this.state.story)}/>
-            <img src={window.cancel} onClick={this.notUpdateAccountDetails("story", "editStory", this.props.me.story)}/>
+          <div className="profileUsername">
+            <div className="counter">
+              <textarea onChange={this.editAccountDetails("story")} value={this.state.story} maxLength="700" required></textarea>
+              <p>{this.state.story.length}/700</p>
+            </div>
+            <div>
+              <button onClick={this.updateAccountDetails("story", "editStory", this.state.story)}>Save</button>
+            </div>
           </div>
           :
-          <div>
+          <div className="profileUsername">
             <h4>{this.props.me.story}</h4>
             <img src={window.edit} onClick={this.toEditAccount("editStory")}/>
           </div>
         }
-
       </div>
       :
       null
@@ -487,8 +506,5 @@ class Profile extends React.Component {
 
   }
 };
-
-
-
 
 export default Profile;
