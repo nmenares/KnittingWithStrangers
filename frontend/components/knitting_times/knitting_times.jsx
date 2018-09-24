@@ -54,7 +54,7 @@ class KnittingTimes extends React.Component {
               key={kt}
               knittingtime={this.props.knitting_times[kt]}
               enrollments={this.props.knitting_time_enrollments.filter( kte => kte.knittingtime_id === kt && kte.going).length}
-              me={this.props.knitting_time_enrollments.some( info => info.user_id === this.props.meId && info.knittingtime_id === kt && info.going)}
+              me={this.props.knitting_time_enrollments.some( info => info.user_id === this.props.meId && info.knittingtime_id === kt)}
               host={this.props.users[this.props.knitting_times[kt].host_id]}
               />
           ))

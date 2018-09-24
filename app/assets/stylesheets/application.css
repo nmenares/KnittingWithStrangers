@@ -16,20 +16,30 @@
 
  /* body */
 
- body {
+body {
    background-color: #FAF7E7;
    margin:0;
    padding:0;
    height:100%;
    letter-spacing: 0.06em;
    color: #333;
- }
+}
+
+a, p, h1, h2, h3, h4, input, button {
+  font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
+  font-feature-settings: "kern", "liga", "frac", "pnum";
+  -webkit-font-smoothing: antialiased;
+}
+
+li {
+  list-style: none;
+}
 
  /* buttons */
 
- button:focus, textarea:focus, input:focus {
+button:focus, textarea:focus, input:focus {
    outline:0;
- }
+}
 
  /* navbar */
 
@@ -189,7 +199,7 @@
   color: #333;
 }
 
-.intro h2, .introknittingtimes h2, .hostingform h2, .profile-sidebar h2, .list-profile h2, .list-profile2 h2{
+.intro h2, .introknittingtimes h2, .hostingform h2, .profile-sidebar h2, .list-profile h2, .list-profile2 h2, .profile-body h2, .profile-content-history h2{
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   font-feature-settings: "kern", "liga", "frac", "pnum";
   -webkit-font-smoothing: antialiased;
@@ -256,6 +266,7 @@ footer {
   letter-spacing: 0.06em;
   line-height: 1.625em;
   padding: 10px;
+  padding-bottom: 20px;
 }
 
 footer .menu {
@@ -1354,7 +1365,6 @@ blockquote span {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  min-height: 400px;
 }
 
 .profile-content-history-box{
@@ -1362,7 +1372,7 @@ blockquote span {
   margin: auto 10%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   min-height: 400px;
 }
@@ -1426,7 +1436,7 @@ blockquote span {
   justify-content: space-around;
   font-family: "canada-type-gibson", "Gibson", "Helvetica Neue", sans-serif;
   font-feature-settings: "kern", "liga", "frac", "pnum";
-  margin-bottom: 36px;
+  font-weight: bold;
 }
 
 .link3:hover {
@@ -1455,7 +1465,7 @@ blockquote span {
   align-items: flex-start;
 }
 
-.list-profile h2, .list-profile2 h2 {
+.list-profile h2, .list-profile2 h2, .profile-body h2, .profile-content-history h2 {
   margin-left: 0;
   margin-right: 0;
 }
@@ -1793,26 +1803,27 @@ blockquote span {
   }
 
   .menuList {
-      background-color: rgb(0,0,0);
-      margin-left: -50px;
+      background-color: #eda20b;
       padding: 5px 10px;
-      width: auto;
-      height: 50px;
+      width: max-content;
+      height: auto;
       display: flex;
       flex-direction: column;
-      justify-content: space-evenly;
+      justify-content: space-around;
+      align-items: flex-start;
+      z-index: 10;
+    }
 
-      li {
-          font-size: 14px;
-          z-index: 10;
-      }
-
-      li:hover {
-      color: #dc41f4;
-      }
-
-      button {
-         font-size: 14px;
-      }
+  .menuList li a, .menuList li p, , .menuList li button{
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    background-color: none;
+    border: none;
   }
+
+  .menuList  li:hover {
+    color: #dc41f4;
+  }
+
 }

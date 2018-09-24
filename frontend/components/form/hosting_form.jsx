@@ -15,16 +15,12 @@ class HostingForm extends React.Component {
                   zip: this.props.knittingtime.zip,
                   area_id: this.props.knittingtime.area_id,
                   host_id: this.props.knittingtime.host_id,
-                  description: this.props.knittingtime.description,
+                  description: this.props.knittingtime.description || "",
                   photo: "",
                   photoUrl: this.props.host.photoUrl,
-                  brief: this.props.host.description,
-                  story: this.props.host.story,
-                  quote: this.props.host.quote,
-                  chars_left: 700 - this.props.knittingtime.description === null ? this.props.knittingtime.description.length : 0,
-                  chars_left_brief: 700 - this.props.host.description === null ? this.props.host.description.length : 0,
-                  chars_left_story: 700 - this.props.host.story === null ? this.props.host.story.length : 0,
-                  chars_left_quote: 200 - this.props.host.quote === null ? this.props.host.quote.length : 0
+                  brief: this.props.host.description || "",
+                  story: this.props.host.story || "",
+                  quote: this.props.host.quote || "",
                 }
   };
 
@@ -37,20 +33,13 @@ class HostingForm extends React.Component {
     this.props.fetchAreas();
   };
 
-  handleEvent(field, capacity, field2){
+  handleEvent(field){
     return e => {
-      if(capacity){
-        const charCount = e.target.value.length;
-        const charLeft = capacity - charCount;
-        this.setState({
-        [field2]: charLeft
-        });
-      }
       this.setState({
-      [field]: e.currentTarget.value,
-      });
+      [field]: e.currentTarget.value
+      })
     }
-  };
+};
 
   handleSubmit(e) {
     e.preventDefault();
@@ -127,19 +116,19 @@ class HostingForm extends React.Component {
                 <h2 style={{marginTop: '0px', textAlign:"center"}}>Set Knitting Time Details</h2>
 
                 <label>Date<span>*</span></label>
-                <input type="date" onChange={this.handleEvent("date", null)} value={this.state.date} min={`${year}-${month}-${day}`} required></input>
+                <input type="date" onChange={this.handleEvent("date")} value={this.state.date} min={`${year}-${month}-${day}`} required></input>
 
                 <div className="host-form-time">
-                  <label>Start Time<span>*</span>
-                    <select onChange={this.handleEvent("start_time", null)} value={this.state.start_time} style={{width: '150px', fontSize: '15px', height: '30px'}} required>
+                  <label>Start Time<span>*</span>&nbsp;
+                    <select onChange={this.handleEvent("start_time")} value={this.state.start_time} style={{width: '150px', fontSize: '15px', height: '30px'}} required>
                       <option disabled>Set a start time</option>
                       <option defaultValue>{hours[0]}</option>
                       {hours.slice(1, hours.length - 1).map((hr, idx) => <option key={idx} value={hr}>{hr}</option>)}
                     </select>
                   </label>
 
-                  <label>End Time<span>*</span>
-                    <select onChange={this.handleEvent("end_time", null)} value={this.state.end_time} style={{width: '150px', fontSize: '15px', height: '30px'}} required>
+                  <label>End Time<span>*</span>&nbsp;
+                    <select onChange={this.handleEvent("end_time")} value={this.state.end_time} style={{width: '150px', fontSize: '15px', height: '30px'}} required>
                       <option disabled>Set an end time</option>
                       <option disabled>Set an end time</option>
                       <option defaultValue>{hours[hours.indexOf(this.state.start_time)+1]}</option>
@@ -149,23 +138,23 @@ class HostingForm extends React.Component {
                 </div>
 
                 <label>Address 1<span>*</span></label>
-                <input type="text" onChange={this.handleEvent("address_1", null)} value={this.state.address_1} required></input>
+                <input type="text" onChange={this.handleEvent("address_1")} value={this.state.address_1} required></input>
 
                 <label>Address 2</label>
-                <input type="text" onChange={this.handleEvent("address_2", null)} value={this.state.address_2}></input>
+                <input type="text" onChange={this.handleEvent("address_2")} value={this.state.address_2}></input>
 
                 <label>City<span>*</span></label>
-                <input type="text" onChange={this.handleEvent("city", null)} value={this.state.city} required></input>
+                <input type="text" onChange={this.handleEvent("city")} value={this.state.city} required></input>
 
                 <label>State</label>
-                <input type="text" onChange={this.handleEvent("state", null)} value={this.state.state}></input>
+                <input type="text" onChange={this.handleEvent("state")} value={this.state.state}></input>
 
                 <label>Zip</label>
-                <input type="text" onChange={this.handleEvent("zip", null)} value={this.state.zip}></input>
+                <input type="text" onChange={this.handleEvent("zip")} value={this.state.zip}></input>
 
                 <label>What might you talk about?<span>*</span></label>
-                <textarea onChange={this.handleEvent("description", 700, "chars_left")} value={this.state.description} maxLength="700" required></textarea>
-                <p>{700 - this.state.chars_left}/700</p>
+                <textarea onChange={this.handleEvent("description")} value={this.state.description} maxLength="700" required></textarea>
+                <p>{this.state.description.length}/700</p>
               </div>
 
               <div className="host-form-info">
@@ -181,16 +170,16 @@ class HostingForm extends React.Component {
 
 
                 <label>A Brief about You<span>*</span></label>
-                <textarea onChange={this.handleEvent("brief", 700, "chars_left_brief")} value={this.state.brief=== null ? "" : this.state.brief} maxLength="700" required></textarea>
-                <p>{700 - this.state.chars_left_brief}/700</p>
+                <textarea onChange={this.handleEvent("brief")} value={this.state.brief} maxLength="700" required></textarea>
+                <p>{this.state.brief.length}/700</p>
 
                 <label>Your Story<span>*</span></label>
-                <textarea onChange={this.handleEvent("story", 700, "chars_left_story")} value={this.state.story=== null ? "" : this.state.story} maxLength="700" required></textarea>
-                <p>{700 - this.state.chars_left_story}/700</p>
+                <textarea onChange={this.handleEvent("story")} value={this.state.story} maxLength="700" required></textarea>
+                <p>{this.state.story.length}/700</p>
 
                 <label>Favorite Quote<span>*</span></label>
-                <input className="PreSubmit" onChange={this.handleEvent("quote", 200, "chars_left_quote")} value={this.state.quote=== null ? "" : this.state.quote} maxLength="200" required></input>
-                <p>{200 - this.state.chars_left_quote}/200</p>
+                <input className="PreSubmit" onChange={this.handleEvent("quote")} value={this.state.quote} maxLength="200" required></input>
+                <p>{this.state.quote.length}/200</p>
               </div>
             </div>
             <input className="create" type="submit" value={this.props.action}></input>

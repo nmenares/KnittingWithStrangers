@@ -21,7 +21,7 @@ class KnittingTimeBox extends React.Component{
     }
 
     let dateinfo = moment(this.state.date);
-    let label = this.props.enrollments < 5 ? "this one →" : "join waitlist";
+    let label = this.props.enrollments < 5 ? "this one →" : "join waitlist →";
     let included = this.props.me;
 
     return(

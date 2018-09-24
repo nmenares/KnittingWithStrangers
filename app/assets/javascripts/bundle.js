@@ -631,16 +631,12 @@ var HostingForm = function (_React$Component) {
       zip: _this.props.knittingtime.zip,
       area_id: _this.props.knittingtime.area_id,
       host_id: _this.props.knittingtime.host_id,
-      description: _this.props.knittingtime.description,
+      description: _this.props.knittingtime.description || "",
       photo: "",
       photoUrl: _this.props.host.photoUrl,
-      brief: _this.props.host.description,
-      story: _this.props.host.story,
-      quote: _this.props.host.quote,
-      chars_left: 700 - _this.props.knittingtime.description === null ? _this.props.knittingtime.description.length : 0,
-      chars_left_brief: 700 - _this.props.host.description === null ? _this.props.host.description.length : 0,
-      chars_left_story: 700 - _this.props.host.story === null ? _this.props.host.story.length : 0,
-      chars_left_quote: 200 - _this.props.host.quote === null ? _this.props.host.quote.length : 0
+      brief: _this.props.host.description || "",
+      story: _this.props.host.story || "",
+      quote: _this.props.host.quote || ""
     };
     return _this;
   }
@@ -658,15 +654,10 @@ var HostingForm = function (_React$Component) {
     }
   }, {
     key: 'handleEvent',
-    value: function handleEvent(field, capacity, field2) {
+    value: function handleEvent(field) {
       var _this2 = this;
 
       return function (e) {
-        if (capacity) {
-          var charCount = e.target.value.length;
-          var charLeft = capacity - charCount;
-          _this2.setState(_defineProperty({}, field2, charLeft));
-        }
         _this2.setState(_defineProperty({}, field, e.currentTarget.value));
       };
     }
@@ -764,7 +755,7 @@ var HostingForm = function (_React$Component) {
                     '*'
                   )
                 ),
-                _react2.default.createElement('input', { type: 'date', onChange: this.handleEvent("date", null), value: this.state.date, min: year + '-' + month + '-' + day, required: true }),
+                _react2.default.createElement('input', { type: 'date', onChange: this.handleEvent("date"), value: this.state.date, min: year + '-' + month + '-' + day, required: true }),
                 _react2.default.createElement(
                   'div',
                   { className: 'host-form-time' },
@@ -777,9 +768,10 @@ var HostingForm = function (_React$Component) {
                       null,
                       '*'
                     ),
+                    '\xA0',
                     _react2.default.createElement(
                       'select',
-                      { onChange: this.handleEvent("start_time", null), value: this.state.start_time, style: { width: '150px', fontSize: '15px', height: '30px' }, required: true },
+                      { onChange: this.handleEvent("start_time"), value: this.state.start_time, style: { width: '150px', fontSize: '15px', height: '30px' }, required: true },
                       _react2.default.createElement(
                         'option',
                         { disabled: true },
@@ -808,9 +800,10 @@ var HostingForm = function (_React$Component) {
                       null,
                       '*'
                     ),
+                    '\xA0',
                     _react2.default.createElement(
                       'select',
-                      { onChange: this.handleEvent("end_time", null), value: this.state.end_time, style: { width: '150px', fontSize: '15px', height: '30px' }, required: true },
+                      { onChange: this.handleEvent("end_time"), value: this.state.end_time, style: { width: '150px', fontSize: '15px', height: '30px' }, required: true },
                       _react2.default.createElement(
                         'option',
                         { disabled: true },
@@ -846,13 +839,13 @@ var HostingForm = function (_React$Component) {
                     '*'
                   )
                 ),
-                _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("address_1", null), value: this.state.address_1, required: true }),
+                _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("address_1"), value: this.state.address_1, required: true }),
                 _react2.default.createElement(
                   'label',
                   null,
                   'Address 2'
                 ),
-                _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("address_2", null), value: this.state.address_2 }),
+                _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("address_2"), value: this.state.address_2 }),
                 _react2.default.createElement(
                   'label',
                   null,
@@ -863,19 +856,19 @@ var HostingForm = function (_React$Component) {
                     '*'
                   )
                 ),
-                _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("city", null), value: this.state.city, required: true }),
+                _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("city"), value: this.state.city, required: true }),
                 _react2.default.createElement(
                   'label',
                   null,
                   'State'
                 ),
-                _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("state", null), value: this.state.state }),
+                _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("state"), value: this.state.state }),
                 _react2.default.createElement(
                   'label',
                   null,
                   'Zip'
                 ),
-                _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("zip", null), value: this.state.zip }),
+                _react2.default.createElement('input', { type: 'text', onChange: this.handleEvent("zip"), value: this.state.zip }),
                 _react2.default.createElement(
                   'label',
                   null,
@@ -886,11 +879,11 @@ var HostingForm = function (_React$Component) {
                     '*'
                   )
                 ),
-                _react2.default.createElement('textarea', { onChange: this.handleEvent("description", 700, "chars_left"), value: this.state.description, maxLength: '700', required: true }),
+                _react2.default.createElement('textarea', { onChange: this.handleEvent("description"), value: this.state.description, maxLength: '700', required: true }),
                 _react2.default.createElement(
                   'p',
                   null,
-                  700 - this.state.chars_left,
+                  this.state.description.length,
                   '/700'
                 )
               ),
@@ -927,11 +920,11 @@ var HostingForm = function (_React$Component) {
                     '*'
                   )
                 ),
-                _react2.default.createElement('textarea', { onChange: this.handleEvent("brief", 700, "chars_left_brief"), value: this.state.brief === null ? "" : this.state.brief, maxLength: '700', required: true }),
+                _react2.default.createElement('textarea', { onChange: this.handleEvent("brief"), value: this.state.brief, maxLength: '700', required: true }),
                 _react2.default.createElement(
                   'p',
                   null,
-                  700 - this.state.chars_left_brief,
+                  this.state.brief.length,
                   '/700'
                 ),
                 _react2.default.createElement(
@@ -944,11 +937,11 @@ var HostingForm = function (_React$Component) {
                     '*'
                   )
                 ),
-                _react2.default.createElement('textarea', { onChange: this.handleEvent("story", 700, "chars_left_story"), value: this.state.story === null ? "" : this.state.story, maxLength: '700', required: true }),
+                _react2.default.createElement('textarea', { onChange: this.handleEvent("story"), value: this.state.story, maxLength: '700', required: true }),
                 _react2.default.createElement(
                   'p',
                   null,
-                  700 - this.state.chars_left_story,
+                  this.state.story.length,
                   '/700'
                 ),
                 _react2.default.createElement(
@@ -961,11 +954,11 @@ var HostingForm = function (_React$Component) {
                     '*'
                   )
                 ),
-                _react2.default.createElement('input', { className: 'PreSubmit', onChange: this.handleEvent("quote", 200, "chars_left_quote"), value: this.state.quote === null ? "" : this.state.quote, maxLength: '200', required: true }),
+                _react2.default.createElement('input', { className: 'PreSubmit', onChange: this.handleEvent("quote"), value: this.state.quote, maxLength: '200', required: true }),
                 _react2.default.createElement(
                   'p',
                   null,
-                  200 - this.state.chars_left_quote,
+                  this.state.quote.length,
                   '/200'
                 )
               )
@@ -1141,7 +1134,7 @@ var Greeting = function (_React$Component) {
       this.setState({ clickMenu: true });
       setTimeout(function () {
         return _this3.setState({ clickMenu: false });
-      }, 3000);
+      }, 10000);
     }
   }, {
     key: 'render',
@@ -1226,7 +1219,7 @@ var Greeting = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                   'button',
-                  { onClick: _this4.handleDemo.bind(_this4) },
+                  { className: 'signout', onClick: _this4.handleDemo.bind(_this4) },
                   'demo'
                 )
               )
@@ -1872,7 +1865,7 @@ var KnittingTimeBox = function (_React$Component) {
       }
 
       var dateinfo = (0, _moment2.default)(this.state.date);
-      var label = this.props.enrollments < 5 ? "this one →" : "join waitlist";
+      var label = this.props.enrollments < 5 ? "this one →" : "join waitlist →";
       var included = this.props.me;
 
       return _react2.default.createElement(
@@ -2086,7 +2079,7 @@ var KnittingTimes = function (_React$Component) {
                   return kte.knittingtime_id === kt && kte.going;
                 }).length,
                 me: _this2.props.knitting_time_enrollments.some(function (info) {
-                  return info.user_id === _this2.props.meId && info.knittingtime_id === kt && info.going;
+                  return info.user_id === _this2.props.meId && info.knittingtime_id === kt;
                 }),
                 host: _this2.props.users[_this2.props.knitting_times[kt].host_id]
               });
@@ -2636,25 +2629,25 @@ var Profile = function (_React$Component) {
           ),
           _react2.default.createElement(
             'div',
-            { className: 'link3' },
+            { style: { marginBottom: "35%", marginTop: "15%" }, className: 'link3' },
             _react2.default.createElement(
               _reactRouterDom.Link,
               { to: '/knitting_times' },
-              'find another knitting time!'
+              'find a knitting time!'
             )
           )
         ),
         _react2.default.createElement(
           'div',
           { className: 'profile-body' },
-          _react2.default.createElement(
+          my_kts_f.length > 0 ? _react2.default.createElement(
+            'h2',
+            { style: { marginBottom: "0" } },
+            'Knitting times you\'re attending.'
+          ) : null,
+          my_kts_f.length > 0 ? _react2.default.createElement(
             'div',
             { className: 'list-profile' },
-            my_kts_f.length > 0 ? _react2.default.createElement(
-              'h2',
-              null,
-              'Knitting times you\'re attending.'
-            ) : null,
             _react2.default.createElement(
               'ul',
               null,
@@ -2812,15 +2805,15 @@ var Profile = function (_React$Component) {
                 );
               })
             )
-          ),
-          _react2.default.createElement(
+          ) : null,
+          my_kts_wl_f.length > 0 ? _react2.default.createElement(
+            'h2',
+            { style: { marginBottom: "0" } },
+            'Knitting Times you\'re in waiting list.'
+          ) : null,
+          my_kts_wl_f.length > 0 ? _react2.default.createElement(
             'div',
             { className: 'list-profile' },
-            my_kts_wl_f.length > 0 ? _react2.default.createElement(
-              'h2',
-              null,
-              'Knitting Times you\'re in waiting list.'
-            ) : null,
             _react2.default.createElement(
               'ul',
               null,
@@ -2978,15 +2971,15 @@ var Profile = function (_React$Component) {
                 );
               })
             )
-          ),
-          _react2.default.createElement(
+          ) : null,
+          hosted_knitting_times_f.length > 0 ? _react2.default.createElement(
+            'h2',
+            { style: { marginBottom: "0" } },
+            'Knitting times you\'re hosting.'
+          ) : null,
+          hosted_knitting_times_f.length > 0 ? _react2.default.createElement(
             'div',
             { className: 'list-profile' },
-            hosted_knitting_times_f.length > 0 ? _react2.default.createElement(
-              'h2',
-              null,
-              'Knitting times you\'re hosting.'
-            ) : null,
             _react2.default.createElement(
               'ul',
               { id: 'hosting' },
@@ -3077,24 +3070,24 @@ var Profile = function (_React$Component) {
                 );
               })
             )
-          )
+          ) : null
         )
       ) : null;
 
       var history = this.state.history ? _react2.default.createElement(
         'div',
         { className: 'profile-content-history-box' },
-        _react2.default.createElement(
+        hosted_knitting_times_p.length > 0 || hosted_knitting_times_p.length > 0 ? _react2.default.createElement(
           'div',
           { className: 'profile-content-history' },
-          _react2.default.createElement(
+          my_kts_p.length > 0 ? _react2.default.createElement(
             'div',
             { className: 'list-profile2' },
-            my_kts_p.length > 0 ? _react2.default.createElement(
+            _react2.default.createElement(
               'h2',
-              { style: { fontSize: "30px" } },
+              { style: { fontSize: "28px" } },
               'Knitting times you attended.'
-            ) : null,
+            ),
             _react2.default.createElement(
               'ul',
               { style: { width: "100%" } },
@@ -3141,15 +3134,15 @@ var Profile = function (_React$Component) {
                 );
               })
             )
-          ),
-          _react2.default.createElement(
+          ) : null,
+          hosted_knitting_times_p.length > 0 ? _react2.default.createElement(
             'div',
             { className: 'list-profile2' },
-            hosted_knitting_times_p.length > 0 ? _react2.default.createElement(
+            _react2.default.createElement(
               'h2',
-              { style: { fontSize: "30px" } },
+              { style: { fontSize: "28px" } },
               'Knitting times you hosted.'
-            ) : null,
+            ),
             _react2.default.createElement(
               'ul',
               { style: { width: "100%" } },
@@ -3196,15 +3189,19 @@ var Profile = function (_React$Component) {
                 );
               })
             )
-          )
+          ) : null
+        ) : _react2.default.createElement(
+          'h3',
+          { style: { fontSize: "25px", width: "60%", fontWeight: "600", textAlign: "center", color: "DDD", lineHeight: "1.5" } },
+          'You have no event registered so far, but it\'s never too late to join to Knitting With Strangers!'
         ),
         _react2.default.createElement(
           'div',
-          { className: 'link3' },
+          { className: 'link3', style: { marginTop: "0%", marginBottom: "5%" } },
           _react2.default.createElement(
             _reactRouterDom.Link,
             { to: '/knitting_times' },
-            'find another knitting time!'
+            'find a knitting time!'
           )
         )
       ) : null;

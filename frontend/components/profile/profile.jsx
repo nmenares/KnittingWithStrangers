@@ -181,119 +181,120 @@ class Profile extends React.Component {
         <div className="profile-sidebar">
           <h2>Welcome home, {this.props.me.username}!</h2>
           <h3>What are you grateful today?</h3>
-          <div className="link3"><Link to="/knitting_times">find another knitting time!</Link></div>
+          <div  style={{ marginBottom:"35%", marginTop:"15%" }} className="link3"><Link to="/knitting_times">find a knitting time!</Link></div>
         </div>
         <div className="profile-body">
-          <div className="list-profile">
+          {my_kts_f.length > 0 ? <h2 style={{ marginBottom:"0" }}>Knitting times you're attending.</h2> : null }
+          {my_kts_f.length > 0 ?
+            <div className="list-profile">
+              <ul> {my_kts_f.map(kt => (
+                  <li className="li-attending" key={kt.id}>
+                    <div className="profile-kt-box">
+                      <p>{moment(kt.date).format('dddd')}</p>
+                      <h3>{moment(kt.date).format('MMMM')} {moment(kt.date).date()}</h3>
+                      <h4>{kt.start_time} - {kt.end_time}</h4>
+                      <p style={{ paddingBottom:"10px" }}>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
 
-            {my_kts_f.length > 0 ? <h2>Knitting times you're attending.</h2> : null }
-
-            <ul> {my_kts_f.map(kt => (
-                <li className="li-attending" key={kt.id}>
-                  <div className="profile-kt-box">
-                    <p>{moment(kt.date).format('dddd')}</p>
-                    <h3>{moment(kt.date).format('MMMM')} {moment(kt.date).date()}</h3>
-                    <h4>{kt.start_time} - {kt.end_time}</h4>
-                    <p style={{ paddingBottom:"10px" }}>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
-
-                    <div className="cancel-kt" onClick={this.handleClick(kt)}>CANCEL MY SPOT</div>
-                  </div>
-                  <div className="profile-host-box">
-                    <h3>Get to know your host</h3>
-                    <div className="photo-p">
-                      <div className="hostphoto">
-                        {this.props.users[kt.host_id].photoUrl ? <img src={this.props.users[kt.host_id].photoUrl}/> : <img src={window.profile}/>}
-                      </div>
-                      <p>Keep an eye open for {this.props.users[kt.host_id].username}! So it's easier, here's what they look like :).</p>
+                      <div className="cancel-kt" onClick={this.handleClick(kt)}>CANCEL MY SPOT</div>
                     </div>
-                    <div className="host-buttons">
-                      <button className="profile-host-info" onClick={this.showHostProfile(this.props.users[kt.host_id])}>{`${this.props.users[kt.host_id].username}'s`} profile</button>
-                        {this.state.showHost ?
-                          <div className="modal">
-                            <div className="divSpan"><span className="close" onClick={this.handleSpan.bind(this)}>&times;</span></div>
-                            <div className="modal-content">
-                              <div className="divHost">
-                                <div className="divHost-img">{this.state.host.photoUrl ? <img src={this.state.host.photoUrl}/> : <img src={window.profile}/>}</div>
-                                <div className="divHostMain">
-                                  <h2 style={{ margin: '0' }}>{this.state.host.username}</h2>
-                                  <h4>{this.state.host.email}</h4>
-                                  <h3 style={{ fontSize:"14px", fontStyle:"italic", fontWeight:"normal" , margin:"10px"}}>{this.state.host.quote}</h3>
+                    <div className="profile-host-box">
+                      <h3>Get to know your host</h3>
+                      <div className="photo-p">
+                        <div className="hostphoto">
+                          {this.props.users[kt.host_id].photoUrl ? <img src={this.props.users[kt.host_id].photoUrl}/> : <img src={window.profile}/>}
+                        </div>
+                        <p>Keep an eye open for {this.props.users[kt.host_id].username}! So it's easier, here's what they look like :).</p>
+                      </div>
+                      <div className="host-buttons">
+                        <button className="profile-host-info" onClick={this.showHostProfile(this.props.users[kt.host_id])}>{`${this.props.users[kt.host_id].username}'s`} profile</button>
+                          {this.state.showHost ?
+                            <div className="modal">
+                              <div className="divSpan"><span className="close" onClick={this.handleSpan.bind(this)}>&times;</span></div>
+                              <div className="modal-content">
+                                <div className="divHost">
+                                  <div className="divHost-img">{this.state.host.photoUrl ? <img src={this.state.host.photoUrl}/> : <img src={window.profile}/>}</div>
+                                  <div className="divHostMain">
+                                    <h2 style={{ margin: '0' }}>{this.state.host.username}</h2>
+                                    <h4>{this.state.host.email}</h4>
+                                    <h3 style={{ fontSize:"14px", fontStyle:"italic", fontWeight:"normal" , margin:"10px"}}>{this.state.host.quote}</h3>
+                                  </div>
+                                </div>
+                                <div className="divHostExtra">
+                                  <h4 style={{ margin:"5px", fontSize:"14px", fontWeight:"normal", lineHeight:"1.5em"}}>{this.state.host.description}</h4>
+                                  <h3 style={{ marginTop:"10px", marginBottom:"5px", color:"#eda20b"}}>{`${this.state.host.username}'s`} story</h3>
+                                  <h4 style={{ margin:"5px", fontSize:"14px", fontWeight:"normal", lineHeight:"1.5em"}}>{this.state.host.story}</h4>
                                 </div>
                               </div>
-                              <div className="divHostExtra">
-                                <h4 style={{ margin:"5px", fontSize:"14px", fontWeight:"normal", lineHeight:"1.5em"}}>{this.state.host.description}</h4>
-                                <h3 style={{ marginTop:"10px", marginBottom:"5px", color:"#eda20b"}}>{`${this.state.host.username}'s`} story</h3>
-                                <h4 style={{ margin:"5px", fontSize:"14px", fontWeight:"normal", lineHeight:"1.5em"}}>{this.state.host.story}</h4>
-                              </div>
                             </div>
-                          </div>
-                          :
-                          null
-                        }
-                      <button className="profile-host-info" onClick={this.sendEmail(this.props.users[kt.host_id].email)}>email {this.props.users[kt.host_id].username}</button>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-
-          </div>
-          <div className="list-profile">
-
-            {my_kts_wl_f.length > 0 ? <h2>Knitting Times you're in waiting list.</h2> : null }
-            <ul> {my_kts_wl_f.map(kt => (
-                <li className="li-attending" key={kt.id}>
-                  <div className="profile-kt-box">
-                    <p>{moment(kt.date).format('dddd')}</p>
-                    <h3>{moment(kt.date).format('MMMM')} {moment(kt.date).date()}</h3>
-                    <h4>{kt.start_time} - {kt.end_time}</h4>
-                    <p style={{ paddingBottom:"10px" }}>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
-
-                    <div className="cancel-kt" onClick={this.handleClick(kt)}>CANCEL MY SPOT</div>
-                  </div>
-                  <div className="profile-host-box">
-                    <h3>Get to know your host</h3>
-                    <div className="photo-p">
-                      <div className="hostphoto">
-                        {this.props.users[kt.host_id].photoUrl ? <img src={this.props.users[kt.host_id].photoUrl}/> : <img src={window.profile}/>}
+                            :
+                            null
+                          }
+                        <button className="profile-host-info" onClick={this.sendEmail(this.props.users[kt.host_id].email)}>email {this.props.users[kt.host_id].username}</button>
                       </div>
-                      <p>Keep an eye open for {this.props.users[kt.host_id].username}! So it's easier, here's what they look like :).</p>
                     </div>
-                    <div className="host-buttons">
-                      <button className="profile-host-info" onClick={this.showHostProfile(this.props.users[kt.host_id])}>{`${this.props.users[kt.host_id].username}'s`} profile</button>
-                        {this.state.showHost ?
-                          <div className="modal">
-                            <div className="divSpan"><span className="close" onClick={this.handleSpan.bind(this)}>&times;</span></div>
-                            <div className="modal-content">
-                              <div className="divHost">
-                                <div className="divHost-img">{this.state.host.photoUrl ? <img src={this.state.host.photoUrl}/> : <img src={window.profile}/>}</div>
-                                <div className="divHostMain">
-                                  <h2 style={{ margin: '0' }}>{this.state.host.username}</h2>
-                                  <h4>{this.state.host.email}</h4>
-                                  <h3 style={{ fontSize:"14px", fontStyle:"italic", fontWeight:"normal" , margin:"10px"}}>{this.state.host.quote}</h3>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            : null }
+          {my_kts_wl_f.length > 0 ? <h2 style={{ marginBottom:"0" }}>Knitting Times you're in waiting list.</h2> : null }
+          {my_kts_wl_f.length > 0 ?
+            <div className="list-profile">
+              <ul> {my_kts_wl_f.map(kt => (
+                  <li className="li-attending" key={kt.id}>
+                    <div className="profile-kt-box">
+                      <p>{moment(kt.date).format('dddd')}</p>
+                      <h3>{moment(kt.date).format('MMMM')} {moment(kt.date).date()}</h3>
+                      <h4>{kt.start_time} - {kt.end_time}</h4>
+                      <p style={{ paddingBottom:"10px" }}>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
+
+                      <div className="cancel-kt" onClick={this.handleClick(kt)}>CANCEL MY SPOT</div>
+                    </div>
+                    <div className="profile-host-box">
+                      <h3>Get to know your host</h3>
+                      <div className="photo-p">
+                        <div className="hostphoto">
+                          {this.props.users[kt.host_id].photoUrl ? <img src={this.props.users[kt.host_id].photoUrl}/> : <img src={window.profile}/>}
+                        </div>
+                        <p>Keep an eye open for {this.props.users[kt.host_id].username}! So it's easier, here's what they look like :).</p>
+                      </div>
+                      <div className="host-buttons">
+                        <button className="profile-host-info" onClick={this.showHostProfile(this.props.users[kt.host_id])}>{`${this.props.users[kt.host_id].username}'s`} profile</button>
+                          {this.state.showHost ?
+                            <div className="modal">
+                              <div className="divSpan"><span className="close" onClick={this.handleSpan.bind(this)}>&times;</span></div>
+                              <div className="modal-content">
+                                <div className="divHost">
+                                  <div className="divHost-img">{this.state.host.photoUrl ? <img src={this.state.host.photoUrl}/> : <img src={window.profile}/>}</div>
+                                  <div className="divHostMain">
+                                    <h2 style={{ margin: '0' }}>{this.state.host.username}</h2>
+                                    <h4>{this.state.host.email}</h4>
+                                    <h3 style={{ fontSize:"14px", fontStyle:"italic", fontWeight:"normal" , margin:"10px"}}>{this.state.host.quote}</h3>
+                                  </div>
+                                </div>
+                                <div className="divHostExtra">
+                                  <h4 style={{ margin:"5px", fontSize:"14px", fontWeight:"normal", lineHeight:"1.5em"}}>{this.state.host.description}</h4>
+                                  <h3 style={{ marginTop:"10px", marginBottom:"5px", color:"#eda20b"}}>{`${this.state.host.username}'s`} story</h3>
+                                  <h4 style={{ margin:"5px", fontSize:"14px", fontWeight:"normal", lineHeight:"1.5em"}}>{this.state.host.story}</h4>
                                 </div>
                               </div>
-                              <div className="divHostExtra">
-                                <h4 style={{ margin:"5px", fontSize:"14px", fontWeight:"normal", lineHeight:"1.5em"}}>{this.state.host.description}</h4>
-                                <h3 style={{ marginTop:"10px", marginBottom:"5px", color:"#eda20b"}}>{`${this.state.host.username}'s`} story</h3>
-                                <h4 style={{ margin:"5px", fontSize:"14px", fontWeight:"normal", lineHeight:"1.5em"}}>{this.state.host.story}</h4>
-                              </div>
                             </div>
-                          </div>
-                          :
-                          null
-                        }
-                      <button className="profile-host-info" onClick={this.sendEmail(this.props.users[kt.host_id].email)}>email {this.props.users[kt.host_id].username}</button>
+                            :
+                            null
+                          }
+                        <button className="profile-host-info" onClick={this.sendEmail(this.props.users[kt.host_id].email)}>email {this.props.users[kt.host_id].username}</button>
+                      </div>
                     </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                  </li>
+                ))}
+              </ul>
 
-          </div>
-          <div className="list-profile">
+            </div>
+            : null }
 
-            {hosted_knitting_times_f.length > 0 ? <h2>Knitting times you're hosting.</h2> : null }
+          {hosted_knitting_times_f.length > 0 ? <h2 style={{ marginBottom:"0" }}>Knitting times you're hosting.</h2> : null }
+          {hosted_knitting_times_f.length > 0 ?
+            <div className="list-profile">
             <ul id="hosting"> {hosted_knitting_times_f.map(hkt => (
                 <li key={hkt.id} className="hosted-li">
 
@@ -327,6 +328,7 @@ class Profile extends React.Component {
             </ul>
 
           </div>
+          : null }
         </div>
       </div>
       :
@@ -334,39 +336,45 @@ class Profile extends React.Component {
 
     const history = this.state.history ?
       <div className="profile-content-history-box">
+        {(hosted_knitting_times_p.length > 0 || hosted_knitting_times_p.length > 0) ?
         <div className="profile-content-history">
-          <div className="list-profile2">
-            {my_kts_p.length > 0 ? <h2 style={{ fontSize:"30px" }}>Knitting times you attended.</h2> : null }
-            <ul style={{ width:"100%" }}> {my_kts_p.map(kt => (
-                <li className="li-attending2" key={kt.id}>
-                  <div className="profile-kt-box3">
-                    <p>{moment(kt.date).format('dddd')}</p>
-                    <h3>{moment(kt.date).format('MMMM')} {moment(kt.date).date()}</h3>
-                    <h4>{kt.start_time} - {kt.end_time}</h4>
-                    <p style={{ paddingBottom:"13.5px" }}>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
-                  </div>
-                </li>
-              ))
-              }
-            </ul>
-          </div>
-          <div className="list-profile2">
-            {hosted_knitting_times_p.length > 0 ? <h2 style={{ fontSize:"30px" }}>Knitting times you hosted.</h2> : null }
-            <ul style={{ width:"100%" }}> {hosted_knitting_times_p.map(hkt => (
-                <li key={hkt.id} className="li-attending2">
-                  <div className="profile-kt-box3">
-                    <p>{moment(hkt.date).format('dddd')}</p>
-                    <h3>{moment(hkt.date).format('MMMM')} {moment(hkt.date).date()}</h3>
-                    <h4>{hkt.start_time} - {hkt.end_time}</h4>
-                    <p style={{ paddingBottom:"13.5px" }}>{hkt.address_1}{hkt.address_2 ? `, ${hkt.address_2}` : null}, {hkt.city}, {hkt.state}, {hkt.zip}</p>
-                  </div>
-                </li>
-              ))
-              }
-            </ul>
-          </div>
+          {my_kts_p.length > 0 ?
+            <div className="list-profile2">
+              <h2 style={{ fontSize:"28px" }}>Knitting times you attended.</h2>
+              <ul style={{ width:"100%" }}> {my_kts_p.map(kt => (
+                  <li className="li-attending2" key={kt.id}>
+                    <div className="profile-kt-box3">
+                      <p>{moment(kt.date).format('dddd')}</p>
+                      <h3>{moment(kt.date).format('MMMM')} {moment(kt.date).date()}</h3>
+                      <h4>{kt.start_time} - {kt.end_time}</h4>
+                      <p style={{ paddingBottom:"13.5px" }}>{kt.address_1}{kt.address_2 ? `, ${kt.address_2}` : null}, {kt.city}, {kt.state}, {kt.zip}</p>
+                    </div>
+                  </li>
+                ))
+                }
+              </ul>
+            </div>
+            : null }
+          {hosted_knitting_times_p.length > 0 ?
+            <div className="list-profile2">
+              <h2 style={{ fontSize:"28px" }}>Knitting times you hosted.</h2>
+              <ul style={{ width:"100%" }}> {hosted_knitting_times_p.map(hkt => (
+                  <li key={hkt.id} className="li-attending2">
+                    <div className="profile-kt-box3">
+                      <p>{moment(hkt.date).format('dddd')}</p>
+                      <h3>{moment(hkt.date).format('MMMM')} {moment(hkt.date).date()}</h3>
+                      <h4>{hkt.start_time} - {hkt.end_time}</h4>
+                      <p style={{ paddingBottom:"13.5px" }}>{hkt.address_1}{hkt.address_2 ? `, ${hkt.address_2}` : null}, {hkt.city}, {hkt.state}, {hkt.zip}</p>
+                    </div>
+                  </li>
+                ))
+                }
+              </ul>
+            </div>
+            : null }
         </div>
-        <div className="link3"><Link to="/knitting_times">find another knitting time!</Link></div>
+        : <h3 style={{ fontSize:"25px", width:"60%", fontWeight:"600", textAlign:"center", color:"DDD", lineHeight:"1.5" }}>You have no event registered so far, but it's never too late to join to Knitting With Strangers!</h3> }
+        <div className="link3" style={{ marginTop:"0%", marginBottom:"5%" }}><Link to="/knitting_times">find a knitting time!</Link></div>
       </div>
       :
       null
