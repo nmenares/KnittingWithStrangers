@@ -112,7 +112,7 @@ enrollment1 = KnittingTimeEnrollment.create(user_id: user9.id, knittingtime_id: 
 enrollment2 = KnittingTimeEnrollment.create(user_id: user10.id, knittingtime_id: knittingtime1.id, going: true)
 enrollment3 = KnittingTimeEnrollment.create(user_id: user11.id, knittingtime_id: knittingtime1.id, going: true)
 enrollment4 = KnittingTimeEnrollment.create(user_id: user12.id, knittingtime_id: knittingtime1.id, going: true)
-enrollment5 = KnittingTimeEnrollment.create(user_id: user13.id, knittingtime_id: knittingtime1.id, going: true)
+enrollment5 = KnittingTimeEnrollment.create(user_id: user13.id, knittingtime_id: knittingtime1.id, going: false)
 
 enrollment6 = KnittingTimeEnrollment.create(user_id: user14.id, knittingtime_id: knittingtime2.id, going: true)
 enrollment7 = KnittingTimeEnrollment.create(user_id: user15.id, knittingtime_id: knittingtime2.id, going: true)
@@ -135,16 +135,17 @@ enrollment19 = KnittingTimeEnrollment.create(user_id: user27.id, knittingtime_id
 
 enrollment20 = KnittingTimeEnrollment.create(user_id: user28.id, knittingtime_id: knittingtime6.id, going: true)
 enrollment21 = KnittingTimeEnrollment.create(user_id: user29.id, knittingtime_id: knittingtime6.id, going: true)
+enrollment22 = KnittingTimeEnrollment.create(user_id: user5.id, knittingtime_id: knittingtime6.id, going: true)
 
-enrollment22 = KnittingTimeEnrollment.create(user_id: user30.id, knittingtime_id: knittingtime7.id, going: true)
-enrollment23 = KnittingTimeEnrollment.create(user_id: user31.id, knittingtime_id: knittingtime7.id, going: true)
-enrollment24 = KnittingTimeEnrollment.create(user_id: user32.id, knittingtime_id: knittingtime7.id, going: true)
+enrollment23 = KnittingTimeEnrollment.create(user_id: user30.id, knittingtime_id: knittingtime7.id, going: true)
+enrollment24 = KnittingTimeEnrollment.create(user_id: user31.id, knittingtime_id: knittingtime7.id, going: true)
+enrollment25 = KnittingTimeEnrollment.create(user_id: user32.id, knittingtime_id: knittingtime7.id, going: true)
 
-enrollment25 = KnittingTimeEnrollment.create(user_id: user33.id, knittingtime_id: knittingtime8.id, going: true)
-enrollment26 = KnittingTimeEnrollment.create(user_id: user5.id, knittingtime_id: knittingtime8.id, going: true)
+enrollment26 = KnittingTimeEnrollment.create(user_id: user33.id, knittingtime_id: knittingtime8.id, going: true)
+enrollment27 = KnittingTimeEnrollment.create(user_id: user5.id, knittingtime_id: knittingtime8.id, going: true)
 
-enrollment27 = KnittingTimeEnrollment.create(user_id: user5.id, knittingtime_id: knittingtime9.id, going: true)
-enrollment28 = KnittingTimeEnrollment.create(user_id: user10.id, knittingtime_id: knittingtime9.id, going: true)
-enrollment29 = KnittingTimeEnrollment.create(user_id: user11.id, knittingtime_id: knittingtime9.id, going: true)
-enrollment30 = KnittingTimeEnrollment.create(user_id: user12.id, knittingtime_id: knittingtime9.id, going: true)
-enrollment31 = KnittingTimeEnrollment.create(user_id: user13.id, knittingtime_id: knittingtime9.id, going: true)
+enrollment28 = KnittingTimeEnrollment.create(user_id: user5.id, knittingtime_id: knittingtime9.id, going: true)
+enrollment29 = KnittingTimeEnrollment.create(user_id: user10.id, knittingtime_id: knittingtime9.id, going: true)
+enrollment30 = KnittingTimeEnrollment.create(user_id: user11.id, knittingtime_id: knittingtime9.id, going: true)
+enrollment31 = KnittingTimeEnrollment.create(user_id: user12.id, knittingtime_id: knittingtime9.id, going: true)
+enrollment32 = KnittingTimeEnrollment.create(user_id: user13.id, knittingtime_id: knittingtime9.id, going: true)
