@@ -1955,7 +1955,7 @@ blockquote span {
   }
 
   .menuList {
-      background-color: rgba(247,191,77);
+      background-color: rgb(247,191,77);
       border-radius: 5px;
       margin: auto;
       margin-top: 0;
