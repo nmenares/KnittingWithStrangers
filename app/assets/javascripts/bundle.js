@@ -1134,7 +1134,7 @@ var Greeting = function (_React$Component) {
       this.setState({ clickMenu: true });
       setTimeout(function () {
         return _this3.setState({ clickMenu: false });
-      }, 10000);
+      }, 5000);
     }
   }, {
     key: 'render',
@@ -1149,9 +1149,13 @@ var Greeting = function (_React$Component) {
             'div',
             { className: 'signin' },
             _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/knitting_times' },
-              'Knitting Times'
+              'div',
+              null,
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/knitting_times' },
+                'Knitting Times'
+              )
             ),
             _react2.default.createElement(
               'div',
@@ -1219,7 +1223,7 @@ var Greeting = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                   'button',
-                  { className: 'signout', onClick: _this4.handleDemo.bind(_this4) },
+                  { onClick: _this4.handleDemo.bind(_this4) },
                   'demo'
                 )
               )
@@ -1284,7 +1288,7 @@ var Greeting = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                   'button',
-                  { className: 'signout', onClick: _this4.handleLogout.bind(_this4) },
+                  { onClick: _this4.handleLogout.bind(_this4) },
                   'Log Out'
                 )
               )
@@ -2428,12 +2432,6 @@ var Profile = function (_React$Component) {
       this.setState({ editPhoto: false });
     }
   }, {
-    key: 'notUpdatePhoto',
-    value: function notUpdatePhoto(e) {
-      e.preventDefault();
-      this.setState({ editPhoto: false, photo: "", photoUrl: this.props.me.photoUrl });
-    }
-  }, {
     key: 'toEditAccount',
     value: function toEditAccount(field) {
       var _this3 = this;
@@ -2455,72 +2453,60 @@ var Profile = function (_React$Component) {
       };
     }
   }, {
-    key: 'notUpdateAccountDetails',
-    value: function notUpdateAccountDetails(field1, field2, field3) {
+    key: 'editAccountDetails',
+    value: function editAccountDetails(field) {
       var _this5 = this;
 
       return function (e) {
-        var _this5$setState;
-
         e.preventDefault();
-        _this5.setState((_this5$setState = {}, _defineProperty(_this5$setState, field2, false), _defineProperty(_this5$setState, field1, field3), _this5$setState));
-      };
-    }
-  }, {
-    key: 'editAccountDetails',
-    value: function editAccountDetails(field) {
-      var _this6 = this;
-
-      return function (e) {
-        e.preventDefault();
-        _this6.setState(_defineProperty({}, field, e.currentTarget.value));
+        _this5.setState(_defineProperty({}, field, e.currentTarget.value));
       };
     }
   }, {
     key: 'handleClick',
     value: function handleClick(kt) {
-      var _this7 = this;
+      var _this6 = this;
 
       return function (e) {
         e.preventDefault;
-        var enr = _this7.enr(kt.id)[0];
-        _this7.props.deleteEnrollment(enr.id);
-        var falses = _this7.false_enr(kt.id, enr);
+        var enr = _this6.enr(kt.id)[0];
+        _this6.props.deleteEnrollment(enr.id);
+        var falses = _this6.false_enr(kt.id, enr);
         if (falses.length > 0) {
-          _this7.props.updateEnrollment({ id: falses[0].id, user_id: falses[0].user_id, knittingtime_id: falses[0].knittingtime_id, going: true });
+          _this6.props.updateEnrollment({ id: falses[0].id, user_id: falses[0].user_id, knittingtime_id: falses[0].knittingtime_id, going: true });
         }
       };
     }
   }, {
     key: 'handleDelete',
     value: function handleDelete(kt_id) {
-      var _this8 = this;
+      var _this7 = this;
 
       return function (e) {
         e.preventDefault();
-        _this8.props.deleteKnittingTime(kt_id);
+        _this7.props.deleteKnittingTime(kt_id);
       };
     }
   }, {
     key: 'handleUpdate',
     value: function handleUpdate(kt) {
-      var _this9 = this;
+      var _this8 = this;
 
       return function (e) {
         e.preventDefault();
-        _this9.setState({ clickUpdate: true, kt: kt, text: kt.description, chars_left: 700 - kt.description.length });
+        _this8.setState({ clickUpdate: true, kt: kt, text: kt.description, chars_left: 700 - kt.description.length });
       };
     }
   }, {
     key: 'showHostProfile',
     value: function showHostProfile(host) {
-      var _this10 = this;
+      var _this9 = this;
 
       return function (e) {
         e.preventDefault();
-        _this10.props.fetchUser(host.id);
-        var user = _this10.props.users[host.id];
-        _this10.setState({ showHost: true, host: user });
+        _this9.props.fetchUser(host.id);
+        var user = _this9.props.users[host.id];
+        _this9.setState({ showHost: true, host: user });
       };
     }
   }, {
@@ -2553,11 +2539,11 @@ var Profile = function (_React$Component) {
   }, {
     key: 'handleSubMenu',
     value: function handleSubMenu(field) {
-      var _this11 = this;
+      var _this10 = this;
 
       return function (e) {
         e.preventDefault();
-        _this11.setState({ quicklook: field === "quicklook", history: field === "history", accountdetails: field === "accountdetails" });
+        _this10.setState({ quicklook: field === "quicklook", history: field === "history", accountdetails: field === "accountdetails" });
       };
     }
   }, {
@@ -2582,7 +2568,7 @@ var Profile = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this12 = this;
+      var _this11 = this;
 
       if (!this.props.me || !this.props.attending_enrollments || !this.props.knitting_times) {
         return null;
@@ -2599,7 +2585,7 @@ var Profile = function (_React$Component) {
         return ae.knittingtime_id;
       });
       var my_kts = my_kt_ids.map(function (id) {
-        return _this12.props.knitting_times[id];
+        return _this11.props.knitting_times[id];
       });
       var my_kts_f = my_kts.filter(function (kt) {
         return kt.date >= today.format();
@@ -2615,7 +2601,7 @@ var Profile = function (_React$Component) {
         return ae.knittingtime_id;
       });
       var my_kts_wl = my_kt_ids_wl.map(function (id) {
-        return _this12.props.knitting_times[id];
+        return _this11.props.knitting_times[id];
       });
       var my_kts_wl_f = my_kts_wl.filter(function (kt) {
         return kt.date >= today.format();
@@ -2711,7 +2697,7 @@ var Profile = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                       'div',
-                      { className: 'cancel-kt', onClick: _this12.handleClick(kt) },
+                      { className: 'cancel-kt', onClick: _this11.handleClick(kt) },
                       'CANCEL MY SPOT'
                     )
                   ),
@@ -2729,13 +2715,13 @@ var Profile = function (_React$Component) {
                       _react2.default.createElement(
                         'div',
                         { className: 'hostphoto' },
-                        _this12.props.users[kt.host_id].photoUrl ? _react2.default.createElement('img', { src: _this12.props.users[kt.host_id].photoUrl }) : _react2.default.createElement('img', { src: window.profile })
+                        _this11.props.users[kt.host_id].photoUrl ? _react2.default.createElement('img', { src: _this11.props.users[kt.host_id].photoUrl }) : _react2.default.createElement('img', { src: window.profile })
                       ),
                       _react2.default.createElement(
                         'p',
                         null,
                         'Keep an eye open for ',
-                        _this12.props.users[kt.host_id].username,
+                        _this11.props.users[kt.host_id].username,
                         '! So it\'s easier, here\'s what they look like :).'
                       )
                     ),
@@ -2744,11 +2730,11 @@ var Profile = function (_React$Component) {
                       { className: 'host-buttons' },
                       _react2.default.createElement(
                         'button',
-                        { className: 'profile-host-info', onClick: _this12.showHostProfile(_this12.props.users[kt.host_id]) },
-                        _this12.props.users[kt.host_id].username + '\'s',
+                        { className: 'profile-host-info', onClick: _this11.showHostProfile(_this11.props.users[kt.host_id]) },
+                        _this11.props.users[kt.host_id].username + '\'s',
                         ' profile'
                       ),
-                      _this12.state.showHost ? _react2.default.createElement(
+                      _this11.state.showHost ? _react2.default.createElement(
                         'div',
                         { className: 'modal' },
                         _react2.default.createElement(
@@ -2756,7 +2742,7 @@ var Profile = function (_React$Component) {
                           { className: 'divSpan' },
                           _react2.default.createElement(
                             'span',
-                            { className: 'close', onClick: _this12.handleSpan.bind(_this12) },
+                            { className: 'close', onClick: _this11.handleSpan.bind(_this11) },
                             '\xD7'
                           )
                         ),
@@ -2769,7 +2755,7 @@ var Profile = function (_React$Component) {
                             _react2.default.createElement(
                               'div',
                               { className: 'divHost-img' },
-                              _this12.state.host.photoUrl ? _react2.default.createElement('img', { src: _this12.state.host.photoUrl }) : _react2.default.createElement('img', { src: window.profile })
+                              _this11.state.host.photoUrl ? _react2.default.createElement('img', { src: _this11.state.host.photoUrl }) : _react2.default.createElement('img', { src: window.profile })
                             ),
                             _react2.default.createElement(
                               'div',
@@ -2777,17 +2763,17 @@ var Profile = function (_React$Component) {
                               _react2.default.createElement(
                                 'h2',
                                 { style: { margin: '0' } },
-                                _this12.state.host.username
+                                _this11.state.host.username
                               ),
                               _react2.default.createElement(
                                 'h4',
                                 null,
-                                _this12.state.host.email
+                                _this11.state.host.email
                               ),
                               _react2.default.createElement(
                                 'h3',
                                 { style: { fontSize: "14px", fontStyle: "italic", fontWeight: "normal", margin: "10px" } },
-                                _this12.state.host.quote
+                                _this11.state.host.quote
                               )
                             )
                           ),
@@ -2797,27 +2783,27 @@ var Profile = function (_React$Component) {
                             _react2.default.createElement(
                               'h4',
                               { style: { margin: "5px", fontSize: "14px", fontWeight: "normal", lineHeight: "1.5em" } },
-                              _this12.state.host.description
+                              _this11.state.host.description
                             ),
                             _react2.default.createElement(
                               'h3',
                               { style: { marginTop: "10px", marginBottom: "5px", color: "#eda20b" } },
-                              _this12.state.host.username + '\'s',
+                              _this11.state.host.username + '\'s',
                               ' story'
                             ),
                             _react2.default.createElement(
                               'h4',
                               { style: { margin: "5px", fontSize: "14px", fontWeight: "normal", lineHeight: "1.5em" } },
-                              _this12.state.host.story
+                              _this11.state.host.story
                             )
                           )
                         )
                       ) : null,
                       _react2.default.createElement(
                         'button',
-                        { className: 'profile-host-info', onClick: _this12.sendEmail(_this12.props.users[kt.host_id].email) },
+                        { className: 'profile-host-info', onClick: _this11.sendEmail(_this11.props.users[kt.host_id].email) },
                         'email ',
-                        _this12.props.users[kt.host_id].username
+                        _this11.props.users[kt.host_id].username
                       )
                     )
                   )
@@ -2877,7 +2863,7 @@ var Profile = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                       'div',
-                      { className: 'cancel-kt', onClick: _this12.handleClick(kt) },
+                      { className: 'cancel-kt', onClick: _this11.handleClick(kt) },
                       'CANCEL MY SPOT'
                     )
                   ),
@@ -2895,13 +2881,13 @@ var Profile = function (_React$Component) {
                       _react2.default.createElement(
                         'div',
                         { className: 'hostphoto' },
-                        _this12.props.users[kt.host_id].photoUrl ? _react2.default.createElement('img', { src: _this12.props.users[kt.host_id].photoUrl }) : _react2.default.createElement('img', { src: window.profile })
+                        _this11.props.users[kt.host_id].photoUrl ? _react2.default.createElement('img', { src: _this11.props.users[kt.host_id].photoUrl }) : _react2.default.createElement('img', { src: window.profile })
                       ),
                       _react2.default.createElement(
                         'p',
                         null,
                         'Keep an eye open for ',
-                        _this12.props.users[kt.host_id].username,
+                        _this11.props.users[kt.host_id].username,
                         '! So it\'s easier, here\'s what they look like :).'
                       )
                     ),
@@ -2910,11 +2896,11 @@ var Profile = function (_React$Component) {
                       { className: 'host-buttons' },
                       _react2.default.createElement(
                         'button',
-                        { className: 'profile-host-info', onClick: _this12.showHostProfile(_this12.props.users[kt.host_id]) },
-                        _this12.props.users[kt.host_id].username + '\'s',
+                        { className: 'profile-host-info', onClick: _this11.showHostProfile(_this11.props.users[kt.host_id]) },
+                        _this11.props.users[kt.host_id].username + '\'s',
                         ' profile'
                       ),
-                      _this12.state.showHost ? _react2.default.createElement(
+                      _this11.state.showHost ? _react2.default.createElement(
                         'div',
                         { className: 'modal' },
                         _react2.default.createElement(
@@ -2922,7 +2908,7 @@ var Profile = function (_React$Component) {
                           { className: 'divSpan' },
                           _react2.default.createElement(
                             'span',
-                            { className: 'close', onClick: _this12.handleSpan.bind(_this12) },
+                            { className: 'close', onClick: _this11.handleSpan.bind(_this11) },
                             '\xD7'
                           )
                         ),
@@ -2935,7 +2921,7 @@ var Profile = function (_React$Component) {
                             _react2.default.createElement(
                               'div',
                               { className: 'divHost-img' },
-                              _this12.state.host.photoUrl ? _react2.default.createElement('img', { src: _this12.state.host.photoUrl }) : _react2.default.createElement('img', { src: window.profile })
+                              _this11.state.host.photoUrl ? _react2.default.createElement('img', { src: _this11.state.host.photoUrl }) : _react2.default.createElement('img', { src: window.profile })
                             ),
                             _react2.default.createElement(
                               'div',
@@ -2943,17 +2929,17 @@ var Profile = function (_React$Component) {
                               _react2.default.createElement(
                                 'h2',
                                 { style: { margin: '0' } },
-                                _this12.state.host.username
+                                _this11.state.host.username
                               ),
                               _react2.default.createElement(
                                 'h4',
                                 null,
-                                _this12.state.host.email
+                                _this11.state.host.email
                               ),
                               _react2.default.createElement(
                                 'h3',
                                 { style: { fontSize: "14px", fontStyle: "italic", fontWeight: "normal", margin: "10px" } },
-                                _this12.state.host.quote
+                                _this11.state.host.quote
                               )
                             )
                           ),
@@ -2963,27 +2949,27 @@ var Profile = function (_React$Component) {
                             _react2.default.createElement(
                               'h4',
                               { style: { margin: "5px", fontSize: "14px", fontWeight: "normal", lineHeight: "1.5em" } },
-                              _this12.state.host.description
+                              _this11.state.host.description
                             ),
                             _react2.default.createElement(
                               'h3',
                               { style: { marginTop: "10px", marginBottom: "5px", color: "#eda20b" } },
-                              _this12.state.host.username + '\'s',
+                              _this11.state.host.username + '\'s',
                               ' story'
                             ),
                             _react2.default.createElement(
                               'h4',
                               { style: { margin: "5px", fontSize: "14px", fontWeight: "normal", lineHeight: "1.5em" } },
-                              _this12.state.host.story
+                              _this11.state.host.story
                             )
                           )
                         )
                       ) : null,
                       _react2.default.createElement(
                         'button',
-                        { className: 'profile-host-info', onClick: _this12.sendEmail(_this12.props.users[kt.host_id].email) },
+                        { className: 'profile-host-info', onClick: _this11.sendEmail(_this11.props.users[kt.host_id].email) },
                         'email ',
-                        _this12.props.users[kt.host_id].username
+                        _this11.props.users[kt.host_id].username
                       )
                     )
                   )
@@ -3047,10 +3033,10 @@ var Profile = function (_React$Component) {
                     { className: 'modify-hosted' },
                     _react2.default.createElement(
                       'button',
-                      { className: 'profile-host-info', id: 'update-kt', onClick: _this12.handleUpdate(hkt) },
+                      { className: 'profile-host-info', id: 'update-kt', onClick: _this11.handleUpdate(hkt) },
                       'update'
                     ),
-                    _this12.state.clickUpdate ? _react2.default.createElement(
+                    _this11.state.clickUpdate ? _react2.default.createElement(
                       'div',
                       { className: 'modal' },
                       _react2.default.createElement(
@@ -3058,23 +3044,23 @@ var Profile = function (_React$Component) {
                         { className: 'divSpan' },
                         _react2.default.createElement(
                           'span',
-                          { style: { marginRight: '-20px' }, className: 'close', onClick: _this12.handleSpan.bind(_this12) },
+                          { style: { marginRight: '-20px' }, className: 'close', onClick: _this11.handleSpan.bind(_this11) },
                           '\xD7'
                         )
                       ),
                       _react2.default.createElement(
                         'form',
-                        { style: { padding: "20px" }, className: 'modal-content', onSubmit: _this12.updateKnittingTime.bind(_this12) },
+                        { style: { padding: "20px" }, className: 'modal-content', onSubmit: _this11.updateKnittingTime.bind(_this11) },
                         _react2.default.createElement(
                           'h2',
                           { style: { margin: '0' } },
                           'What might you talk about?'
                         ),
-                        _react2.default.createElement('textarea', { value: _this12.state.text, onChange: _this12.handleEvent.bind(_this12), maxLength: '700', required: true }),
+                        _react2.default.createElement('textarea', { value: _this11.state.text, onChange: _this11.handleEvent.bind(_this11), maxLength: '700', required: true }),
                         _react2.default.createElement(
                           'p',
                           null,
-                          700 - _this12.state.chars_left,
+                          700 - _this11.state.chars_left,
                           '/700'
                         ),
                         _react2.default.createElement('input', { style: { width: "100px", borderRadius: "3px", fontSize: "14px", textTransform: "uppercase", fontWeight: "bold" }, type: 'submit' })
@@ -3082,7 +3068,7 @@ var Profile = function (_React$Component) {
                     ) : null,
                     _react2.default.createElement(
                       'button',
-                      { className: 'profile-host-info2', onClick: _this12.handleDelete(hkt.id) },
+                      { className: 'profile-host-info2', onClick: _this11.handleDelete(hkt.id) },
                       'delete'
                     )
                   )
@@ -3242,15 +3228,11 @@ var Profile = function (_React$Component) {
             _react2.default.createElement(
               'div',
               { className: 'profilePhoto-settings' },
-              _react2.default.createElement('input', { type: 'file', onChange: this.fileChangedHandler.bind(this) }),
+              _react2.default.createElement('input', { style: { width: "60%" }, type: 'file', onChange: this.fileChangedHandler.bind(this) }),
               _react2.default.createElement(
-                'div',
-                { className: 'profilePhoto-buttons' },
-                _react2.default.createElement(
-                  'button',
-                  { onClick: this.handleUpdatePhoto.bind(this) },
-                  'Save'
-                )
+                'button',
+                { input: true, style: { width: "30%" }, onClick: this.handleUpdatePhoto.bind(this) },
+                'Save'
               )
             )
           ),

@@ -56,11 +56,6 @@ class Profile extends React.Component {
     this.setState({ editPhoto: false });
   };
 
-  notUpdatePhoto(e){
-    e.preventDefault();
-    this.setState({ editPhoto: false, photo: "" , photoUrl: this.props.me.photoUrl });
-  };
-
   toEditAccount(field){
     return e => {
       e.preventDefault();
@@ -73,13 +68,6 @@ class Profile extends React.Component {
       e.preventDefault();
       this.setState({[field2]: false})
       this.props.updateUser({id: this.props.me.id, [field1]: field3})
-    }
-  };
-
-  notUpdateAccountDetails(field1, field2, field3){
-    return e => {
-      e.preventDefault();
-      this.setState({[field2]: false, [field1]: field3})
     }
   };
 
@@ -405,10 +393,8 @@ class Profile extends React.Component {
           <div className="profilePhoto">
             <div className="profilePhoto-img">{preview}</div>
             <div className="profilePhoto-settings">
-              <input type="file" onChange={this.fileChangedHandler.bind(this)}/>
-              <div className="profilePhoto-buttons">
-                <button onClick={this.handleUpdatePhoto.bind(this)}>Save</button>
-              </div>
+              <input style={{ width: "60%" }} type="file" onChange={this.fileChangedHandler.bind(this)}/>
+              <button input style={{ width: "30%" }} onClick={this.handleUpdatePhoto.bind(this)}>Save</button>
             </div>
           </div>
 

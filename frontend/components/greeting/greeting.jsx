@@ -26,7 +26,7 @@ class Greeting extends React.Component {
   handleClick(e){
   e.preventDefault();
   this.setState({ clickMenu: true })
-  setTimeout(() => this.setState({ clickMenu: false}), 10000)
+  setTimeout(() => this.setState({ clickMenu: false}), 5000)
 };
 
   render(){
@@ -35,7 +35,9 @@ class Greeting extends React.Component {
       <div className='nav-right'>
         <div className="signin">
 
-          <Link to="/knitting_times">Knitting Times</Link>
+          <div>
+            <Link to="/knitting_times">Knitting Times</Link>
+          </div>
 
           <div>
             <Link to="/login">sign in</Link>
@@ -60,11 +62,13 @@ class Greeting extends React.Component {
             <li>
               <Link to="/login">Sign in</Link>
             </li>
+
             <li>
               <Link to="/signup">Sign up</Link>
             </li>
+
             <li>
-              <button className="signout" onClick={this.handleDemo.bind(this)}>demo</button>
+              <button onClick={this.handleDemo.bind(this)}>demo</button>
             </li>
           </ul>
           :
@@ -89,11 +93,13 @@ class Greeting extends React.Component {
             <li>
               <Link to="/knitting_times">Knitting Times</Link>
             </li>
+
             <li>
               <p onClick={this.handleDashboard.bind(this)}>Dashboard</p>
             </li>
+
             <li>
-              <button className="signout" onClick={this.handleLogout.bind(this)}>Log Out</button>
+              <button onClick={this.handleLogout.bind(this)}>Log Out</button>
             </li>
           </ul>
           :
