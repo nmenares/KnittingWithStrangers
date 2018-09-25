@@ -3671,6 +3671,7 @@ var SessionForm = function (_React$Component) {
     value: function handleSubmit(e) {
       var _this2 = this;
 
+      e.preventDefault();
       var user = Object.assign({}, this.state);
       this.props.processForm(user, function () {
         _this2.props.history.push('/knitting_times');
