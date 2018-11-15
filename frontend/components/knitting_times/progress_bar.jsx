@@ -4,7 +4,7 @@ const ProgressBar = (props) => {
 
   const no_available = (users) => {
     let no_a = []
-    for (var i = 0; i <= users ; i++) {
+    for (let i = 0; i <= users ; i++) {
       no_a.push(<div className='no_available' key={i}></div>);
     }
     return no_a;
@@ -12,7 +12,7 @@ const ProgressBar = (props) => {
 
   const available = (users) => {
     let a = []
-    for (var i = 6; i > users+1; i--) {
+    for (let i = 6; i > users+1; i--) {
       a.push(<div className='available' key={i}></div>);
     }
     return a;
